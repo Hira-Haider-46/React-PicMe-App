@@ -6,6 +6,7 @@ import SignUp from "./pages/SignUp";
 import Verification from "./pages/Verification";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateNewPass from "./pages/CreateNewPass";
+import PassChange from "./pages/PassChange";
 import './App.css';
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/verification" element={<Verification />} />
             <Route path="/new-password" element={<CreateNewPass />} />
+            <Route path="password-change" element={<PassChange />} />
           </Route>
         </Routes>
       </BrowserRouter>
