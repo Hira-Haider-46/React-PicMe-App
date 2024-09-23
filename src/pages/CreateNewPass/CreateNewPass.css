@@ -1,0 +1,13 @@
+.new-pass h2 {
+    font-size: 1.55rem;
+}
+
+.new-pass p {
+    width: 100%;
+    font-weight: 0.9rem;
+}
+
+.new-pass .pass-match {
+    font-size: 0.8rem;
+    text-align: right;
+}
