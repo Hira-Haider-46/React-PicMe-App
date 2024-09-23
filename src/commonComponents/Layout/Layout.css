@@ -1,0 +1,30 @@
+.layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.text-portion {
+    width: 50%;
+}
+
+nav {
+    padding: 2em;
+    width: 100%;
+}
+
+nav img {
+    width: 53px;
+}
+
+.img-portion {
+    background-color: #2BAFC7;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.img-portion img {
+    width: 300px;
+}
