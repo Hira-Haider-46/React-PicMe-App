@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaRegEnvelope } from "react-icons/fa6";
-import { CiLock } from "react-icons/ci";
+import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
@@ -27,9 +27,13 @@ export default function Login() {
                     <input type="email" placeholder="abc@email.com" required />
                 </div>
                 <div className="input-group">
-                    <CiLock />
-                    <input type="password" placeholder="Your password" required />
-                    <div onClick={toggleShowPass} style={{cursor: 'pointer'}}>
+                    <IoLockClosedOutline />
+                    <input
+                        type={showPass ? "text" : "password"}
+                        placeholder="Your password"
+                        required
+                    />
+                    <div onClick={toggleShowPass} style={{ cursor: 'pointer' }}>
                         {showPass ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>

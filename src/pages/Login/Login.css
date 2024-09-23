@@ -1,7 +1,9 @@
 .login {
-    width: 55%;
+    width: 50%; 
     margin: 2em auto;
     padding: 0 2em;
+    display: flex;
+    flex-direction: column;
 }
 
 .login h2 {
@@ -12,19 +14,44 @@
     font-weight: 500;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em; 
+}
+
 .input-group {
     position: relative;
-    margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+    border: 1px solid #E4DFDF;
+    border-radius: 12px;
+    padding-left: 2.5em;
 }
 
 .input-group input {
-    width: 100%;
-    padding: 0.7em 2.5em;
-    border: 1px solid #E4DFDF;
+    flex-grow: 1;
+    padding: 0.7em 1.5em 0.7em 0;
+    border: none;
     outline: none;
     border-radius: 12px;
     font-size: 0.9rem;
     color: #120D26;
+}
+
+.input-group svg {
+    position: absolute;
+    left: 10px;
+    color: #A9A9A9;
+    font-size: 1.2rem;
+}
+
+.input-group div {
+    position: absolute;
+    right: 40px;
+    bottom: 29px;
+    color: #A9A9A9;
+    cursor: pointer;
 }
 
 .form-options {
@@ -32,7 +59,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1.2em;
 }
 
 .remember-me {
@@ -102,7 +128,7 @@ input:checked+.slider:before {
     text-align: center;
     font-size: 0.83rem;
     color: #747688;
-    margin-top: 0.5em;
+    margin-top: 0.8em;
 }
 
 .signup-option a {
