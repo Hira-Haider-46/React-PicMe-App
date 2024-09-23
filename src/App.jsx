@@ -3,6 +3,7 @@ import Layout from "./commonComponents/Layout";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
+import Verification from "./pages/Verification";
 import './App.css';
 
 export default function App() {
@@ -13,6 +14,9 @@ export default function App() {
             <Route index element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/forgot-password" element={<h1>email</h1>} />
+            <Route path="/verification" element={<Verification />} />
+            <Route path="/new-password" element={<h1>new pass</h1>} />
           </Route>
         </Routes>
       </BrowserRouter>

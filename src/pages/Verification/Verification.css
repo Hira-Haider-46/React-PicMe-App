@@ -1,0 +1,64 @@
+.forgot-pass {
+    width: 50%;
+    margin: 3em auto;
+    padding: 0 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.forgot-pass h2 {
+    text-align: left;
+    margin-bottom: 0.5em;
+    font-size: 1.9rem;
+    color: #120D26;
+    font-weight: 500;
+}
+
+.forgot-pass p {
+    color: #747688;
+    margin-bottom: 0.5em;
+    font-size: 0.97rem;
+}
+
+.forgot-pass .code-inputs {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em 0;
+}
+
+.code-box {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #747688;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 18px;
+    outline: none;
+    color: #2BAFC7;
+    font-weight: 500;
+}
+
+.code-box:focus {
+    border: 2px solid #2BAFC7;
+}
+
+.forgot-pass a {
+    margin: 0.5em 0;
+}
+
+.timer {
+    margin-top: 1em;
+    color: #747688;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.timer a {
+    text-decoration: none;
+    color: #2BAFC7;
+    cursor: pointer;
+}
+
+.timer a:hover {
+    text-decoration: underline;
+}
