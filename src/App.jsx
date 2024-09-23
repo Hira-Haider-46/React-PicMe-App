@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./commonComponents/Layout";
 import Home from "./pages/Home";
+import Login from "./pages/Login";
 import './App.css';
 
 export default function App() {
@@ -9,7 +10,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
-            <Route path="/login" element={<h1>login</h1>} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<h1>signup</h1>} />
           </Route>
         </Routes>
