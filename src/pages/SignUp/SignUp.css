@@ -1,0 +1,15 @@
+.signup {
+    width: 50%; 
+    margin: 0.5em auto;
+    padding: 0 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+.signup h2 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 1.9rem;
+    color: #120D26;
+    font-weight: 500;
+}
