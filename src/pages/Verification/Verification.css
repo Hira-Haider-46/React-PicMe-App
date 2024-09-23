@@ -2,7 +2,6 @@
     width: 50%;
     margin: 3em auto;
     padding: 0 2em;
-    display: flex;
     flex-direction: column;
 }
 
@@ -10,18 +9,17 @@
     text-align: left;
     margin-bottom: 0.5em;
     font-size: 1.9rem;
-    color: #120D26;
+    color: var(--heading);
     font-weight: 500;
 }
 
 .forgot-pass p {
-    color: #747688;
+    color: var(--text);
     margin-bottom: 0.5em;
     font-size: 0.97rem;
 }
 
 .forgot-pass .code-inputs {
-    display: flex;
     justify-content: space-between;
     margin: 1em 0;
 }
@@ -34,12 +32,12 @@
     text-align: center;
     font-size: 18px;
     outline: none;
-    color: #2BAFC7;
+    color: var(--primary-color);
     font-weight: 500;
 }
 
 .code-box:focus {
-    border: 2px solid #2BAFC7;
+    border: 2px solid var(--primary-color);
 }
 
 .forgot-pass a {
@@ -48,14 +46,14 @@
 
 .timer {
     margin-top: 1em;
-    color: #747688;
+    color: var(--text);
     font-size: 0.95rem;
     text-align: center;
 }
 
 .timer a {
     text-decoration: none;
-    color: #2BAFC7;
+    color: var(--primary-color);
     cursor: pointer;
 }
 

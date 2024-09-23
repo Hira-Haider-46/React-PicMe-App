@@ -19,18 +19,18 @@ export default function SignUp() {
     };
 
     return (
-        <div className="signup">
+        <div className="signup flex">
             <h2>Sign Up</h2>
-            <form>
-                <div className="input-group">
+            <form className='flex'>
+                <div className="input-group flex">
                     <FaRegEnvelope />
                     <input type="text" placeholder="Full name" required />
                 </div>
-                <div className="input-group">
+                <div className="input-group flex">
                     <FaRegEnvelope />
                     <input type="email" placeholder="abc@email.com" required />
                 </div>
-                <div className="input-group">
+                <div className="input-group flex">
                     <IoLockClosedOutline />
                     <input
                         type={showPass ? "text" : "password"}
@@ -41,7 +41,7 @@ export default function SignUp() {
                         {showPass ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>
-                <div className="input-group">
+                <div className="input-group flex">
                     <IoLockClosedOutline />
                     <input
                         type={confirmPass ? "text" : "password"}

@@ -2,14 +2,13 @@
     padding: 2em;
     width: 70%;
     margin: 3em auto;
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
 }
 
 .text h1 {
-    color: #120D26;
+    color: var(--heading);
     font-size: 2rem;
     font-weight: 500;
     width: 70%;

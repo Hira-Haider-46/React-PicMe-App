@@ -1,75 +1,17 @@
-.login {
-    width: 50%; 
-    margin: 2em auto;
-    padding: 0 2em;
-    display: flex;
-    flex-direction: column;
-}
-
-.login h2 {
-    text-align: left;
-    margin-bottom: 1.25em;
-    font-size: 1.9rem;
-    color: #120D26;
-    font-weight: 500;
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2em; 
-}
-
-.input-group {
-    position: relative;
-    display: flex;
-    align-items: center;
-    border: 1px solid #E4DFDF;
-    border-radius: 12px;
-    padding-left: 2.5em;
-}
-
-.input-group input {
-    flex-grow: 1;
-    padding: 0.7em 1.5em 0.7em 0;
-    border: none;
-    outline: none;
-    border-radius: 12px;
-    font-size: 0.9rem;
-    color: #120D26;
-}
-
-.input-group svg {
-    position: absolute;
-    left: 10px;
-    color: #A9A9A9;
-    font-size: 1.2rem;
-}
-
-.input-group div {
-    position: absolute;
-    right: 40px;
-    bottom: 29px;
-    color: #A9A9A9;
-    cursor: pointer;
-}
-
 .form-options {
-    color: #747688;
-    display: flex;
+    color: var(--text);
     justify-content: space-between;
     align-items: center;
 }
 
 .remember-me {
-    display: flex;
     align-items: center;
     font-size: 0.85rem;
     justify-content: center;
 }
 
 .forgot-password {
-    color: #747688;
+    color: var(--text);
     text-decoration: none;
     font-size: 0.83rem;
 }
@@ -111,13 +53,13 @@ form {
     width: 10px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--secondary-color);
     transition: 0.4s;
     border-radius: 50%;
 }
 
 input:checked+.slider {
-    background-color: #2BAFC7;
+    background-color: var(--primary-color);
 }
 
 input:checked+.slider:before {
@@ -127,12 +69,12 @@ input:checked+.slider:before {
 .signup-option {
     text-align: center;
     font-size: 0.83rem;
-    color: #747688;
+    color: var(--text);
     margin-top: 0.8em;
 }
 
 .signup-option a {
-    color: #2BAFC7;
+    color: var(--primary-color);
     font-weight: 500;
     text-decoration: none;
 }

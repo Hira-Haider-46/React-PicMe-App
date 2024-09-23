@@ -1,5 +1,4 @@
 .layout {
-    display: flex;
     flex-direction: row;
 }
 
@@ -17,9 +16,8 @@ nav img {
 }
 
 .img-portion {
-    background-color: #2BAFC7;
+    background-color: var(--primary-color);
     width: 50%;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;

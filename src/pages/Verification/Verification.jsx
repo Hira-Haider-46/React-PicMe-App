@@ -32,10 +32,10 @@ export default function Verification() {
     };
 
     return (
-        <div className='forgot-pass'>
+        <div className='forgot-pass flex'>
             <h2>Verification</h2>
             <p>We’ve sent you the verification code on abc@gmail.com</p>
-            <div className='code-inputs'>
+            <div className='code-inputs flex'>
                 {code.map((digit, index) => (
                     <input
                         key={index}

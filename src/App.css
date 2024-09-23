@@ -6,3 +6,68 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
+:root {
+  --primary-color: #2BAFC7;
+  --secondary-color: white;
+  --heading: #120D26;
+  --text: #747688;
+}
+
+.flex {
+  display: flex;
+}
+
+/* login + signup css */
+.login {
+  width: 50%; 
+  margin: 2em auto;
+  padding: 0 2em;
+  flex-direction: column;
+}
+
+.login h2 {
+  text-align: left;
+  margin-bottom: 1.25em;
+  font-size: 1.9rem;
+  color: var(--heading);
+  font-weight: 500;
+}
+
+form {
+  flex-direction: column;
+  gap: 1.2em; 
+}
+
+.input-group {
+  position: relative;
+  align-items: center;
+  border: 1px solid #E4DFDF;
+  border-radius: 12px;
+  padding-left: 2.5em;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 0.7em 1.5em 0.7em 0;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--heading);
+}
+
+.input-group svg {
+  position: absolute;
+  left: 10px;
+  color: var(--text);
+  font-size: 1.2rem;
+}
+
+.input-group div {
+  position: absolute;
+  right: 40px;
+  bottom: 29px;
+  color: var(--text);
+  cursor: pointer;
+}

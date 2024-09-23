@@ -5,7 +5,7 @@ import './Home.css';
 
 export default function Home() {
     return (
-        <div className="text">
+        <div className="text flex">
             <h1>Experience Photography In a new Dimension</h1>
             <Link to='/login'>
                 <Button text='CONTINUE AS CUSTOMER' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />

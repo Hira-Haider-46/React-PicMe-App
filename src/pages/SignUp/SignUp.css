@@ -2,7 +2,6 @@
     width: 50%; 
     margin: 0.5em auto;
     padding: 0 2em;
-    display: flex;
     flex-direction: column;
 }
 
@@ -10,6 +9,6 @@
     text-align: left;
     margin-bottom: 0.6em;
     font-size: 1.9rem;
-    color: #120D26;
+    color: var(--heading);
     font-weight: 500;
 }

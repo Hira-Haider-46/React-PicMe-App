@@ -19,14 +19,14 @@ export default function Login() {
     };
 
     return (
-        <div className="login">
+        <div className="login flex">
             <h2>Sign in</h2>
-            <form>
-                <div className="input-group">
+            <form className='flex'>
+                <div className="input-group flex">
                     <FaRegEnvelope />
                     <input type="email" placeholder="abc@email.com" required />
                 </div>
-                <div className="input-group">
+                <div className="input-group flex">
                     <IoLockClosedOutline />
                     <input
                         type={showPass ? "text" : "password"}
@@ -37,8 +37,8 @@ export default function Login() {
                         {showPass ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>
-                <div className="form-options">
-                    <div className="remember-me">
+                <div className="form-options flex">
+                    <div className="remember-me flex">
                         <label className="toggle-switch">
                             <input type="checkbox" checked={rememberMe} onChange={toggleRememberMe} />
                             <span className="slider"></span>
