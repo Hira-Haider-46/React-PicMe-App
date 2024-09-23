@@ -13,7 +13,7 @@ export default function SignUp() {
     const toggleConfirmPass = () => {
         setConfirmPass(!confirmPass);
     };
-
+ 
     const toggleShowPass = () => {
         setShowPass(!showPass);
     };
