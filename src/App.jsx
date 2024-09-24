@@ -8,6 +8,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import CreateNewPass from "./pages/CreateNewPass";
 import PassChange from "./pages/PassChange";
 import ChooseLocation from "./pages/ChooseLocation";
+import Location from "./pages/Location";
 import './App.css';
 
 export default function App() {
@@ -23,7 +24,7 @@ export default function App() {
           <Route path="new-password" element={<CreateNewPass />} />
           <Route path="password-change" element={<PassChange />} />
           <Route path="choose-location" element={<ChooseLocation />} />
-          <Route path="location" element={<h1>location</h1>} />
+          <Route path="location" element={<Location/>} />
         </Route>
       </Routes>
     </BrowserRouter>

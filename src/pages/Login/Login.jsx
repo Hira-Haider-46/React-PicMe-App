@@ -5,6 +5,8 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import './Login.css';
+import { postApiWithoutAuth } from '../../apis';
+import { LOGIN } from '../../apis/apiUrls';
 
 export default function Login() {
     const [rememberMe, setRememberMe] = useState(false);
@@ -21,9 +23,18 @@ export default function Login() {
         setShowPass(!showPass);
     };
 
-    const handleLogIn = (e) => {
+    const handleLogIn = async (e) => {
         e.preventDefault();
-        navigate('/choose-location');
+        const res =await postApiWithoutAuth(LOGIN, { email, password, type: 0 })
+        if(res.success){
+            const token = res.headers.getAuthorization()
+            localStorage.setItem('token',token)
+
+        }else{
+            console.log("Logged error ",res)
+        }
+        // navigate('/choose-location');
+
     };
 
     return (
