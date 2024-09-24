@@ -66,16 +66,16 @@
 
 /* layout styles */
 
-/* nav {
+.nav {
     padding: 2em;
     width: 100%;
-} */
+}
 
-/* nav img {
+.nav img {
     width: 53px;
-} */
+}
 
-/* .layout {
+.layout {
     flex-direction: row;
 }
 
@@ -93,4 +93,4 @@
 
 .img-portion img {
     width: 300px;
-} */
+}

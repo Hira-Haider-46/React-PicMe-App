@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '../../commonComponents/Button';
 import { Link } from 'react-router-dom';
-import './Home.css';
+import './ContinueAsPage.css';
 
-export default function Home() {
+export default function ContinueAsPage() {
     return (
         <div className="text flex">
             <h1>Experience Photography In a new Dimension</h1>
