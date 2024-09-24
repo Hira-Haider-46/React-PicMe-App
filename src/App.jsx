@@ -7,6 +7,7 @@ import Verification from "./pages/Verification";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateNewPass from "./pages/CreateNewPass";
 import PassChange from "./pages/PassChange";
+import ChooseLocation from "./pages/ChooseLocation";
 import './App.css';
 
 export default function App() {
@@ -15,15 +16,16 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/verification" element={<Verification />} />
-          <Route path="/new-password" element={<CreateNewPass />} />
-          <Route path="/password-change" element={<PassChange />} />
-          <Route path="/choose-location" element={<h1>choose location</h1>} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<SignUp />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="verification" element={<Verification />} />
+          <Route path="new-password" element={<CreateNewPass />} />
+          <Route path="password-change" element={<PassChange />} />
+          <Route path="choose-location" element={<ChooseLocation />} />
+          <Route path="location" element={<h1>location</h1>} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
