@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import './Login.css';
 
 export default function Login() {
     const [rememberMe, setRememberMe] = useState(false);
     const [showPass, setShowPass] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const toggleRememberMe = () => {
         setRememberMe(!rememberMe);
@@ -18,19 +21,32 @@ export default function Login() {
         setShowPass(!showPass);
     };
 
+    const handleLogIn = (e) => {
+        e.preventDefault();
+        navigate('/choose-location');
+    };
+
     return (
         <div className="login flex">
-            <h2>Sign in</h2>
-            <form className='flex'>
+            <h2>Log in</h2>
+            <form className='flex' onSubmit={handleLogIn}>
                 <div className="input-group flex">
                     <FaRegEnvelope />
-                    <input type="email" placeholder="abc@email.com" required />
+                    <input
+                        type="email"
+                        placeholder="abc@email.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
                 </div>
                 <div className="input-group flex">
                     <IoLockClosedOutline />
                     <input
                         type={showPass ? "text" : "password"}
                         placeholder="Your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                     <div onClick={toggleShowPass} style={{ cursor: 'pointer' }}>
@@ -47,7 +63,7 @@ export default function Login() {
                     </div>
                     <Link to='/forgot-password' className="forgot-password">Forgot Password?</Link>
                 </div>
-                <Button text='SIGN IN' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='LOG IN' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
             </form>
             <div className="signup-option">
                 <p>Don't have an account? <Link to='/signup'>Sign up</Link></p>

@@ -11,18 +11,19 @@ import './App.css';
 
 export default function App() {
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/verification" element={<Verification />} />
-            <Route path="/new-password" element={<CreateNewPass />} />
-            <Route path="password-change" element={<PassChange />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/verification" element={<Verification />} />
+          <Route path="/new-password" element={<CreateNewPass />} />
+          <Route path="/password-change" element={<PassChange />} />
+          <Route path="/choose-location" element={<h1>choose location</h1>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
