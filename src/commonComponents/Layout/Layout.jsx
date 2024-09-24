@@ -11,7 +11,7 @@ export default function Layout() {
 
     return (
         <>
-            { !token ?
+            {!token ?
                 < div className='layout flex' >
                     <div className='text-portion'>
                         <nav className='nav'>
@@ -28,7 +28,7 @@ export default function Layout() {
 
                 <div className='customer-layout flex'>
                     <nav className='navbar flex'>
-                        <Link to='/choose-location'><img src={navLogo} alt="navLogo" /></Link>
+                        <Link to='/'><img src={navLogo} alt="navLogo" /></Link>
                         <ul className='flex'>
                             <li>Home</li>
                             <li>Chats</li>

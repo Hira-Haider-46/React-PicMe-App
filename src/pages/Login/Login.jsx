@@ -33,7 +33,7 @@ export default function Login() {
         }else{
             console.log("Logged error ",res)
         }
-        // navigate('/choose-location');
+        navigate('/');
 
     };
 

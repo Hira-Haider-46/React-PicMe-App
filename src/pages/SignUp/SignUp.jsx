@@ -30,7 +30,7 @@ export default function SignUp() {
             alert("Passwords do not match");
             return;
         }
-        navigate('/choose-location');
+        navigate('/');
     };
 
     return (

@@ -14,24 +14,29 @@ import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import './App.css';
 
 export default function App() {
+  const token = localStorage.getItem('token');
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route element={<PublicRoutes />}>
-            <Route index element={<ContinueAsPage />} />
-            <Route path="login" element={<Login />} />
-            <Route path="signup" element={<SignUp />} />
-            <Route path="forgot-password" element={<ForgotPassword />} />
-            <Route path="verification" element={<Verification />} />
-            <Route path="new-password" element={<CreateNewPass />} />
-            <Route path="password-change" element={<PassChange />} />
-          </Route>
+          {!token ? (
+            <Route element={<PublicRoutes />}>
+              <Route index element={<ContinueAsPage />} />
+              <Route path="login" element={<Login />} />
+              <Route path="signup" element={<SignUp />} />
+              <Route path="forgot-password" element={<ForgotPassword />} />
+              <Route path="verification" element={<Verification />} />
+              <Route path="new-password" element={<CreateNewPass />} />
+              <Route path="password-change" element={<PassChange />} />
+            </Route>
 
-          <Route element={<PrivateRoutes />}>
-            <Route path="choose-location" element={<ChooseLocation />} />
-            <Route path="location" element={<Location />} />
-          </Route>
+          ) : (
+            <Route element={<PrivateRoutes />}>
+              <Route index element={<ChooseLocation />} />
+              <Route path="location" element={<Location />} />
+            </Route>
+          )}
         </Route>
       </Routes>
     </BrowserRouter>
