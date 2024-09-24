@@ -4,7 +4,7 @@ import './Location.css';
 
 export default function Location() {
   return (
-    <div>
+    <div className='loc'>
         <Map />
     </div>
   )

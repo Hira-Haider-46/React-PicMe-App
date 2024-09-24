@@ -3,6 +3,9 @@ import { Link, Outlet } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import navLogo from '../../assets/images/navLogo2.png';
 import cameraImg from '../../assets/images/camera-img.png';
+import homePic from '../../assets/images/home.png';
+import chatPic from '../../assets/images/chat.png';
+import profilePic from '../../assets/images/profile.png';
 import './Layout.css';
 
 export default function Layout() {
@@ -30,9 +33,15 @@ export default function Layout() {
                     <nav className='navbar flex'>
                         <Link to='/'><img src={navLogo} alt="navLogo" /></Link>
                         <ul className='flex'>
-                            <li>Home</li>
-                            <li>Chats</li>
-                            <li>Profile</li>
+                            <li>
+                                <img src={homePic} alt="homePic" /> Home
+                            </li>
+                            <li>
+                                <img src={chatPic} alt="chatPic" /> Chats
+                            </li>
+                            <li>
+                                <img src={profilePic} alt="profilePic" /> Profile
+                            </li>
                         </ul>
                     </nav>
                     <div className='padding'>

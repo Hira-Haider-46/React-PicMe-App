@@ -28,6 +28,12 @@
 .navbar ul li {
     margin: 0 1em;
     cursor: pointer;
+    align-self: center;
+}
+
+.navbar ul li img {
+    width: 17px;
+    margin: 0.5em 0.3em 0 0;
 }
 
 .choose-loc {
