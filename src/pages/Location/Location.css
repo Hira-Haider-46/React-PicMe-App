@@ -1,0 +1,81 @@
+.location-page {
+    margin: 0.5em 0 1.5em 0;
+    position: relative;
+}
+
+.search-container {
+    justify-content: space-between;
+    flex-direction: column;
+    width: 33%;
+    position: absolute;
+    top: 20px;
+    left: 81%;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.search {
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.input--group {
+    background-color: white;
+    width: 84%;
+    padding: 0.2em 0.5em;
+    align-items: center;
+    border-radius: 12px;
+}
+
+.input--group :first-child {
+    font-size: 1.2rem;
+}
+
+.search input {
+    padding: 0.8em;
+    border: none;
+    outline: none;
+}
+
+.loc-div {
+    background-color: white;
+    border-radius: 12px;
+    width: 50px;
+    height: 50px;
+}
+
+.loc-div :first-child {
+    margin-left: 0.75em;
+    margin-top: 0.75em;
+    font-size: 1.2rem;
+    color: var(--primary-color);
+}
+
+.date-container {
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 0.7em;
+}
+
+.date-group {
+    width: 48%;
+    padding: 0.9em 1em;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.date-group input { 
+    border: none;
+    outline: none;
+    width: 90%;
+}
+
+.date-group :nth-child(2) {
+    color: var(--text);
+    font-size: 1rem;
+}
