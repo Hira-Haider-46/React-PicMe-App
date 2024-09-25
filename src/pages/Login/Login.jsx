@@ -4,9 +4,9 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
-import './Login.css';
 import { postApiWithoutAuth } from '../../apis';
 import { LOGIN } from '../../apis/apiUrls';
+import './Login.css';
 
 export default function Login() {
     const [rememberMe, setRememberMe] = useState(false);
