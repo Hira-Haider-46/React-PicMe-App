@@ -1,7 +1,9 @@
 import React from 'react';
+import PhotographerListCard from '../../../commonComponents/PhotographerListCard';
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsSliders } from "react-icons/bs";
+import ProfileImg from '../../../assets/images/ProfileImg.png';
 import './PhotographerList.css';
 
 export default function PhotographerList({ location }) {
@@ -22,7 +24,17 @@ export default function PhotographerList({ location }) {
                 <BsSliders />
             </div>
             <div className='cards'>
-                
+                <PhotographerListCard
+                    obj={
+                        {
+                            profileImg: ProfileImg,
+                            name: 'Joy Mark',
+                            profeciency: 'Street Photographer',
+                            rating: '4.0',
+                            NoOfreviews: '123'
+                        }
+                    }
+                />
             </div>
         </div>
     )

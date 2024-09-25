@@ -68,7 +68,7 @@ export default function Location() {
         <PhotographerList location='Lahore'/>
       </div>
 
-      <MapContainer center={coordinates} zoom={13} style={{ height: "500px", width: "100%" }}>
+      <MapContainer center={coordinates} zoom={13} style={{ height: "100%", width: "100%", borderRadius: '15px' }}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -35,6 +35,7 @@ export default function App() {
             <Route element={<PrivateRoutes />}>
               <Route index element={<ChooseLocation />} />
               <Route path="location" element={<Location />} />
+              <Route path="photographer-profile" element={<h1>photographer-profile</h1>} />
             </Route>
           )}
         </Route>
