@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { TbCurrentLocation } from "react-icons/tb";
 import { IoIosArrowBack } from "react-icons/io";
 import { LuCalendarDays } from "react-icons/lu";
+import PhotographerList from './PhotographerList';
 import 'leaflet/dist/leaflet.css';
 import './Location.css';
 
@@ -29,15 +30,15 @@ export default function Location() {
     }
   };
 
-  const handleChange = (e) => {
+  const handleSearch = (e) => {
     e.preventDefault();
     fetchCoordinates();
   };
 
   return (
     <div className="location-page">
-      <div className="search-container flex">
-        <div onChange={handleChange} className="search flex">
+      {/* <div className="search-container flex">
+        <div className="search flex">
           <div className='input--group flex'>
             <IoIosArrowBack />
             <input
@@ -47,7 +48,7 @@ export default function Location() {
               onChange={(e) => setLocation(e.target.value)}
             />
           </div>
-          <div className='loc-div'>
+          <div className='loc-div' onClick={handleSearch}>
             <TbCurrentLocation />
           </div>
         </div>
@@ -61,6 +62,10 @@ export default function Location() {
             <LuCalendarDays />
           </div>
         </div>
+      </div> */}
+
+      <div className='photographer-list'>
+        <PhotographerList location='Lahore'/>
       </div>
 
       <MapContainer center={coordinates} zoom={13} style={{ height: "500px", width: "100%" }}>

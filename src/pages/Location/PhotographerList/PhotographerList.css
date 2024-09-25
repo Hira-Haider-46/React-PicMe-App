@@ -1,0 +1,62 @@
+.list {
+    flex-direction: column;
+}
+
+.loc-bar {
+    border: 1px solid var(--border);
+    padding: 0.6em 0.5em;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loc-bar :first-child {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.loc-bar p {
+    color: var(--text);
+    font-size: 0.9rem;
+    width: 75%;
+}
+
+.loc-bar :nth-child(3) {
+    font-size: 1.55rem;
+    cursor: pointer;
+    color: var(--text);
+}
+
+.text-part {
+    margin: 1em 0;
+}
+
+.text-part h2 {
+    color: var(--heading);
+    font-weight: 500;
+    font-size: 1.8rem;
+    margin-bottom: 0.1em;
+}
+
+.text-part p {
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 400;
+    width: 80%;
+}
+
+.search-bar {
+    background-color: white;
+    color: var(--text);
+    border: 1px solid var(--border);
+    justify-content: space-between;
+    padding: 0.7em 1em;
+    border-radius: 12px;
+    align-items: center;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 80%;
+}
