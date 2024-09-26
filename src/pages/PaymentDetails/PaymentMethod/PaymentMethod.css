@@ -1,0 +1,47 @@
+.payment-method {
+    background-image: url('../../../assets/images/rectangle.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-direction: column;
+    padding: 3em;
+    width: 45%;
+    padding: 2.5em;
+    border-radius: 25px;
+}
+
+.payment-method h1 {
+    font-size: 1.5rem;
+    margin-bottom: 1em;
+}
+
+.payment-options {
+    flex-direction: column;
+    gap: 1em;
+    margin: 1.5em 0;
+}
+
+.payment-option {
+    align-items: center;
+    padding: 1em 1.5em;
+    background-color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: space-between;
+    color: var(--heading);
+    font-weight: 500;
+}
+
+.payment-option span img {
+    margin-right: 0.5em;
+}
+
+.span-img {
+    align-items: center;
+}
+
+.payment-option input {
+    border: 1px solid var(--border);
+    height: 18px;
+    width: 18px;
+    outline: none;
+}

@@ -1,0 +1,10 @@
+.pkg-card {
+    width: 45%;
+    padding: 2.5em;
+    border-radius: 25px;
+}
+
+.pkg-card ul {
+    margin: 2em 0 3em 1.5em;
+    line-height: 50px;
+}
