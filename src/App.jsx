@@ -13,6 +13,7 @@ import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import ProfileLayout from "./commonComponents/ProfileLayout";
 import Photos from "./pages/Photos";
+import Videos from "./pages/Videos";
 import './App.css';
 
 export default function App() {
@@ -39,7 +40,7 @@ export default function App() {
               <Route path="photographer-profile" element={<ProfileLayout />}>
                 <Route index element={<Photos />} />
                 <Route path="photos" element={<Photos />} />
-                <Route path="videos" element={<h1>videos</h1>} />
+                <Route path="videos" element={<Videos />} />
                 <Route path="reviews" element={<h1>Reviews Page</h1>} />
                 <Route path="category" element={<h1>Category Page</h1>} />
               </Route>
@@ -50,17 +51,3 @@ export default function App() {
     </BrowserRouter>
   );
 }
-
-{/* <Route element={<AuthRequired />}>
-  <Route path="host" element={<HostLayout />}>
-    <Route index element={<Dashboard />} />
-    <Route path="income" element={<Income />} />
-    <Route path="reviews" element={<Reviews />} />
-    <Route path="vans" element={<HostVans />} />
-    <Route path="vans/:id" element={<HostVanDetails />}>
-      <Route index element={<HostVanInfo />} />
-      <Route path="pricing" element={<HostVanPricing />} />
-      <Route path="photos" element={<HostVanPhotos />} />
-    </Route>
-  </Route>
-</Route> */}

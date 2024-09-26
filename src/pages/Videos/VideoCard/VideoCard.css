@@ -1,0 +1,16 @@
+.video-card {
+    width: 85%;
+    margin: auto;
+    position: relative;
+}
+
+.video-card :first-child {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.video-card :nth-child(2) {
+    position: absolute;
+    top: 40%;
+    left: 38%;
+}
