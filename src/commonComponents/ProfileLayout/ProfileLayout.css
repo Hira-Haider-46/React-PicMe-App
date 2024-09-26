@@ -1,7 +1,7 @@
 .photographer-profile {
     border: 1px solid var(--border);
-    align-items: center;
     border-radius: 12px;
+    flex-direction: column;
 }
 
 .header {
@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
     width: 25%;
-    margin: 1em auto;
+    margin: 1em auto 0.5em auto;
 }
 
 .header img {
@@ -58,4 +58,30 @@
 
 .btns a {
     width: 47%;
+}
+
+.layout-nav {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1em 2em;
+}
+
+.layout-nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    margin: 0 1em;
+    font-size: 1rem;
+}
+
+.layout-nav a span {
+    margin-left: 0.25em;
+    font-size: 1.5rem;
+    position: relative;
+    top: 6px;
+}
+
+.layout-nav a:hover {
+    border-bottom: 2px solid var(--primary-color);
 }

@@ -12,8 +12,8 @@ import Location from "./pages/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import PhotographerProfile from "./pages/PhotographerProfile";
+import ProfileLayout from "./commonComponents/ProfileLayout";
 import './App.css';
-import ProfileLayout from "./commonComponents/ProfileLayout/ProfileLayout";
 
 export default function App() {
   const token = localStorage.getItem('token');
