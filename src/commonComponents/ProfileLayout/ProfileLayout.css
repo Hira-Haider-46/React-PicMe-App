@@ -2,6 +2,7 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     flex-direction: column;
+    margin: 1em 0 2em 0;
 }
 
 .header {
@@ -58,30 +59,4 @@
 
 .btns a {
     width: 47%;
-}
-
-.layout-nav {
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 1em 2em;
-}
-
-.layout-nav a {
-    text-decoration: none;
-    color: var(--text);
-    font-weight: 500;
-    margin: 0 1em;
-    font-size: 1rem;
-}
-
-.layout-nav a span {
-    margin-left: 0.25em;
-    font-size: 1.5rem;
-    position: relative;
-    top: 6px;
-}
-
-.layout-nav a:hover {
-    border-bottom: 2px solid var(--primary-color);
 }
