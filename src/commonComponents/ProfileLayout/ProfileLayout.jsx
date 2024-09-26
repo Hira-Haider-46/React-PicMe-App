@@ -17,9 +17,10 @@ export default function ProfileLayout() {
             const storedPhotographer = localStorage.getItem('photographer');
             if (storedPhotographer) {
                 setPhotographer(JSON.parse(storedPhotographer));
-            } else {
-                navigate("/location");
             }
+            //  else {
+            //     navigate("/location");
+            // }
         }
     }, [photographer, navigate]);
 
@@ -38,7 +39,7 @@ export default function ProfileLayout() {
     if (!photographer) {
         return <div>Loading...</div>;
     }
-
+    console.log(photographer);
     return (
         <div className='photographer-profile flex'>
             <div className='header flex'>

@@ -29,7 +29,7 @@ export default function PhotographerList({ location }) {
                         {
                             profileImg: ProfileImg,
                             name: 'Joy Mark',
-                            profeciency: 'Street Photographer',
+                            proficiency: 'Street Photographer',
                             rating: '4.0',
                             NoOfreviews: '123'
                         }

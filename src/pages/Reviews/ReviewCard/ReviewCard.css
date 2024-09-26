@@ -1,0 +1,48 @@
+.review-card {
+    border: 1px solid var(--border);
+    width: 100%;
+    flex-direction: row;
+    padding: 1em 1em 1em 0;
+    border-radius: 14px;
+}
+
+.image {
+    padding: 1em;
+}
+
+.review-card .text-area {
+    padding: 0.7em 0 1em 0;
+}
+
+.header-area {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.2em;
+}
+
+.header-area h2 {
+    color: var(--heading);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.header-area span {
+    font-size: 0.9rem;
+    font-weight: 400;
+    color: var(--text);
+}
+
+.star-div {
+    color: #FBBE47;
+}
+
+.star-icon {
+    margin-right: 0.3em;
+}
+
+.text-area p {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 400;
+}

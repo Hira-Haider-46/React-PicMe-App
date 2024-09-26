@@ -14,6 +14,7 @@ import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import ProfileLayout from "./commonComponents/ProfileLayout";
 import Photos from "./pages/Photos";
 import Videos from "./pages/Videos";
+import Reviews from "./pages/Reviews";
 import './App.css';
 
 export default function App() {
@@ -41,7 +42,7 @@ export default function App() {
                 <Route index element={<Photos />} />
                 <Route path="photos" element={<Photos />} />
                 <Route path="videos" element={<Videos />} />
-                <Route path="reviews" element={<h1>Reviews Page</h1>} />
+                <Route path="reviews" element={<Reviews />} />
                 <Route path="category" element={<h1>Category Page</h1>} />
               </Route>
             </Route>
