@@ -11,8 +11,8 @@ import ChooseLocation from "./pages/ChooseLocation";
 import Location from "./pages/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
-import PhotographerProfile from "./pages/PhotographerProfile";
 import ProfileLayout from "./commonComponents/ProfileLayout";
+import Photos from "./pages/Photos";
 import './App.css';
 
 export default function App() {
@@ -38,7 +38,7 @@ export default function App() {
               <Route index element={<ChooseLocation />} />
               <Route path="location" element={<Location />} />
               <Route path="photographer-profile" element={<ProfileLayout />} >
-                <Route index element={<PhotographerProfile />} />
+                <Route index element={<Photos />} />
               </Route>
             </Route>
           )}

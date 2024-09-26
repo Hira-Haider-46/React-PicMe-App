@@ -1,0 +1,8 @@
+.photos-container {
+    width: 100%;
+    padding: 1em 2em;
+    margin-bottom: 3em;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 0.7em;
+}

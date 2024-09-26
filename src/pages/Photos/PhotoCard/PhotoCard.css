@@ -1,0 +1,9 @@
+.photo-card {
+    width: 85%;
+    margin: auto;
+}
+
+.photo-card img {
+    width: 100%;
+    border-radius: 10px;
+}
