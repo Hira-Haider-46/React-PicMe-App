@@ -25,10 +25,12 @@
     list-style: none;
 }
 
-.navbar ul li {
+.navbar ul a {
     margin: 0 1em;
     cursor: pointer;
     align-self: center;
+    text-decoration: none;
+    color: white;
 }
 
 .navbar ul li img {

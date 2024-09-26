@@ -21,7 +21,11 @@ export default function PaymentDetails() {
         <div className='payment-details'>
             <h1>Payment Details</h1>
             <div className="container flex">
-                <PkgCard packageDetails={packageDetails} />
+                {packageDetails ? (
+                    <PkgCard packageDetails={packageDetails} />
+                ) : (
+                    <p>Loading package details...</p>
+                )}
                 <PaymentMethod />
             </div>
         </div>

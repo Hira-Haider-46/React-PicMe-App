@@ -33,15 +33,21 @@ export default function Layout() {
                     <nav className='navbar flex'>
                         <Link to='/'><img src={navLogo} alt="navLogo" /></Link>
                         <ul className='flex'>
-                            <li>
-                                <img src={homePic} alt="homePic" /> Home
-                            </li>
-                            <li>
-                                <img src={chatPic} alt="chatPic" /> Chats
-                            </li>
-                            <li>
-                                <img src={profilePic} alt="profilePic" /> Profile
-                            </li>
+                            <Link to='/'>
+                                <li>
+                                    <img src={homePic} alt="homePic" /> Home
+                                </li>
+                            </Link>
+                            <Link to=''>
+                                <li>
+                                    <img src={chatPic} alt="chatPic" /> Chats
+                                </li>
+                            </Link>
+                            <Link to=''>
+                                <li>
+                                    <img src={profilePic} alt="profilePic" /> Profile
+                                </li>
+                            </Link>
                         </ul>
                     </nav>
                     <div className='padding'>
