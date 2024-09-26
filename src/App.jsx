@@ -47,6 +47,7 @@ export default function App() {
                 <Route path="category" element={<h1>Category Page</h1>} />
                 <Route path="package" element={<Packages />} />
               </Route>
+              <Route path="checkout" element={<h1>payment details</h1>} />
             </Route>
           )}
         </Route>

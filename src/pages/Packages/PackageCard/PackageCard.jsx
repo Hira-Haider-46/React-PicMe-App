@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../../../commonComponents/Button';
 import './PackageCard.css';
+import { Link } from 'react-router-dom';
 
 export default function PackageCard({ obj }) {
     return (
@@ -13,7 +14,9 @@ export default function PackageCard({ obj }) {
                 <li>Up to {obj.photos} Photos</li>
                 <li>Up to {obj.video} Video</li>
             </ul>
-            <Button text='CONTINUE' styles={{ backgroundColor: obj.bgColor, color: 'white', border: '1.5px solid white' }} />
+            <Link to='/checkout'>
+                <Button text='CONTINUE' styles={{ backgroundColor: obj.bgColor, color: 'white', border: '1.5px solid white' }} />
+            </Link>
         </div>
     )
 }

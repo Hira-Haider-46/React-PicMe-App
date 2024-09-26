@@ -8,34 +8,17 @@ import './ProfileLayout.css';
 export default function ProfileLayout() {
     const location = useLocation();
     const navigate = useNavigate();
-
-    const [photographer, setPhotographer] = useState(location.state?.photographer);
+    const [photographer, setPhotographer] = useState(() => {
+        const storedPhotographer = localStorage.getItem('photographer');
+        return storedPhotographer ? JSON.parse(storedPhotographer) : location.state?.photographer;
+    });
     const [selectedTab, setSelectedTab] = useState('portfolio');
-    
-    useEffect(() => {
-        if (!photographer) {
-            const storedPhotographer = localStorage.getItem('photographer');
-            if (storedPhotographer) {
-                setPhotographer(JSON.parse(storedPhotographer));
-            }
-        }
-    }, [photographer, navigate]);
 
     useEffect(() => {
         if (photographer) {
             localStorage.setItem('photographer', JSON.stringify(photographer));
         }
     }, [photographer]);
-
-    useEffect(() => {
-        return () => {
-            localStorage.removeItem('photographer');
-        };
-    }, []);
-
-    if (!photographer) {
-        return <div>Loading...</div>;
-    }
 
     const portfolioButtonStyles = selectedTab === 'portfolio' 
         ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' } 
@@ -44,6 +27,10 @@ export default function ProfileLayout() {
     const packageButtonStyles = selectedTab === 'package' 
         ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' } 
         : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
+
+    if (!photographer) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='photographer-profile flex'>
@@ -73,8 +60,8 @@ export default function ProfileLayout() {
                 </>
             ) : (
                 <div className="package-content">
-                        <LayoutNav selectedTab={selectedTab} />
-                        <Outlet />
+                    <LayoutNav selectedTab={selectedTab} />
+                    <Outlet />
                 </div>
             )}
         </div>
