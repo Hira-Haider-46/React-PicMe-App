@@ -7,7 +7,7 @@ export default function PhotographerListCard({ obj }) {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/photographer-profile');
+        navigate('/photographer-profile', { state: { photographer: obj } });
     }
 
     return (

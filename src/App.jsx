@@ -11,7 +11,9 @@ import ChooseLocation from "./pages/ChooseLocation";
 import Location from "./pages/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
+import PhotographerProfile from "./pages/PhotographerProfile";
 import './App.css';
+import ProfileLayout from "./commonComponents/ProfileLayout/ProfileLayout";
 
 export default function App() {
   const token = localStorage.getItem('token');
@@ -35,7 +37,9 @@ export default function App() {
             <Route element={<PrivateRoutes />}>
               <Route index element={<ChooseLocation />} />
               <Route path="location" element={<Location />} />
-              <Route path="photographer-profile" element={<h1>photographer-profile</h1>} />
+              <Route path="photographer-profile" element={<ProfileLayout />} >
+                <Route index element={<PhotographerProfile />} />
+              </Route>
             </Route>
           )}
         </Route>
