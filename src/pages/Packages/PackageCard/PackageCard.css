@@ -1,0 +1,35 @@
+.package-card {
+    border-radius: 12px;
+    padding: 1em 2em;
+    width: 30%;
+    color: white;
+}
+
+.package-card img {
+    float: right;
+}
+
+.package-card h2, .package-card h3 {
+    text-align: center;
+}
+
+.package-card h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    margin-top: 1.7em;
+}
+
+.package-card h3 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-top: -0.1em;
+}
+
+.package-card ul {
+    margin: 0.5em 0 3em 1.5em;
+}
+
+.package-card ul li {
+    font-size: 1rem;
+    font-weight: 300;
+}

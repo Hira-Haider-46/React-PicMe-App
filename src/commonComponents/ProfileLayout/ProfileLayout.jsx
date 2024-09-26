@@ -18,9 +18,6 @@ export default function ProfileLayout() {
             if (storedPhotographer) {
                 setPhotographer(JSON.parse(storedPhotographer));
             }
-            //  else {
-            //     navigate("/location");
-            // }
         }
     }, [photographer, navigate]);
 
@@ -39,7 +36,15 @@ export default function ProfileLayout() {
     if (!photographer) {
         return <div>Loading...</div>;
     }
-    console.log(photographer);
+
+    const portfolioButtonStyles = selectedTab === 'portfolio' 
+        ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' } 
+        : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
+
+    const packageButtonStyles = selectedTab === 'package' 
+        ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' } 
+        : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
+
     return (
         <div className='photographer-profile flex'>
             <div className='header flex'>
@@ -52,23 +57,24 @@ export default function ProfileLayout() {
                     <span>({photographer.NoOfreviews} reviews)</span>
                 </p>
                 <div className='btns flex'>
-                    <Link to='' onClick={() => setSelectedTab('portfolio')}>
-                        <Button text='Portfolio' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' }} />
+                    <Link to='.' onClick={() => setSelectedTab('portfolio')}>
+                        <Button text='Portfolio' styles={portfolioButtonStyles} />
                     </Link>
-                    <Link to='' onClick={() => setSelectedTab('package')}>
-                        <Button text='Package' styles={{ backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' }} />
+                    <Link to='package' onClick={() => setSelectedTab('package')}>
+                        <Button text='Package' styles={packageButtonStyles} />
                     </Link>
                 </div>
             </div>
 
             {selectedTab === 'portfolio' ? (
                 <>
-                    <LayoutNav />
+                    <LayoutNav selectedTab={selectedTab} />
                     <Outlet />
                 </>
             ) : (
                 <div className="package-content">
-                    <h2>Package Information</h2>
+                        <LayoutNav selectedTab={selectedTab} />
+                        <Outlet />
                 </div>
             )}
         </div>

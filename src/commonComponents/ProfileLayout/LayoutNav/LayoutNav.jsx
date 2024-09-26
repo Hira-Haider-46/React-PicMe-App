@@ -1,14 +1,28 @@
 import React from 'react';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import './LayoutNav.css';
 
-export default function LayoutNav() {
+export default function LayoutNav({ selectedTab }) {
+    const location = useLocation();
+
     const activeStyles = {
         fontWeight: "bold",
         color: "#2BAFC7",
         borderBottom: "2px solid #2BAFC7",
     };
+
+    if (selectedTab === 'package') {
+        return (
+            <nav className="layout-nav flex">
+                <div>
+                    <NavLink to="choose-package" style={ {borderBottom: "2px solid #2BAFC7", color: '#2BAFC7' }}>
+                        Choose Package
+                    </NavLink>
+                </div>
+            </nav>
+        );
+    }
 
     return (
         <nav className="layout-nav flex">
@@ -32,14 +46,16 @@ export default function LayoutNav() {
                     </span>
                 </NavLink>
             </div>
-            <div>
-                <NavLink to="category" style={({ isActive }) => (isActive ? activeStyles : null)}>
-                    Category
-                    <span>
-                        <MdOutlineKeyboardArrowDown />
-                    </span>
-                </NavLink>
-            </div>
+            {location.pathname !== '/photographer-profile/reviews' && (
+                <div>
+                    <NavLink to="category" style={({ isActive }) => (isActive ? activeStyles : null)}>
+                        Category
+                        <span>
+                            <MdOutlineKeyboardArrowDown />
+                        </span>
+                    </NavLink>
+                </div>
+            )}
         </nav>
     );
 }
