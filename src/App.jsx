@@ -16,6 +16,7 @@ import Photos from "./pages/Photos";
 import Videos from "./pages/Videos";
 import Reviews from "./pages/Reviews";
 import Packages from "./pages/Packages";
+import PaymentDetails from "./pages/PaymentDetails";
 import './App.css';
 
 export default function App() {
@@ -47,7 +48,7 @@ export default function App() {
                 <Route path="category" element={<h1>Category Page</h1>} />
                 <Route path="package" element={<Packages />} />
               </Route>
-              <Route path="checkout" element={<h1>payment details</h1>} />
+              <Route path="checkout" element={<PaymentDetails />} />
             </Route>
           )}
         </Route>
