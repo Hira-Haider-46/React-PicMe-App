@@ -13,7 +13,7 @@ export default function LayoutNav() {
     return (
         <nav className="layout-nav flex">
             <div>
-                <NavLink end to="photos" style={({ isActive }) => (isActive ? activeStyles : null)}>
+                <NavLink end to="." style={({ isActive }) => (isActive ? activeStyles : null)}>
                     Photos
                     <span>
                         <MdOutlineKeyboardArrowDown />

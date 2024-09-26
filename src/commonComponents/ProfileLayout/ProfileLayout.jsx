@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import Button from '../Button';
 import LayoutNav from './LayoutNav';
@@ -7,17 +7,44 @@ import './ProfileLayout.css';
 
 export default function ProfileLayout() {
     const location = useLocation();
-    const photographer = location.state?.photographer;
-    console.log(photographer);
+    const navigate = useNavigate();
 
+    const [photographer, setPhotographer] = useState(location.state?.photographer);
     const [selectedTab, setSelectedTab] = useState('portfolio');
+    
+    useEffect(() => {
+        if (!photographer) {
+            const storedPhotographer = localStorage.getItem('photographer');
+            if (storedPhotographer) {
+                setPhotographer(JSON.parse(storedPhotographer));
+            } else {
+                navigate("/location");
+            }
+        }
+    }, [photographer, navigate]);
+
+    useEffect(() => {
+        if (photographer) {
+            localStorage.setItem('photographer', JSON.stringify(photographer));
+        }
+    }, [photographer]);
+
+    useEffect(() => {
+        return () => {
+            localStorage.removeItem('photographer');
+        };
+    }, []);
+
+    if (!photographer) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className='photographer-profile flex'>
             <div className='header flex'>
                 <img src={photographer.profileImg} alt="profile-img" />
                 <h2>{photographer.name}</h2>
-                <p>{photographer.profeciency}</p>
+                <p>{photographer.proficiency}</p>
                 <p>
                     <span><FaStar /></span>
                     <span>{photographer.rating}</span>
