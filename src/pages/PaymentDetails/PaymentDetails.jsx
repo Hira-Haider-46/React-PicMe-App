@@ -20,9 +20,7 @@ export default function PaymentDetails() {
     }, [location.state]);
 
     const handleContinue = () => {
-        console.log('showSchedule', showSchedule)
         setShowSchedule(true);
-        console.log('showSchedule', showSchedule)
     };
 
     return (

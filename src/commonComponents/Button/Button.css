@@ -5,3 +5,7 @@ button {
     cursor: pointer;
     margin: 0.5em 0;
 }
+
+button:disabled {
+    cursor: not-allowed;
+}

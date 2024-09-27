@@ -1,0 +1,113 @@
+.calendar-container {
+    border-radius: 10px;
+    margin: auto;
+    margin-top: -1em;
+}
+
+.booking-info {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75em;
+    background-color: white;
+    border-radius: 10px;
+    flex-direction: row;
+    padding: 0.5em 1.7em;
+}
+
+.booking-info :nth-child(3) {
+    padding-left: 0.9em;
+}
+
+.booking-dates {
+    flex-direction: column;
+    width: 40%;
+}
+
+.line {
+    background-color: var(--border);
+    width: 1px;
+    height: 27px;
+}
+
+.booking-dates span {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: var(--text);
+}
+
+.booking-dates p {
+    color: var(--heading);
+    font-weight: 600;
+    font-size: 0.87rem;
+}
+
+/* calendar styles */
+
+.react-datepicker {
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    width: 100%;
+    border: none;
+    margin-bottom: -1em;
+}
+
+.react-datepicker__header {
+    background-color: white;
+    padding: 0.2em 0.6em;
+    border-radius: 10px 10px 0 0;
+    border-bottom: none;
+}
+
+.react-datepicker__navigation {
+    top: 3px;
+}
+
+.react-datepicker__month-container {
+    width: 100%;
+}
+
+.react-datepicker__current-month {
+    color: var(--heading);
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+h2.react-datepicker__current-month {
+    margin-top: 0.3em;
+}
+
+.react-datepicker__day-names {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.7rem;
+}
+
+.react-datepicker__day-name {
+    color: var(--text);
+    font-weight: 400;
+}
+
+.react-datepicker__week {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.react-datepicker__day {
+    color: var(--heading);
+    font-weight: 400;
+    border-radius: 50%;
+}
+
+.react-datepicker__day--selected, .react-datepicker__day--in-range {
+    background-color: #72cada;
+    color: white;
+} 
+
+.react-datepicker__day--selected:not([aria-disabled=true]):hover, .react-datepicker__day--in-selecting-range:not([aria-disabled=true]):hover {
+    background-color: #72cada;
+}
+
+.react-datepicker__day--in-selecting-range:not(.react-datepicker__day--in-range, .react-datepicker__month-text--in-range, .react-datepicker__quarter-text--in-range, .react-datepicker__year-text--in-range) {
+    background-color: #9ddbe6;
+}
