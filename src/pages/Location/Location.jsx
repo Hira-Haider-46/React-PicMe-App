@@ -37,7 +37,7 @@ export default function Location() {
 
   return (
     <div className="location-page">
-      {/* <div className="search-container flex">
+      <div className="search-container flex">
         <div className="search flex">
           <div className='input--group flex'>
             <IoIosArrowBack />
@@ -62,11 +62,11 @@ export default function Location() {
             <LuCalendarDays />
           </div>
         </div>
-      </div> */}
-
-      <div className='photographer-list'>
-        <PhotographerList location='Lahore'/>
       </div>
+
+      {/* <div className='photographer-list'>
+        <PhotographerList location='Lahore'/>
+      </div> */}
 
       <MapContainer center={coordinates} zoom={13} style={{ height: "100%", width: "100%", borderRadius: '15px' }}>
         <TileLayer
