@@ -19,3 +19,14 @@
     justify-content: space-around;
     align-items: center;
 }
+
+.payment-method {
+    background-image: url('../../assets/images/rectangle.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex-direction: column;
+    padding: 3em;
+    width: 45%;
+    padding: 2.5em;
+    border-radius: 25px;
+}
