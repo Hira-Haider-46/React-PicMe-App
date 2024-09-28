@@ -16,6 +16,6 @@
     margin-bottom: 0.5em;
 }
 
-.text a {
+.text :nth-child(2), .text :nth-child(3) {
     width: 65%;
 }
