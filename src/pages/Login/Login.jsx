@@ -17,7 +17,8 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
-    const role = useSelector((state) => state.auth.role); 
+    const type = useSelector((state) => state.auth.type); 
+    console.log(type);
 
     const toggleRememberMe = () => {
         setRememberMe(!rememberMe);
@@ -30,16 +31,16 @@ export default function Login() {
     const handleLogIn = async (e) => {
         e.preventDefault();
         
-        if (role === null) {
-            console.error("Role is not set");
+        if (type === null) {
+            console.error("type is not set");
             return;
         }
 
-        const res = await postApiWithoutAuth(LOGIN, { email, password, type: role }); 
+        const res = await postApiWithoutAuth(LOGIN, { email, password, type }); 
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
-            dispatch(loginSuccess({ token, user: res.data.user, role })); 
+            dispatch(loginSuccess({ token, user: res.data.user, type })); 
             navigate('/');
         } else {
             console.error("Login error ", res);

@@ -4,24 +4,28 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
-import { loginSuccess } from '../../features/authSlice';
+import { signupSuccess } from '../../features/authSlice';
+import { postApiWithoutAuth } from '../../apis';
+import { useDispatch, useSelector } from 'react-redux';
 import { SIGNUP } from '../../apis/apiUrls';
 import './SignUp.css';
 
 export default function SignUp() {
     const [confirmPass, setConfirmPass] = useState(false);
     const [showPass, setShowPass] = useState(false);
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-    const [fullName, setFullName] = useState('');
+    const [name, setname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const type = useSelector((state) => state.auth.type);
 
     const toggleConfirmPass = () => {
         setConfirmPass(!confirmPass);
     };
- 
+
     const toggleShowPass = () => {
         setShowPass(!showPass);
     };
@@ -32,11 +36,12 @@ export default function SignUp() {
             alert("Passwords do not match");
             return;
         }
-        const res = await postApiWithoutAuth(SIGNUP, { fullName, email, password, type: role }); 
+        console.log({ email, password, name, type: type })
+        const res = await postApiWithoutAuth(SIGNUP, { email, password, name, type: type });
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
-            dispatch(loginSuccess({ token, user: res.data.user, role })); 
+            dispatch(signupSuccess({ token, user: res.data.user, type })); 
             navigate('/');
         } else {
             console.error("Signup error ", res);
@@ -52,8 +57,8 @@ export default function SignUp() {
                     <input
                         type="text"
                         placeholder="Full name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)} 
+                        value={name}
+                        onChange={(e) => setname(e.target.value)}
                         required
                     />
                 </div>
@@ -62,8 +67,8 @@ export default function SignUp() {
                     <input
                         type="email"
                         placeholder="abc@email.com"
-                        value={email} 
-                        onChange={(e) => setEmail(e.target.value)} 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         required
                     />
                 </div>
