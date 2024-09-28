@@ -16,18 +16,16 @@ export default function ContinueAsPage() {
 
     return (
         <div className="text flex">
-            <h1>Experience Photography In a new Dimension</h1>
-
+            <h1>Experience Photography In a New Dimension</h1>
             <Button
                 text="CONTINUE AS CUSTOMER"
                 styles={{ backgroundColor: '#2BAFC7', color: 'white', border: '1px solid #2BAFC7' }}
                 onClick={() => handleRoleSelection(0)} 
             />
-
             <Button
                 text="CONTINUE AS PHOTOGRAPHER"
                 styles={{ backgroundColor: 'white', color: '#2BAFC7', border: '1px solid #2BAFC7' }}
-                onClick={() => handleRoleSelection(1)}
+                onClick={() => handleRoleSelection(1)} 
             />
         </div>
     );

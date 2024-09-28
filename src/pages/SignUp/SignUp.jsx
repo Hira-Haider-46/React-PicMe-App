@@ -4,6 +4,8 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
+import { loginSuccess } from '../../features/authSlice';
+import { SIGNUP } from '../../apis/apiUrls';
 import './SignUp.css';
 
 export default function SignUp() {
@@ -24,13 +26,21 @@ export default function SignUp() {
         setShowPass(!showPass);
     };
 
-    const handleSignUp = (e) => {
+    const handleSignUp = async (e) => {
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match");
             return;
         }
-        navigate('/');
+        const res = await postApiWithoutAuth(SIGNUP, { fullName, email, password, type: role }); 
+        if (res.success) {
+            const token = res.headers.authorization;
+            localStorage.setItem('token', token);
+            dispatch(loginSuccess({ token, user: res.data.user, role })); 
+            navigate('/');
+        } else {
+            console.error("Signup error ", res);
+        }
     };
 
     return (

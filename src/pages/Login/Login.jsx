@@ -6,6 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import { postApiWithoutAuth } from '../../apis';
 import { LOGIN } from '../../apis/apiUrls';
+import { useDispatch, useSelector } from 'react-redux'; 
+import { loginSuccess } from '../../features/authSlice'; 
 import './Login.css';
 
 export default function Login() {
@@ -14,6 +16,8 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch(); 
+    const role = useSelector((state) => state.auth.role); 
 
     const toggleRememberMe = () => {
         setRememberMe(!rememberMe);
@@ -25,16 +29,21 @@ export default function Login() {
 
     const handleLogIn = async (e) => {
         e.preventDefault();
-        const res =await postApiWithoutAuth(LOGIN, { email, password, type: 0 })
-        if(res.success){
-            const token = res.headers.getAuthorization()
-            localStorage.setItem('token',token)
-
-        }else{
-            console.log("Logged error ",res)
+        
+        if (role === null) {
+            console.error("Role is not set");
+            return;
         }
-        navigate('/');
 
+        const res = await postApiWithoutAuth(LOGIN, { email, password, type: role }); 
+        if (res.success) {
+            const token = res.headers.authorization;
+            localStorage.setItem('token', token);
+            dispatch(loginSuccess({ token, user: res.data.user, role })); 
+            navigate('/');
+        } else {
+            console.error("Login error ", res);
+        }
     };
 
     return (
@@ -80,5 +89,5 @@ export default function Login() {
                 <p>Don't have an account? <Link to='/signup'>Sign up</Link></p>
             </div>
         </div>
-    )
+    );
 }

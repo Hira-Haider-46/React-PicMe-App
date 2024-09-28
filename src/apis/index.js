@@ -6,13 +6,11 @@ axios.defaults.baseURL = BASE_URL;
 
 const setApiHeader = async () => {
     axios.defaults.headers.common.Authorization = localStorage.getItem("token");
-  };
-
+};
 
 export const postApiWithoutAuth = async (url, body) => {
     try {
         const res = await axios.post(url, body);
-
         return {
             data: res.data,
             status: res.status,
@@ -28,7 +26,6 @@ export const postApiWithAuth = async (url, body) => {
     try {
         setApiHeader()
         const res = await axios.post(url, body);
-
         return {
             data: res.data,
             status: res.status,

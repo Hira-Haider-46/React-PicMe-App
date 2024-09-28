@@ -14,21 +14,7 @@ export default function Layout() {
 
     return (
         <>
-            {!token ?
-                < div className='layout flex' >
-                    <div className='text-portion'>
-                        <nav className='nav'>
-                            <Link to='/'><img src={logo} alt="logo" /></Link>
-                        </nav>
-                        <Outlet />
-                    </div>
-                    <div className="img-portion flex">
-                        <img src={cameraImg} alt="camera-img" />
-                    </div>
-                </div >
-
-                :
-
+            {token ?
                 <div className='customer-layout flex'>
                     <nav className='navbar flex'>
                         <Link to='/'><img src={navLogo} alt="navLogo" /></Link>
@@ -54,6 +40,20 @@ export default function Layout() {
                         <Outlet />
                     </div>
                 </div>
+
+                :
+
+                < div className='layout flex' >
+                    <div className='text-portion'>
+                        <nav className='nav'>
+                            <Link to='/'><img src={logo} alt="logo" /></Link>
+                        </nav>
+                        <Outlet />
+                    </div>
+                    <div className="img-portion flex">
+                        <img src={cameraImg} alt="camera-img" />
+                    </div>
+                </div >
             }
         </>
     );
