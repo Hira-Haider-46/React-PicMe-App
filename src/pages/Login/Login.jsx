@@ -18,7 +18,6 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
     const type = useSelector((state) => state.auth.type); 
-    console.log(type);
 
     const toggleRememberMe = () => {
         setRememberMe(!rememberMe);

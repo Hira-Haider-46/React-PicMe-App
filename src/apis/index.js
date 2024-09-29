@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = "https://api-dev.thepicmeapp.com/api/v1"
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 axios.defaults.baseURL = BASE_URL;
 
