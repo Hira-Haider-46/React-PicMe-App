@@ -11,6 +11,7 @@ export default function ContinueAsPage() {
 
     const handleRoleSelection = (type) => {
         dispatch(setType(type)); 
+        localStorage.setItem('type', type);
         navigate('/login'); 
     };
 

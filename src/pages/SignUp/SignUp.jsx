@@ -5,7 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import { signupSuccess } from '../../store/slices/authSlice';
-import { postApiWithoutAuth } from '../../apis';
+import { postApiWithoutAuth } from '../../apis/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIGNUP } from '../../apis/apiUrls';
 import './SignUp.css';
@@ -36,13 +36,14 @@ export default function SignUp() {
             alert("Passwords do not match");
             return;
         }
-        console.log({ email, password, name, type: type })
+
+        console.log({ email, password, name, type: type });
         const res = await postApiWithoutAuth(SIGNUP, { email, password, name, type: type });
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
-            dispatch(signupSuccess({ token, user: res.data.user, type })); 
-            navigate('/');
+            dispatch(signupSuccess({ token, user: res.data.user, type }));
+            navigate(`/verification?email=${encodeURIComponent(email)}`);
         } else {
             console.error("Signup error ", res);
         }
@@ -104,5 +105,5 @@ export default function SignUp() {
                 <p>Already have an account? <Link to='/login'>Log in</Link></p>
             </div>
         </div>
-    )
+    );
 }

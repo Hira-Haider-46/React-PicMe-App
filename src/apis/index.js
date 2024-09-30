@@ -52,3 +52,32 @@ export const getApiWithAuth = async (url) => {
         return { data: err.response.data, success: false };
     }
 }
+
+export const putApiWithoutAuth = async (url, body) => {
+    try {
+        const res = await axios.put(url, body);
+        return {
+            data: res.data,
+            status: res.status,
+            success: true,
+            headers: res.headers,
+        };
+    } catch (err) {
+        return { data: err.response.data, success: false };
+    }
+}
+
+export const putApiWithAuth = async (url, body) => {
+    try {
+        await setApiHeader(); 
+        const res = await axios.put(url, body);
+        return {
+            data: res.data,
+            status: res.status,
+            success: true,
+            headers: res.headers,
+        };
+    } catch (err) {
+        return { data: err.response.data, success: false };
+    }
+}

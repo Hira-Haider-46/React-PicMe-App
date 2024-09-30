@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
 import { FaRegEnvelope } from "react-icons/fa6";
 import Button from '../../commonComponents/Button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { postApiWithoutAuth } from '../../apis/index'; 
-import { FORGOT_PASS } from '../../apis/apiUrls'; 
+import { FORGOT_PASS } from '../../apis/apiUrls';
 import './ForgotPassword.css';
 
 export default function ForgotPassword() {
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
+    const type = localStorage.getItem('type');
 
     const handleForgotPassword = async (e) => {
-        e.preventDefault();  
+        e.preventDefault();
         
-        const res = await postApiWithoutAuth(FORGOT_PASS, { 
-            email: email, 
-            redirect_url: `${import.meta.env.VITE_BASE_URL}/new-password` 
+        const res = await postApiWithoutAuth(FORGOT_PASS, {
+            email: email,
+            redirect_url: `http://localhost:5173/new-password?email=${encodeURIComponent(email)}&type=${encodeURIComponent(type)}`
         });
-        
+    
         if (res.success) {
             console.log("Password reset email sent successfully.");
-            navigate(`/verification?email=${encodeURIComponent(email)}`); 
         } else {
             console.error("Error sending password reset email: ", res);
         }
-    };    
+    };  
 
     return (
         <div className='login forgot-pass'>

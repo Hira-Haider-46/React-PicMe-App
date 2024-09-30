@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
-import { postApiWithoutAuth } from '../../apis';
+import { postApiWithoutAuth } from '../../apis/index';
 import { LOGIN } from '../../apis/apiUrls';
 import { useDispatch, useSelector } from 'react-redux'; 
 import { loginSuccess } from '../../store/slices/authSlice'; 
@@ -15,9 +15,21 @@ export default function Login() {
     const [showPass, setShowPass] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const dispatch = useDispatch(); 
-    const type = useSelector((state) => state.auth.type); 
+    const location = useLocation();
+    const typeFromParams = new URLSearchParams(location.search).get('type');
+    const type = useSelector((state) => state.auth.type) || typeFromParams; 
+
+    useEffect(() => {
+        if (rememberMe) {
+            const savedEmail = localStorage.getItem('email');
+            if (savedEmail) {
+                setEmail(savedEmail);
+            }
+        }
+    }, [rememberMe]);
 
     const toggleRememberMe = () => {
         setRememberMe(!rememberMe);
@@ -30,8 +42,8 @@ export default function Login() {
     const handleLogIn = async (e) => {
         e.preventDefault();
         
-        if (type === null) {
-            console.error("type is not set");
+        if (!type) {
+            console.error("Type is not set");
             return;
         }
 
@@ -39,16 +51,20 @@ export default function Login() {
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
+            if (rememberMe) {
+                localStorage.setItem('email', email);  
+            }
             dispatch(loginSuccess({ token, user: res.data.user, type })); 
             navigate('/');
         } else {
-            console.error("Login error ", res);
+            setError(res.data.message || "Login error, please try again."); 
         }
     };
 
     return (
         <div className="login flex">
             <h2>Log in</h2>
+            {error && <p className="error-message">{error}</p>}
             <form className='flex' onSubmit={handleLogIn}>
                 <div className="input-group flex">
                     <FaRegEnvelope />

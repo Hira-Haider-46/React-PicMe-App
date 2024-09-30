@@ -71,7 +71,7 @@ export default function Verification() {
                     />
                 ))}
             </div>
-            <Link to='/new-password' onClick={handleVerify}>
+            <Link to='/' onClick={handleVerify}>
                 <Button text='CONTINUE' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
             </Link>
             <div className='timer'>
