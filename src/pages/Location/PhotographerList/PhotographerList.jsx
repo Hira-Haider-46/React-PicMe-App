@@ -6,9 +6,10 @@ import { BsSliders } from "react-icons/bs";
 import ProfileImg from '../../../assets/images/ProfileImg.png';
 import './PhotographerList.css';
 
-export default function PhotographerList({ location }) {
+export default function PhotographerList({ location, photographers }) {
     return (
         <div className='list flex'>
+            {console.log(photographers)}
             <div className='loc-bar flex'>
                 <IoIosArrowBack />
                 <p>{location}</p>
