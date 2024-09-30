@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../commonComponents/Button';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setType } from '../../features/authSlice';
+import { setType } from '../../store/slices/authSlice';
 import './ContinueAsPage.css';
 
 export default function ContinueAsPage() {

@@ -7,7 +7,7 @@ import Button from '../../commonComponents/Button';
 import { postApiWithoutAuth } from '../../apis';
 import { LOGIN } from '../../apis/apiUrls';
 import { useDispatch, useSelector } from 'react-redux'; 
-import { loginSuccess } from '../../features/authSlice'; 
+import { loginSuccess } from '../../store/slices/authSlice'; 
 import './Login.css';
 
 export default function Login() {

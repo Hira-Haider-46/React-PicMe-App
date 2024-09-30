@@ -4,7 +4,7 @@ import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
-import { signupSuccess } from '../../features/authSlice';
+import { signupSuccess } from '../../store/slices/authSlice';
 import { postApiWithoutAuth } from '../../apis';
 import { useDispatch, useSelector } from 'react-redux';
 import { SIGNUP } from '../../apis/apiUrls';

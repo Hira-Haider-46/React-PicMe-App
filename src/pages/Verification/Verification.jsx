@@ -1,11 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import Button from '../../commonComponents/Button';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { postApiWithoutAuth } from '../../apis/index'; 
+import { OTP_VERIFY } from '../../apis/apiUrls'; 
 import './Verification.css';
 
 export default function Verification() {
     const [code, setCode] = useState(['', '', '', '']);
     const [timer, setTimer] = useState(30);
+    const [email, setEmail] = useState('');
+
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const emailFromParams = queryParams.get('email');
+
+    useEffect(() => {
+        if (emailFromParams) {
+            setEmail(emailFromParams);
+        }
+    }, [emailFromParams]);
 
     useEffect(() => {
         if (timer > 0) {
@@ -31,10 +44,20 @@ export default function Verification() {
         setTimer(30);
     };
 
+    const handleVerify = async () => {
+        const otp_code = code.join('');
+        const res = await postApiWithoutAuth(OTP_VERIFY, { email, otp_code });
+        if (res.success) {
+            console.log("Verification successful.");
+        } else {
+            console.error("Error verifying OTP: ", res);
+        }
+    };
+
     return (
         <div className='forgot-pass flex'>
             <h2>Verification</h2>
-            <p>We’ve sent you the verification code on abc@gmail.com</p>
+            <p>We’ve sent you the verification code on {email}</p>
             <div className='code-inputs flex'>
                 {code.map((digit, index) => (
                     <input
@@ -48,7 +71,7 @@ export default function Verification() {
                     />
                 ))}
             </div>
-            <Link to='/new-password'>
+            <Link to='/new-password' onClick={handleVerify}>
                 <Button text='CONTINUE' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
             </Link>
             <div className='timer'>
