@@ -20,37 +20,34 @@ import PaymentDetails from "./pages/PaymentDetails";
 import './App.css';
 
 export default function App() {
-  const token = localStorage.getItem('token');
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          {!token ? (
-            <Route element={<PublicRoutes />}>
-              <Route index element={<ContinueAsPage />} />
-              <Route path="login" element={<Login />} />
-              <Route path="signup" element={<SignUp />} />
-              <Route path="forgot-password" element={<ForgotPassword />} />
-              <Route path="verification" element={<Verification />} />
-              <Route path="new-password" element={<CreateNewPass />} />
-              <Route path="password-change" element={<PassChange />} />
+        <Route element={<Layout />}>
+          <Route element={<PublicRoutes />}>
+            <Route index element={<ContinueAsPage />} />
+            <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="verification" element={<Verification />} />
+            <Route path="new-password" element={<CreateNewPass />} />
+            <Route path="password-change" element={<PassChange />} />
+          </Route></Route>
+        <Route element={<Layout />}>
+          <Route element={<PrivateRoutes />}>
+            <Route path="choose-location" element={<ChooseLocation />} />
+            <Route path="location" element={<Location />} />
+            <Route path="photographer-profile" element={<ProfileLayout />}>
+              <Route index element={<Photos />} />
+              <Route path="photos" element={<Photos />} />
+              <Route path="videos" element={<Videos />} />
+              <Route path="reviews" element={<Reviews />} />
+              <Route path="category" element={<h1>Category Page</h1>} />
+              <Route path="package" element={<Packages />} />
             </Route>
-          ) : (
-            <Route element={<PrivateRoutes />}>
-              <Route index element={<ChooseLocation />} />
-              <Route path="location" element={<Location />} />
-              <Route path="photographer-profile" element={<ProfileLayout />}>
-                <Route index element={<Photos />} />
-                <Route path="photos" element={<Photos />} />
-                <Route path="videos" element={<Videos />} />
-                <Route path="reviews" element={<Reviews />} />
-                <Route path="category" element={<h1>Category Page</h1>} />
-                <Route path="package" element={<Packages />} />
-              </Route>
-              <Route path="checkout" element={<PaymentDetails />} />
-            </Route>
-          )}
+            <Route path="checkout" element={<PaymentDetails />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

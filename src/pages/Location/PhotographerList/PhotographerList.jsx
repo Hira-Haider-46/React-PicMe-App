@@ -1,42 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PhotographerListCard from '../../../commonComponents/PhotographerListCard';
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
 import { IoSearchOutline } from "react-icons/io5";
 import { BsSliders } from "react-icons/bs";
-import ProfileImg from '../../../assets/images/ProfileImg.png';
+import { nanoid } from 'nanoid'; 
 import './PhotographerList.css';
 
-export default function PhotographerList({ location, photographers }) {
+export default function PhotographerList({ location, photographers, setIsSearched }) {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filteredPhotographers = photographers.filter((photographerData) => {
+        const { photographer } = photographerData;
+        return photographer.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+
+    const handleIconClick = () => {
+        setIsSearched(false); 
+    }
+
     return (
         <div className='list flex'>
-            {console.log(photographers)}
             <div className='loc-bar flex'>
-                <IoIosArrowBack />
+                <IoIosArrowBack onClick={handleIconClick} /> 
                 <p>{location}</p>
-                <IoIosClose />
+                <IoIosClose onClick={handleIconClick} />
             </div>
             <div className='text-part'>
                 <h2>Photographers Lists</h2>
                 <p>Find the best photographers in your area for your next event!</p>
             </div>
             <div className='search-bar flex'>
-                <IoSearchOutline />
-                <input type="text" placeholder='Search photographers' />
-                <BsSliders />
+                <span onClick={handleIconClick}>
+                    <IoSearchOutline />
+                </span>
+                <input
+                    type="text"
+                    placeholder='Search photographers'
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                />
+                <span onClick={handleIconClick}>
+                    <BsSliders />
+                </span>
             </div>
             <div className='cards'>
-                <PhotographerListCard
-                    obj={
-                        {
-                            profileImg: ProfileImg,
-                            name: 'Joy Mark',
-                            proficiency: 'Street Photographer',
-                            rating: '4.0',
-                            NoOfreviews: '123'
-                        }
-                    }
-                />
+                {filteredPhotographers.map((photographerData) => {
+                    const { photographer } = photographerData;
+
+                    return (
+                        <PhotographerListCard
+                            key={nanoid()}
+                            obj={{
+                                profileImg: photographer.avatar_url,
+                                name: photographer.name,
+                                rating: photographer.average_rating.toFixed(1),
+                                NoOfreviews: photographer.total_reviews
+                            }}
+                        />
+                    );
+                })}
             </div>
         </div>
-    )
+    );
 }

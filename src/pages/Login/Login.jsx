@@ -55,7 +55,7 @@ export default function Login() {
                 localStorage.setItem('email', email);  
             }
             dispatch(loginSuccess({ token, user: res.data.user, type })); 
-            navigate('/');
+            navigate('/choose-location');
         } else {
             setError(res.data.message || "Login error, please try again."); 
         }

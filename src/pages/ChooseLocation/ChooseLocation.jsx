@@ -11,7 +11,13 @@ export default function ChooseLocation() {
       <h2>Search Location</h2>
       <p>Find the best photographers in your area for your next event!</p>
       <Link to='location'>
-        <Button text='CHOOSE LOCATION' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+        <Button text='SEARCH BY CATEGORY' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+      </Link>
+      <Link to='location'>
+        <Button text='SEARCH BY NAME' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+      </Link>
+      <Link to='location'>
+        <Button text='SEARCH BY LOCATION' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
       </Link>
     </div>
   )

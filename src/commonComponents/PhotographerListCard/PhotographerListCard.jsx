@@ -14,7 +14,6 @@ export default function PhotographerListCard({ obj }) {
         <div className='card flex' onClick={handleClick}>
             <img src={obj.profileImg} alt="profile-img" />
             <h2>{obj.name}</h2>
-            <p>{obj.proficiency}</p>
             <p>
                 <span><FaStar /></span>
                 <span>{obj.rating}</span>

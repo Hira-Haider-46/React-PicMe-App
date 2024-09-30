@@ -1,7 +1,7 @@
 .location-page {
     margin: 0.5em 0 1.5em 0;
     position: relative;
-    height: 125vh;
+    height: auto;
 }
 
 .search-container {
@@ -67,14 +67,10 @@
     padding: 0.9em 1em;
     border-radius: 10px;
     font-size: 0.85rem;
-    justify-content: space-between;
     background-color: white;
-}
-
-.date-group input {
     border: none;
     outline: none;
-    width: 90%;
+    color: var(--text);
 }
 
 .date-group :nth-child(2) {
