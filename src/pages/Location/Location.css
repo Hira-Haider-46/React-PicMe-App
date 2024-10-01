@@ -17,67 +17,6 @@
     z-index: 1000;
 }
 
-.search {
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.input--group {
-    background-color: white;
-    width: 84%;
-    padding: 0.2em 0.5em;
-    align-items: center;
-    border-radius: 12px;
-}
-
-.input--group :first-child {
-    font-size: 1.2rem;
-}
-
-.search input {
-    padding: 0.8em;
-    border: none;
-    outline: none;
-}
-
-.loc-div {
-    background-color: white;
-    border-radius: 12px;
-    width: 50px;
-    height: 50px;
-    cursor: pointer;
-}
-
-.loc-div :first-child {
-    margin-left: 0.75em;
-    margin-top: 0.75em;
-    font-size: 1.2rem;
-    color: var(--primary-color);
-}
-
-.date-container {
-    justify-content: space-between;
-    width: 100%;
-    margin-top: 0.7em;
-}
-
-.date-group {
-    width: 48%;
-    padding: 0.9em 1em;
-    border-radius: 10px;
-    font-size: 0.85rem;
-    background-color: white;
-    border: none;
-    outline: none;
-    color: var(--text);
-}
-
-.date-group :nth-child(2) {
-    color: var(--text);
-    font-size: 1rem;
-}
-
 .photographer-list {
     position: absolute;
     top: 0;
