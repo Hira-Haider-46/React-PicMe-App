@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import navLogo from '../../assets/images/navLogo2.png';
@@ -9,17 +9,26 @@ import profilePic from '../../assets/images/profile.png';
 import './Layout.css';
 
 export default function Layout() {
+    const [token, setToken] = useState(localStorage.getItem('token'));
 
-    const token = localStorage.getItem('token');
+    useEffect(() => {
+        const handleStorageChange = () => {
+            setToken(localStorage.getItem('token'));
+        };
+        window.addEventListener('storage', handleStorageChange);
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, []);
 
     return (
         <>
-            {token ?
+            {token ? (
                 <div className='customer-layout flex'>
                     <nav className='navbar flex'>
-                        <Link to='/'><img src={navLogo} alt="navLogo" /></Link>
+                        <Link to='/choose-location'><img src={navLogo} alt="navLogo" /></Link>
                         <ul className='flex'>
-                            <Link to='/'>
+                            <Link to='/choose-location'>
                                 <li>
                                     <img src={homePic} alt="homePic" /> Home
                                 </li>
@@ -40,21 +49,19 @@ export default function Layout() {
                         <Outlet />
                     </div>
                 </div>
-
-                :
-
-                < div className='layout flex' >
+            ) : (
+                <div className='layout flex'>
                     <div className='text-portion'>
                         <nav className='nav'>
-                            <Link to='/'><img src={logo} alt="logo" /></Link>
+                            <Link to='/choose-location'><img src={logo} alt="logo" /></Link>
                         </nav>
                         <Outlet />
                     </div>
                     <div className="img-portion flex">
                         <img src={cameraImg} alt="camera-img" />
                     </div>
-                </div >
-            }
+                </div>
+            )}
         </>
     );
 }

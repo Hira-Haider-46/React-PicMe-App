@@ -51,7 +51,6 @@ export default function Verification() {
         const res = await postApiWithoutAuth(OTP_VERIFY, { email, otp_code });
         if (res.success) {
             console.log("Verification successful.");
-            navigate('/choose-location')
         } else {
             console.error("Error verifying OTP: ", res);
         }
@@ -74,7 +73,7 @@ export default function Verification() {
                     />
                 ))}
             </div>
-            <Link to='/' onClick={handleVerify}>
+            <Link to='/choose-location' onClick={handleVerify}>
                 <Button text='CONTINUE' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
             </Link>
             <div className='timer'>

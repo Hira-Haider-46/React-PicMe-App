@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { TbCurrentLocation } from "react-icons/tb";
 import { IoIosArrowBack } from "react-icons/io";
@@ -9,8 +10,14 @@ import 'leaflet/dist/leaflet.css';
 import './Location.css';
 
 export default function Location() {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchType = searchParams.get('searchType');
+
   const [coordinates, setCoordinates] = useState([47.6062, -122.3321]);
-  const [location, setLocation] = useState('');
+  const [locationName, setLocationName] = useState('');
+  const [photographerName, setPhotographerName] = useState('');
+  const [category, setCategory] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [photographers, setPhotographers] = useState([]);
@@ -23,7 +30,7 @@ export default function Location() {
   };
 
   const fetchCoordinates = async () => {
-    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`);
+    const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${locationName}`);
     const data = await response.json();
 
     if (data && data.length > 0) {
@@ -37,7 +44,7 @@ export default function Location() {
     }
   };
 
-  const handleSearch = async (e) => {
+  const handleSearchByLocation = async (e) => {
     e.preventDefault();
     const coords = await fetchCoordinates();
 
@@ -55,44 +62,98 @@ export default function Location() {
     }
   };
 
+  const handleSearchByName = async (e) => {
+    e.preventDefault();
+    const url = `customers/search_photographer?name=${encodeURIComponent(photographerName)}`;
+    const res = await getApiWithAuth(url);
+
+    if (res.success) {
+      setPhotographers(res.data);
+      setIsSearched(true);
+    } else {
+      console.error("Error fetching photographers: ", res.data);
+    }
+  };
+
+  const handleSearchByCategory = async (e) => {
+    e.preventDefault();
+    const url = `customers/search_photographer?category=${encodeURIComponent(category)}`;
+    const res = await getApiWithAuth(url);
+
+    if (res.success) {
+      setPhotographers(res.data);
+      setIsSearched(true);
+    } else {
+      console.error("Error fetching photographers: ", res.data);
+    }
+  };
+
   return (
     <div className="location-page">
       {!isSearched ? (
         <div className="search-container flex">
-          <div className="search flex">
-            <div className='input--group flex'>
-              <IoIosArrowBack />
+          {searchType === 'location' && (
+            <>
+              <div className="search flex">
+                <div className='input--group flex'>
+                  <IoIosArrowBack />
+                  <input
+                    type="text"
+                    placeholder="Find for Photographers"
+                    value={locationName}
+                    onChange={(e) => setLocationName(e.target.value)}
+                  />
+                </div>
+                <div className='loc-div' onClick={handleSearchByLocation}>
+                  <TbCurrentLocation />
+                </div>
+              </div>
+              <div className="date-container flex">
+                <input
+                  className='date-group'
+                  type="date"
+                  placeholder='From'
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                />
+                <input
+                  className='date-group'
+                  type="date"
+                  placeholder='To'
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                />
+              </div>
+            </>
+          )}
+
+          {searchType === 'name' && (
+            <div className="search-by-name">
               <input
                 type="text"
-                placeholder="Find for Photographers"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+                placeholder="Enter Photographer's Name"
+                value={photographerName}
+                onChange={(e) => setPhotographerName(e.target.value)}
               />
+              <button onClick={handleSearchByName}>Search</button>
             </div>
-            <div className='loc-div' onClick={handleSearch}>
-              <TbCurrentLocation />
+          )}
+
+          {searchType === 'category' && (
+            <div className="search-by-category">
+              <select value={category} onChange={(e) => setCategory(e.target.value)}>
+                <option value="">Select Category</option>
+                <option value="Wedding">Wedding</option>
+                <option value="Portrait">Portrait</option>
+                <option value="Event">Event</option>
+              </select>
+              <button onClick={handleSearchByCategory}>Search</button>
             </div>
-          </div>
-          <div className="date-container flex">
-            <input
-              className='date-group'
-              type="date"
-              placeholder='From'
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-            <input
-              className='date-group'
-              type="date"
-              placeholder='To'
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </div>
+          )}
         </div>
       ) : (
         <div className='photographer-list'>
-          <PhotographerList location={location} photographers={photographers} setIsSearched={setIsSearched} />
+          <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} />
         </div>
       )}
 
