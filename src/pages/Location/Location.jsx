@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import PhotographerList from './PhotographerList';
 import { getApiWithAuth } from '../../apis/index';
 import { nanoid } from 'nanoid';
+import Button from '../../commonComponents/Button';
 import 'leaflet/dist/leaflet.css';
 import './Location.css';
 
@@ -62,30 +63,12 @@ export default function Location() {
     }
   };
 
-  const handleSearchByName = async (e) => {
-    e.preventDefault();
-    const url = `customers/search_photographer?name=${encodeURIComponent(photographerName)}`;
-    const res = await getApiWithAuth(url);
-
-    if (res.success) {
-      setPhotographers(res.data);
-      setIsSearched(true);
-    } else {
-      console.error("Error fetching photographers: ", res.data);
-    }
+  const handleSearchByName = async () => {
+    
   };
 
-  const handleSearchByCategory = async (e) => {
-    e.preventDefault();
-    const url = `customers/search_photographer?category=${encodeURIComponent(category)}`;
-    const res = await getApiWithAuth(url);
-
-    if (res.success) {
-      setPhotographers(res.data);
-      setIsSearched(true);
-    } else {
-      console.error("Error fetching photographers: ", res.data);
-    }
+  const handleSearchByCategory = async () => {
+    
   };
 
   return (
@@ -128,26 +111,23 @@ export default function Location() {
           )}
 
           {searchType === 'name' && (
-            <div className="search-by-name">
+            <div className="search-by-name flex">
               <input
                 type="text"
                 placeholder="Enter Photographer's Name"
                 value={photographerName}
                 onChange={(e) => setPhotographerName(e.target.value)}
               />
-              <button onClick={handleSearchByName}>Search</button>
+              <Button text='SEARCH' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} onClick={handleSearchByName}/>
             </div>
           )}
 
           {searchType === 'category' && (
-            <div className="search-by-category">
+            <div className="search-by-name flex">
               <select value={category} onChange={(e) => setCategory(e.target.value)}>
                 <option value="">Select Category</option>
-                <option value="Wedding">Wedding</option>
-                <option value="Portrait">Portrait</option>
-                <option value="Event">Event</option>
               </select>
-              <button onClick={handleSearchByCategory}>Search</button>
+              <Button text='SEARCH' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} onClick={handleSearchByCategory}/>
             </div>
           )}
         </div>

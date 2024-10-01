@@ -78,6 +78,26 @@
     font-size: 1rem;
 }
 
+.search-by-name {
+    padding: 1em;
+    background-color: white;
+    border-radius: 12px;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.search-by-name :first-child {
+    width: 60%;
+    border: 1px solid var(--border);
+    outline: none;
+    padding: 0.8em 1em;
+    border-radius: 8px;
+}
+
+.search-by-name :nth-child(2) {
+    width: 30%;
+}
+
 .photographer-list {
     position: absolute;
     top: 0;
