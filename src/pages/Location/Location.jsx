@@ -32,10 +32,9 @@ export default function Location() {
     return null;
   };
 
-  const fetchCoordinates = async () => {
+  const fetchCoordinates = async (locationName) => {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${locationName}`);
     const data = await response.json();
-
     if (data && data.length > 0) {
       const lat = parseFloat(data[0].lat);
       const lon = parseFloat(data[0].lon);
@@ -55,6 +54,7 @@ export default function Location() {
       const res = await getApiWithAuth(url);
       if (res.success) {
         setPhotographers(res.data);
+        setCoordinates([lat, lon]);
         setIsSearched(true);
       } else {
         console.error("Error fetching photographers: ", res.data);
@@ -183,10 +183,7 @@ export default function Location() {
         {photographers.map((photographer) => (
           <Marker
             key={nanoid()}
-            position={[
-              photographer.latitude,
-              photographer.longitude
-            ]}
+            position={[photographer.latitude, photographer.longitude]}
           />
         ))}
 
