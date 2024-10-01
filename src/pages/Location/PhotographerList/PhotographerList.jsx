@@ -6,7 +6,7 @@ import { BsSliders } from "react-icons/bs";
 import { nanoid } from 'nanoid'; 
 import './PhotographerList.css';
 
-export default function PhotographerList({ location, photographers, setIsSearched }) {
+export default function PhotographerList({ location, photographers, setIsSearched, searchType }) {
     const [searchTerm, setSearchTerm] = useState('');
 
     const filteredPhotographers = photographers.filter((photographerData) => {

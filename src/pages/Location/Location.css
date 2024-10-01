@@ -5,16 +5,18 @@
 }
 
 .search-container {
-    justify-content: space-between;
     flex-direction: column;
-    width: 33%;
+    width: 30%;
+    height: 100%;
     position: absolute;
-    top: 20px;
-    left: 81%;
+    top: 0;
+    left: 85%;
     transform: translateX(-50%);
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    z-index: 10000;
+    padding: 2em;
+    border: 1px solid var(--border);
+    background-color: white;
 }
 
 .search {
@@ -25,10 +27,11 @@
 
 .input--group {
     background-color: white;
-    width: 84%;
+    width: 80%;
     padding: 0.2em 0.5em;
     align-items: center;
     border-radius: 12px;
+    border: 1px solid var(--border);
 }
 
 .input--group :first-child {
@@ -47,6 +50,7 @@
     width: 50px;
     height: 50px;
     cursor: pointer;
+    border: 1px solid var(--border);
 }
 
 .loc-div :first-child {
@@ -59,7 +63,7 @@
 .date-container {
     justify-content: space-between;
     width: 100%;
-    margin-top: 0.7em;
+    margin: 1em 0;
 }
 
 .date-group {
@@ -68,9 +72,9 @@
     border-radius: 10px;
     font-size: 0.85rem;
     background-color: white;
-    border: none;
     outline: none;
     color: var(--text);
+    border: 1px solid var(--border);
 }
 
 .date-group :nth-child(2) {
@@ -78,35 +82,15 @@
     font-size: 1rem;
 }
 
-.search-by-name {
+.search-by-category {
     padding: 1em;
-    background-color: white;
-    border-radius: 12px;
-    justify-content: space-around;
     align-items: center;
 }
 
-.search-by-name :first-child {
-    width: 60%;
+.search-by-category select {
+    width: 100%;
     border: 1px solid var(--border);
+    padding: 0.5em 1em;
     outline: none;
-    padding: 0.8em 1em;
     border-radius: 8px;
-}
-
-.search-by-name :nth-child(2) {
-    width: 30%;
-}
-
-.photographer-list {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 10000;
-    border-radius: 12px;
-    height: 100%;
-    width: 29%;
-    background-color: white;
-    padding: 2em;
-    border: 1px solid var(--border);
 }
