@@ -30,7 +30,7 @@ export default function Location() {
     return null;
   };
 
-  const fetchCoordinates = async () => {
+  const fetchCoordinates = async (locationName) => {
     const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${locationName}`);
     const data = await response.json();
     if (data && data.length > 0) {

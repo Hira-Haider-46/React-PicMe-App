@@ -30,18 +30,14 @@ export default function PhotographerList({ location, photographers, setIsSearche
                 <p>Find the best photographers in your area for your next event!</p>
             </div>
             <div className='search-bar flex'>
-                <span onClick={handleIconClick}>
-                    <IoSearchOutline />
-                </span>
+            <IoSearchOutline />
                 <input
                     type="text"
                     placeholder='Search photographers'
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
-                <span onClick={handleIconClick}>
-                    <BsSliders />
-                </span>
+                <BsSliders />
             </div>
             <div className='cards'>
                 {filteredPhotographers.map((photographerData) => {
