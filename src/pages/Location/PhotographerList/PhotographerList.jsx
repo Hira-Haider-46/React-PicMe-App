@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import PhotographerListCard from '../../../commonComponents/PhotographerListCard';
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
 import { nanoid } from 'nanoid';
+import { formatCategoryName } from '../../../helper/helper';
 import './PhotographerList.css';
 
-export default function PhotographerList({ location, photographers, setIsSearched, searchType, category, setCategory, categories, formatCategoryName }) {
-    
+export default function PhotographerList({ location, photographers, setIsSearched, searchType, category, setCategory, categories }) {
+
     const [filteredPhotographers, setFilteredPhotographers] = useState(photographers);
+    console.log('categories', categories)
 
     const handleIconClick = () => {
         setIsSearched(false);
@@ -43,21 +45,23 @@ export default function PhotographerList({ location, photographers, setIsSearche
                 <h2>Photographers Lists</h2>
                 <p>Find the best photographers in your area for your next event!</p>
             </div>
-            <div className="search-by-category flex">
-                <select
-                    value={category}
-                    onChange={(e) => handleSearchByCategory(e.target.value)}
-                >
-                    <option value="">Select Category</option>
-                    {categories.length > 0 ? (
-                        categories.map((category, index) => (
-                            <option key={index} value={category}>{category}</option>
-                        ))
-                    ) : (
-                        <option value="">No categories available</option>
-                    )}
-                </select>
-            </div>
+            {searchType === 'location' &&
+                <div className="search-by-category flex">
+                    <select
+                        value={category}
+                        onChange={(e) => handleSearchByCategory(e.target.value)}
+                    >
+                        <option value="">Select Category</option>
+                        {categories?.length > 0 ? (
+                            categories.map((category, index) => (
+                                <option key={index} value={category}>{category}</option>
+                            ))
+                        ) : (
+                            <option value="">No categories available</option>
+                        )}
+                    </select>
+                </div>
+            }
             <div className='cards'>
                 {filteredPhotographers.map((photographerData) => {
                     const { photographer } = photographerData;

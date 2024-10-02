@@ -8,6 +8,7 @@ import PhotographerList from './PhotographerList';
 import { GLOBAL_CATEGORIES } from '../../apis/apiUrls';
 import { getApiWithAuth } from '../../apis/index';
 import { nanoid } from 'nanoid';
+import { formatCategoryName } from '../../helper/helper';
 import 'leaflet/dist/leaflet.css';
 import './Location.css';
 
@@ -25,6 +26,7 @@ export default function Location() {
   const [photographers, setPhotographers] = useState([]);
   const [isSearched, setIsSearched] = useState(false);
   const [categories, setCategories] = useState([]);
+  const [formattedCategories, setFormattedCategories] = useState([]);
 
   const SetViewOnChange = ({ coords }) => {
     const map = useMap();
@@ -54,7 +56,6 @@ export default function Location() {
       const res = await getApiWithAuth(url);
       if (res.success) {
         setPhotographers(res.data);
-        console.log(photographers);
         setCoordinates([lat, lon]);
         setIsSearched(true);
       } else {
@@ -66,8 +67,8 @@ export default function Location() {
   const handleSearchByName = async () => {
   };
 
-  const handleSearchByCategory = async () => {
-    const url = '';
+  const handleSearchByCategory = async (unformattedCategory) => {
+    const url = `/customers/photographer_by_category?search[]=${unformattedCategory}`;
     const res = await getApiWithAuth(url);
     if (res.success) {
       setPhotographers(res.data);
@@ -87,11 +88,13 @@ export default function Location() {
 
   const fetchCategories = async () => {
     const res = await getApiWithAuth(GLOBAL_CATEGORIES);
-    console.log(res.data);
     if (res.success) {
-      const formattedCategories = res.data.data.map(formatCategoryName);
+      const formattedCategories = res.data.data.map(cat => ({
+        formatted: formatCategoryName(cat),
+        unformatted: cat,
+      }));
       setCategories(formattedCategories);
-      console.log(formattedCategories);
+      setFormattedCategories(res.data.data.map(cat => formatCategoryName(cat)));
     } else {
       console.error("Error fetching categories: ", res.data);
     }
@@ -160,14 +163,15 @@ export default function Location() {
                 <select
                   value={category}
                   onChange={(e) => {
-                    setCategory(e.target.value);
-                    handleSearchByCategory(e.target.value);
+                    const selectedCategory = categories.find(cat => cat.formatted === e.target.value);
+                    setCategory(selectedCategory ? selectedCategory.unformatted : '');
+                    handleSearchByCategory(selectedCategory.unformatted);
                   }}
                 >
                   <option value="">Select Category</option>
                   {categories.length > 0 ? (
-                    categories.map((category, index) => (
-                      <option key={index} value={category}>{category}</option>
+                    categories.map((cat, index) => (
+                      <option key={index} value={cat.formatted}>{cat.formatted}</option>
                     ))
                   ) : (
                     <option value="">No categories available</option>
@@ -175,9 +179,10 @@ export default function Location() {
                 </select>
               </div>
             )}
+
           </>
         ) : (
-            <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={categories} formatCategoryName={formatCategoryName } />
+          <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={formattedCategories} />
         )}
       </div>
 
@@ -186,14 +191,18 @@ export default function Location() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-
-        {photographers.map((photographer) => (
-          <Marker
-            key={nanoid()}
-            position={[photographer.latitude, photographer.longitude]}
-          />
-        ))}
-
+        {searchType === 'location' &&
+          <>
+            {
+              photographers.map((photographer) => (
+                <Marker
+                  key={nanoid()}
+                  position={[photographer.latitude, photographer.longitude]}
+                />
+              ))
+            }
+          </>
+        }
         <SetViewOnChange coords={coordinates} />
       </MapContainer>
     </div>
