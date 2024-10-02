@@ -8,10 +8,11 @@ import './PhotographerList.css';
 export default function PhotographerList({ location, photographers, setIsSearched, searchType, category, setCategory, categories }) {
 
     const [filteredPhotographers, setFilteredPhotographers] = useState(photographers);
+    const [noDataFound, setNoDataFound] = useState();
 
     const handleIconClick = () => {
         setIsSearched(false);
-    }
+    };
 
     const handleSearchByCategory = (selectedCategory) => {
         setCategory(selectedCategory);
@@ -25,7 +26,7 @@ export default function PhotographerList({ location, photographers, setIsSearche
         } else {
             setFilteredPhotographers(photographers);
         }
-    }
+    };
 
     useEffect(() => {
         setFilteredPhotographers(photographers);
@@ -40,11 +41,15 @@ export default function PhotographerList({ location, photographers, setIsSearche
                     <IoIosClose onClick={handleIconClick} />
                 </div>
             )}
-            <div className='text-part'>
-                <h2>Photographers Lists</h2>
-                <p>Find the best photographers in your area for your next event!</p>
-            </div>
-            {searchType === 'location' &&
+
+            {noDataFound && (
+                <div className='text-part'>
+                    <h2>Photographers Lists</h2>
+                    <p>Find the best photographers in your area for your next event!</p>
+                </div>
+            )}
+
+            {searchType === 'location' && (
                 <div className="search-by-category flex">
                     <select
                         value={category}
@@ -60,9 +65,10 @@ export default function PhotographerList({ location, photographers, setIsSearche
                         )}
                     </select>
                 </div>
-            }
+            )}
+
             <div className='cards'>
-                {searchType === 'location' &&
+                {searchType === 'location' && (
                     <>
                         {filteredPhotographers.map((photographerData) => {
                             const { photographer } = photographerData;
@@ -80,24 +86,28 @@ export default function PhotographerList({ location, photographers, setIsSearche
                             );
                         })}
                     </>
-                }
-                {(searchType === 'category' || searchType === 'name') &&
+                )}
+                {(searchType === 'category' || searchType === 'name') && (
                     <>
-                        {filteredPhotographers.data.map((photographerData) => {
-                            return (
-                                <PhotographerListCard
-                                    key={nanoid()}
-                                    obj={{
-                                        profileImg: photographerData.profile_image_url,
-                                        name: photographerData.name,
-                                        rating: photographerData.average_rating.toFixed(1),
-                                        NoOfreviews: photographerData.total_reviews
-                                    }}
-                                />
-                            );
-                        })}
+                        {filteredPhotographers.data.length > 0 ?
+                            <>
+                                {filteredPhotographers.data.map((photographerData) => {
+                                    return (
+                                        <PhotographerListCard
+                                            key={nanoid()}
+                                            obj={{
+                                                profileImg: photographerData.profile_image_url,
+                                                name: photographerData.name,
+                                                rating: photographerData.average_rating.toFixed(1),
+                                                NoOfreviews: photographerData.total_reviews
+                                            }}
+                                        />
+                                    );
+                                })}
+                            </> : <div className='msg'><h3>No data found</h3></div>
+                        }
                     </>
-                }
+                )}
             </div>
         </div>
     );
