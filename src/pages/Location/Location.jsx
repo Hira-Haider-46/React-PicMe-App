@@ -78,14 +78,6 @@ export default function Location() {
     }
   };
 
-  const formatCategoryName = (category) => {
-    return category
-      .replace(/_/g, ' ')
-      .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join(' ');
-  };
-
   const fetchCategories = async () => {
     const res = await getApiWithAuth(GLOBAL_CATEGORIES);
     if (res.success) {
@@ -144,6 +136,39 @@ export default function Location() {
                   />
                 </div>
               </>
+            )}
+            {searchType === 'name' && (
+              <div className='search flex name'>
+                <input
+                  type="text"
+                  placeholder='Search Photographer By Name'
+                  value={photographerName}
+                  onChange={(e) => setPhotographerName(e.target.value)}
+                />
+                <IoSearchOutline onClick={handleSearchByName} style={{ cursor: 'pointer' }} />
+              </div>
+            )}
+
+            {searchType === 'category' && (
+              <div className="search-by-category flex">
+                <select
+                  value={category}
+                  onChange={(e) => {
+                    const selectedCategory = categories.find(cat => cat.formatted === e.target.value);
+                    setCategory(selectedCategory ? selectedCategory.unformatted : '');
+                    handleSearchByCategory(selectedCategory.unformatted);
+                  }}
+                >
+                  <option value="">Select Category</option>
+                  {categories.length > 0 ? (
+                    categories.map((cat, index) => (
+                      <option key={index} value={cat.formatted}>{cat.formatted}</option>
+                    ))
+                  ) : (
+                    <option value="">No categories available</option>
+                  )}
+                </select>
+              </div>
             )}
           </>
         ) : (
