@@ -7,7 +7,6 @@ import './ProfileLayout.css';
 
 export default function ProfileLayout() {
     const location = useLocation();
-    const navigate = useNavigate();
     const [photographer, setPhotographer] = useState(() => {
         const storedPhotographer = localStorage.getItem('photographer');
         return storedPhotographer ? JSON.parse(storedPhotographer) : location.state?.photographer;
