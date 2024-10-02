@@ -69,6 +69,7 @@ export default function Location() {
   };
 
   const handleSearchByCategory = async (unformattedCategory) => {
+    setLoading(true);
     const url = `/customers/photographer_by_category?search[]=${unformattedCategory}`;
     const res = await getApiWithAuth(url);
     if (res.success) {
@@ -77,6 +78,7 @@ export default function Location() {
     } else {
       console.error("Error fetching photographers: ", res.data);
     }
+    setLoading(false);
   };
 
   const fetchCategories = async () => {
@@ -94,6 +96,7 @@ export default function Location() {
   };
 
   const handleSearchByName = async (e) => {
+    setLoading(true);
     setPhotographerName(e.target.value);
     const url = `/customers/photographer_by_name?search=${photographerName}`;
     const res = await getApiWithAuth(url);
@@ -104,6 +107,7 @@ export default function Location() {
     } else {
       console.error("Error fetching photographers: ", res.data);
     }
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -156,39 +160,49 @@ export default function Location() {
               </>
             )}
 
-            {searchType === 'name' && (
-              <div className='search flex name'>
-                <input
-                  type="text"
-                  placeholder='Search Photographer By Name'
-                  value={photographerName}
-                  onChange={handleSearchByName}
-                />
-                <IoSearchOutline onClick={handleSearchByName} style={{ cursor: 'pointer' }} />
-              </div>
-            )}
+            {searchType === 'name' &&
+              <>
+                <div className='search flex name'>
+                  <input
+                    type="text"
+                    placeholder='Search Photographer By Name'
+                    value={photographerName}
+                    onChange={handleSearchByName}
+                  />
+                  <IoSearchOutline onClick={handleSearchByName} style={{ cursor: 'pointer' }} />
+                </div>
+                <div className='msg'>
+                  {loading ? <LuLoader2 className="loader" /> : <h3>Enter name of photographer to list photographers</h3>}
+                </div>
+              </>
+            }
 
-            {searchType === 'category' && (
-              <div className="search-by-category flex">
-                <select
-                  value={category}
-                  onChange={(e) => {
-                    const selectedCategory = categories.find(cat => cat.formatted === e.target.value);
-                    setCategory(selectedCategory ? selectedCategory.unformatted : '');
-                    handleSearchByCategory(selectedCategory.unformatted);
-                  }}
-                >
-                  <option value="">Select Category</option>
-                  {categories.length > 0 ? (
-                    categories.map((cat, index) => (
-                      <option key={index} value={cat.formatted}>{cat.formatted}</option>
-                    ))
-                  ) : (
-                    <option value="">No categories available</option>
-                  )}
-                </select>
-              </div>
-            )}
+            {searchType === 'category' &&
+              <>
+                <div className="search-by-category flex">
+                  <select
+                    value={category}
+                    onChange={(e) => {
+                      const selectedCategory = categories.find(cat => cat.formatted === e.target.value);
+                      setCategory(selectedCategory ? selectedCategory.unformatted : '');
+                      handleSearchByCategory(selectedCategory.unformatted);
+                    }}
+                  >
+                    <option value="">Select Category</option>
+                    {categories.length > 0 ? (
+                      categories.map((cat, index) => (
+                        <option key={index} value={cat.formatted}>{cat.formatted}</option>
+                      ))
+                    ) : (
+                      <option value="">No categories available</option>
+                    )}
+                  </select>
+                </div>
+                <div className='msg'>
+                  {loading ? <LuLoader2 className="loader" /> : <h3>Select category to list photographers</h3>}
+                </div>
+              </>
+            }
           </>
         ) : (
           <>

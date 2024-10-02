@@ -118,3 +118,15 @@
     margin: 4em auto;
     color: var(--text);
 }
+
+.msg {
+    padding: 1em;
+    font-size: 0.75rem;
+    margin: 70% auto;
+    color: var(--text);
+    text-align: center;
+}
+
+.msg h3 {
+    font-weight: 500;
+}
