@@ -64,9 +64,6 @@ export default function Location() {
     }
   };
 
-  const handleSearchByName = async () => {
-  };
-
   const handleSearchByCategory = async (unformattedCategory) => {
     const url = `/customers/photographer_by_category?search[]=${unformattedCategory}`;
     const res = await getApiWithAuth(url);
@@ -77,7 +74,7 @@ export default function Location() {
       console.error("Error fetching photographers: ", res.data);
     }
   };
-
+  
   const fetchCategories = async () => {
     const res = await getApiWithAuth(GLOBAL_CATEGORIES);
     if (res.success) {
@@ -89,6 +86,19 @@ export default function Location() {
       setFormattedCategories(res.data.data.map(cat => formatCategoryName(cat)));
     } else {
       console.error("Error fetching categories: ", res.data);
+    }
+  };
+  
+  const handleSearchByName = async (e) => {
+    setPhotographerName(e.target.value);
+    const url = `/customers/photographer_by_name?search=${photographerName}`;
+    const res = await getApiWithAuth(url);
+    if (res.success) {
+      setPhotographers(res.data);
+      setIsSearched(true);
+      console.log('photographers', photographers);
+    } else {
+      console.error("Error fetching photographers: ", res.data);
     }
   };
 
@@ -137,13 +147,14 @@ export default function Location() {
                 </div>
               </>
             )}
+
             {searchType === 'name' && (
               <div className='search flex name'>
                 <input
                   type="text"
                   placeholder='Search Photographer By Name'
                   value={photographerName}
-                  onChange={(e) => setPhotographerName(e.target.value)}
+                  onChange={handleSearchByName}
                 />
                 <IoSearchOutline onClick={handleSearchByName} style={{ cursor: 'pointer' }} />
               </div>
@@ -179,7 +190,7 @@ export default function Location() {
                   type="text"
                   placeholder='Search Photographer By Name'
                   value={photographerName}
-                  onChange={(e) => setPhotographerName(e.target.value)}
+                  onChange={handleSearchByName}
                 />
                 <IoSearchOutline onClick={handleSearchByName} style={{ cursor: 'pointer' }} />
               </div>

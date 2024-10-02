@@ -81,7 +81,7 @@ export default function PhotographerList({ location, photographers, setIsSearche
                         })}
                     </>
                 }
-                {searchType === 'category' &&
+                {searchType === 'category' || searchType === 'name' &&
                     <>
                         {filteredPhotographers.data.map((photographerData) => {
                             return (
