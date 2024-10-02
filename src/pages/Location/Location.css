@@ -16,7 +16,6 @@
     z-index: 10000;
     padding: 2em;
     border: 1px solid var(--border);
-    background-color: white;
 }
 
 .search {
@@ -80,6 +79,13 @@
 .date-group :nth-child(2) {
     color: var(--text);
     font-size: 1rem;
+}
+
+.name {
+    border: 1px solid var(--border);
+    padding: 0 1em 0 0.5em;
+    border-radius: 10px;
+    color: var(--text);
 }
 
 .search-by-category {

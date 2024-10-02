@@ -47,13 +47,14 @@ export default function Location() {
   };
 
   const handleSearchByLocation = async () => {
-    const coords = await fetchCoordinates();
+    const coords = await fetchCoordinates(locationName);
     if (coords) {
       const { lat, lon } = coords;
       const url = `customers/search_photographer?start_date=${encodeURIComponent(startDate)}&end_date=${encodeURIComponent(endDate)}&latitude=${lat}&longitude=${lon}`;
       const res = await getApiWithAuth(url);
       if (res.success) {
         setPhotographers(res.data);
+        console.log(photographers);
         setCoordinates([lat, lon]);
         setIsSearched(true);
       } else {
@@ -84,26 +85,28 @@ export default function Location() {
       .join(' ');
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await getApiWithAuth(GLOBAL_CATEGORIES);
-      if (res.success) {
-        setCategories(res.data.data);
-        console.log(res.data.data);
-      } else {
-        console.error("Error fetching categories: ", res.data);
-      }
-    };
+  const fetchCategories = async () => {
+    const res = await getApiWithAuth(GLOBAL_CATEGORIES);
+    console.log(res.data);
+    if (res.success) {
+      const formattedCategories = res.data.data.map(formatCategoryName);
+      setCategories(formattedCategories);
+      console.log(formattedCategories);
+    } else {
+      console.error("Error fetching categories: ", res.data);
+    }
+  };
 
-    if (searchType === 'category') {
+  useEffect(() => {
+    if (searchType === 'category' || searchType === 'location') {
       fetchCategories();
     }
   }, [searchType]);
 
   return (
     <div className="location-page">
-      <div className="search-container flex">
-        {!isSearched ?
+      <div className="search-container flex" style={isSearched || searchType === 'name' || searchType === 'category' ? { backgroundColor: 'white' } : null}>
+        {!isSearched ? (
           <>
             {searchType === 'location' && (
               <>
@@ -141,7 +144,7 @@ export default function Location() {
             )}
 
             {searchType === 'name' && (
-              <div className='search-bar flex'>
+              <div className='search flex name'>
                 <input
                   type="text"
                   placeholder='Search Photographer By Name'
@@ -162,16 +165,20 @@ export default function Location() {
                   }}
                 >
                   <option value="">Select Category</option>
-                  {categories.map((category, index) => (
-                    <option key={index} value={category}>{category}</option>
-                  ))}
+                  {categories.length > 0 ? (
+                    categories.map((category, index) => (
+                      <option key={index} value={category}>{category}</option>
+                    ))
+                  ) : (
+                    <option value="">No categories available</option>
+                  )}
                 </select>
               </div>
             )}
-          </> : (
-              <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} />
-          )
-        }
+          </>
+        ) : (
+            <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={categories} formatCategoryName={formatCategoryName } />
+        )}
       </div>
 
       <MapContainer center={coordinates} zoom={13} style={{ minHeight: "125vh", width: "100%", borderRadius: '15px', border: 'none' }}>

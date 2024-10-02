@@ -45,20 +45,8 @@
     width: 80%;
 }
 
-.search-bar {
-    background-color: white;
-    color: var(--text);
-    border: 1px solid var(--border);
-    justify-content: space-between;
-    padding: 0.7em 1em;
-    border-radius: 12px;
-    align-items: center;
-}
-
-.search-bar input {
-    border: none;
-    outline: none;
-    width: 80%;
+.list .search-by-category {
+    padding: 0;
 }
 
 .cards { 

@@ -1,43 +1,62 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PhotographerListCard from '../../../commonComponents/PhotographerListCard';
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
-import { IoSearchOutline } from "react-icons/io5";
-import { BsSliders } from "react-icons/bs";
-import { nanoid } from 'nanoid'; 
+import { nanoid } from 'nanoid';
 import './PhotographerList.css';
 
-export default function PhotographerList({ location, photographers, setIsSearched, searchType }) {
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const filteredPhotographers = photographers.filter((photographerData) => {
-        const { photographer } = photographerData;
-        return photographer.name.toLowerCase().includes(searchTerm.toLowerCase());
-    });
+export default function PhotographerList({ location, photographers, setIsSearched, searchType, category, setCategory, categories, formatCategoryName }) {
+    
+    const [filteredPhotographers, setFilteredPhotographers] = useState(photographers);
 
     const handleIconClick = () => {
-        setIsSearched(false); 
+        setIsSearched(false);
     }
+
+    const handleSearchByCategory = (selectedCategory) => {
+        setCategory(selectedCategory);
+
+        if (selectedCategory) {
+            const filtered = photographers.filter(photographerData => {
+                const { photographer } = photographerData;
+                return photographer.categories.some(cat => formatCategoryName(cat) === selectedCategory);
+            });
+            setFilteredPhotographers(filtered);
+        } else {
+            setFilteredPhotographers(photographers);
+        }
+    }
+
+    useEffect(() => {
+        setFilteredPhotographers(photographers);
+    }, [photographers]);
 
     return (
         <div className='list flex'>
-            <div className='loc-bar flex'>
-                <IoIosArrowBack onClick={handleIconClick} /> 
-                <p>{location}</p>
-                <IoIosClose onClick={handleIconClick} />
-            </div>
+            {searchType === 'location' && (
+                <div className='loc-bar flex'>
+                    <IoIosArrowBack onClick={handleIconClick} />
+                    <p>{location}</p>
+                    <IoIosClose onClick={handleIconClick} />
+                </div>
+            )}
             <div className='text-part'>
                 <h2>Photographers Lists</h2>
                 <p>Find the best photographers in your area for your next event!</p>
             </div>
-            <div className='search-bar flex'>
-            <IoSearchOutline />
-                <input
-                    type="text"
-                    placeholder='Search photographers'
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-                <BsSliders />
+            <div className="search-by-category flex">
+                <select
+                    value={category}
+                    onChange={(e) => handleSearchByCategory(e.target.value)}
+                >
+                    <option value="">Select Category</option>
+                    {categories.length > 0 ? (
+                        categories.map((category, index) => (
+                            <option key={index} value={category}>{category}</option>
+                        ))
+                    ) : (
+                        <option value="">No categories available</option>
+                    )}
+                </select>
             </div>
             <div className='cards'>
                 {filteredPhotographers.map((photographerData) => {
