@@ -4,6 +4,7 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import { TbCurrentLocation } from "react-icons/tb";
 import { IoSearchOutline } from "react-icons/io5";
 import { IoIosArrowBack } from "react-icons/io";
+import { LuLoader2 } from "react-icons/lu";
 import PhotographerList from './PhotographerList';
 import { GLOBAL_CATEGORIES } from '../../apis/apiUrls';
 import { getApiWithAuth } from '../../apis/index';
@@ -27,6 +28,7 @@ export default function Location() {
   const [isSearched, setIsSearched] = useState(false);
   const [categories, setCategories] = useState([]);
   const [formattedCategories, setFormattedCategories] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const SetViewOnChange = ({ coords }) => {
     const map = useMap();
@@ -49,6 +51,7 @@ export default function Location() {
   };
 
   const handleSearchByLocation = async () => {
+    setLoading(true);
     const coords = await fetchCoordinates(locationName);
     if (coords) {
       const { lat, lon } = coords;
@@ -62,6 +65,7 @@ export default function Location() {
         console.error("Error fetching photographers: ", res.data);
       }
     }
+    setLoading(false);
   };
 
   const handleSearchByCategory = async (unformattedCategory) => {
@@ -74,7 +78,7 @@ export default function Location() {
       console.error("Error fetching photographers: ", res.data);
     }
   };
-  
+
   const fetchCategories = async () => {
     const res = await getApiWithAuth(GLOBAL_CATEGORIES);
     if (res.success) {
@@ -88,7 +92,7 @@ export default function Location() {
       console.error("Error fetching categories: ", res.data);
     }
   };
-  
+
   const handleSearchByName = async (e) => {
     setPhotographerName(e.target.value);
     const url = `/customers/photographer_by_name?search=${photographerName}`;
@@ -125,8 +129,12 @@ export default function Location() {
                       onChange={(e) => setLocationName(e.target.value)}
                     />
                   </div>
-                  <div className='loc-div' onClick={handleSearchByLocation}>
-                    <TbCurrentLocation />
+                  <div
+                    className='loc-div'
+                    onClick={loading ? null : handleSearchByLocation}
+                    style={loading ? { cursor: 'not-allowed' } : null}
+                  >
+                    {loading ? <LuLoader2 className="loader" /> : <TbCurrentLocation />}
                   </div>
                 </div>
                 <div className="date-container flex">
@@ -217,7 +225,10 @@ export default function Location() {
                 </select>
               </div>
             )}
-            <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={formattedCategories} />
+
+            {loading ? <div className='loading'><LuLoader2 className="loader" /></div> :
+              <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={formattedCategories} />
+            }
           </>
         )}
       </div>
@@ -241,6 +252,6 @@ export default function Location() {
         }
         <SetViewOnChange coords={coordinates} />
       </MapContainer>
-    </div>
+    </div >
   );
 }
