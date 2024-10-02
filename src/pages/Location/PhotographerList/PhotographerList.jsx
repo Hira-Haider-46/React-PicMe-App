@@ -8,7 +8,6 @@ import './PhotographerList.css';
 export default function PhotographerList({ location, photographers, setIsSearched, searchType, category, setCategory, categories }) {
 
     const [filteredPhotographers, setFilteredPhotographers] = useState(photographers);
-    console.log('categories', categories)
 
     const handleIconClick = () => {
         setIsSearched(false);
@@ -63,21 +62,42 @@ export default function PhotographerList({ location, photographers, setIsSearche
                 </div>
             }
             <div className='cards'>
-                {filteredPhotographers.map((photographerData) => {
-                    const { photographer } = photographerData;
+                {searchType === 'location' &&
+                    <>
+                        {filteredPhotographers.map((photographerData) => {
+                            const { photographer } = photographerData;
 
-                    return (
-                        <PhotographerListCard
-                            key={nanoid()}
-                            obj={{
-                                profileImg: photographer.avatar_url,
-                                name: photographer.name,
-                                rating: photographer.average_rating.toFixed(1),
-                                NoOfreviews: photographer.total_reviews
-                            }}
-                        />
-                    );
-                })}
+                            return (
+                                <PhotographerListCard
+                                    key={nanoid()}
+                                    obj={{
+                                        profileImg: photographer.avatar_url,
+                                        name: photographer.name,
+                                        rating: photographer.average_rating.toFixed(1),
+                                        NoOfreviews: photographer.total_reviews
+                                    }}
+                                />
+                            );
+                        })}
+                    </>
+                }
+                {searchType === 'category' &&
+                    <>
+                        {filteredPhotographers.data.map((photographerData) => {
+                            return (
+                                <PhotographerListCard
+                                    key={nanoid()}
+                                    obj={{
+                                        profileImg: photographerData.profile_image_url,
+                                        name: photographerData.name,
+                                        rating: photographerData.average_rating.toFixed(1),
+                                        NoOfreviews: photographerData.total_reviews
+                                    }}
+                                />
+                            );
+                        })}
+                    </>
+                }
             </div>
         </div>
     );

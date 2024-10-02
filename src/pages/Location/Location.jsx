@@ -145,7 +145,9 @@ export default function Location() {
                 </div>
               </>
             )}
-
+          </>
+        ) : (
+          <>
             {searchType === 'name' && (
               <div className='search flex name'>
                 <input
@@ -179,10 +181,8 @@ export default function Location() {
                 </select>
               </div>
             )}
-
+            <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={formattedCategories} />
           </>
-        ) : (
-          <PhotographerList location={locationName} photographers={photographers} setIsSearched={setIsSearched} searchType={searchType} category={category} setCategory={setCategory} categories={formattedCategories} />
         )}
       </div>
 
