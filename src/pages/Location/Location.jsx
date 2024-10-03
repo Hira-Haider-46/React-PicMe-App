@@ -110,7 +110,7 @@ export default function Location() {
     setPhotographerName(e.target.value);
     setLoading(true);
     try {
-      const url = `${SEARCH_BY_NAME}${photographerName}`;
+      const url = `${SEARCH_BY_NAME}${e.target.value}`;
       const res = await getApiWithAuth(url);
       if (res.success) {
         setPhotographers(res.data.data);
