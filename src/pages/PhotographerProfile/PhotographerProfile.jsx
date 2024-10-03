@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import { getApiWithAuth } from '../../apis/index';
 import { FETCH_PHOTOGRAPHER_BY_ID } from '../../apis/apiUrls';
