@@ -8,13 +8,11 @@ import './Packages.css';
 export default function Packages() {
     return (
         <>
-            <nav className="layout-nav flex">
-                <div>
-                    <a style={{ borderBottom: "2px solid #2BAFC7", color: '#2BAFC7' }}>
-                        Choose Package
-                    </a>
-                </div>
-            </nav>
+            <div className="layout-nav flex choose-pkg">
+                <a style={{ borderBottom: "2px solid #2BAFC7", color: '#2BAFC7' }}>
+                    Choose Package
+                </a>
+            </div>
 
             <div className='packages-container flex'>
                 <PackageCard
