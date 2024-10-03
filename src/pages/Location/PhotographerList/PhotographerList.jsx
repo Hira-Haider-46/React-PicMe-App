@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import PhotographerListCard from "../../../commonComponents/PhotographerListCard";
-import { IoIosClose, IoIosArrowBack } from "react-icons/io";
 import { nanoid } from "nanoid";
+import { IoIosClose, IoIosArrowBack } from "react-icons/io";
 import { formatCategoryName } from "../../../helper/helper";
+import profileImg from '../../../assets/images/ProfileImg.png';
+import PhotographerListCard from "../../../commonComponents/PhotographerListCard";
 import "./PhotographerList.css";
 
 export default function PhotographerList({
@@ -81,13 +82,18 @@ export default function PhotographerList({
                             obj={{
                                 profileImg: photographerData.avatar_url
                                     ? photographerData.avatar_url
-                                    : photographerData.photographer?.profile_image_url,
+                                    : photographerData.photographer?.profile_image_url
+                                        ? photographerData.photographer.profile_image_url
+                                        : profileImg,
+
                                 name: photographerData.name
                                     ? photographerData.name
                                     : photographerData.photographer?.name,
+
                                 rating: photographerData.average_rating
                                     ? photographerData.average_rating
                                     : photographerData.photographer?.average_rating,
+
                                 NoOfreviews: photographerData.total_review
                                     ? photographerData.total_review
                                     : photographerData.photographer?.total_review,

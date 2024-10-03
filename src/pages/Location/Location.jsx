@@ -82,6 +82,7 @@ export default function Location() {
     const res = await getApiWithAuth(url);
     if (res.success) {
       setPhotographers(res.data.data);
+      setIsSearched(true);
     } else {
       console.error("Error fetching photographers: ", res.data);
     }
@@ -92,9 +93,10 @@ export default function Location() {
     const res = await getApiWithAuth(GLOBAL_CATEGORIES);
     if (res.success) {
       const formattedCategories = res.data.data.map((cat) => ({
-        formatted: formatCategoryName(cat),
-        unformatted: cat,
+        label: formatCategoryName(cat),
+        value: cat,
       }));
+
       setCategories(formattedCategories);
       setFormattedCategories(
         res.data.data.map((cat) => formatCategoryName(cat))
@@ -209,25 +211,32 @@ export default function Location() {
               value={category}
               onChange={(e) => {
                 const selectedCategory = categories.find(
-                  (cat) => cat.formatted === e.target.value
+                  (cat) => cat.value === e.target.value
                 );
                 setCategory(
-                  selectedCategory ? selectedCategory.unformatted : ""
+                  selectedCategory ? selectedCategory.value : ""
                 );
-                handleSearchByCategory(selectedCategory.unformatted);
+                handleSearchByCategory(selectedCategory.value);
               }}
             >
               <option value="">Select Category</option>
               {categories.length > 0 ? (
                 categories.map((cat, index) => (
-                  <option key={index} value={cat.formatted}>
-                    {cat.formatted}
+                  <option key={index} value={cat.value}>
+                    {cat.label}
                   </option>
                 ))
               ) : (
                 <option value="">No categories available</option>
               )}
             </select>
+            <div className='msg' style={isSearched ? { margin: '0', display: 'none' } : { margin: '70% auto' }}>
+              {loading ? <LuLoader2 className="loader" /> :
+                <>
+                  {isSearched ? null : <h3>Select category to list photographers</h3>}
+                </>
+              }
+            </div>
           </div>
         )}
 
