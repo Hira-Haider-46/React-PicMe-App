@@ -105,8 +105,7 @@ export default function Location() {
   };
 
   const handleSearchByName = async (e) => {
-    const nameToSearch = e.target.value;
-    setPhotographerName(nameToSearch);
+    setPhotographerName(e.target.value);
     setLoading(true);
     try {
       const url = `/customers/photographer_by_name?search=${photographerName}`;
@@ -114,7 +113,6 @@ export default function Location() {
       if (res.success) {
         setPhotographers(res.data.data);
         setIsSearched(true);
-        console.log('photographers', photographers);
       } else {
         console.error("Error fetching photographers: ", res.data);
       }
