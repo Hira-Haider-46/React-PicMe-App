@@ -11,11 +11,7 @@ import ChooseLocation from "./pages/ChooseLocation";
 import Location from "./pages/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
-import ProfileLayout from "./commonComponents/ProfileLayout";
-import Photos from "./pages/Photos";
-import Videos from "./pages/Videos";
-import Reviews from "./pages/Reviews";
-import Packages from "./pages/Packages";
+import PhotographerProfile from "./pages/PhotographerProfile";
 import PaymentDetails from "./pages/PaymentDetails";
 import './App.css';
 
@@ -38,14 +34,7 @@ export default function App() {
           <Route element={<PrivateRoutes />}>
             <Route path="choose-location" element={<ChooseLocation />} />
             <Route path="location" element={<Location />} />
-            <Route path="photographer-profile" element={<ProfileLayout />}>
-              <Route index element={<Photos />} />
-              <Route path="photos" element={<Photos />} />
-              <Route path="videos" element={<Videos />} />
-              <Route path="reviews" element={<Reviews />} />
-              <Route path="category" element={<h1>Category Page</h1>} />
-              <Route path="package" element={<Packages />} />
-            </Route>
+            <Route path="photographer-profile" element={<PhotographerProfile />} />
             <Route path="checkout" element={<PaymentDetails />} />
           </Route>
         </Route>
