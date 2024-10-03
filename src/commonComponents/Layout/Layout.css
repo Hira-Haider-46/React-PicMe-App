@@ -72,6 +72,10 @@
     width: 100%;
 }
 
+.logout {
+    align-items: center;
+}
+
 /* layout styles */
 
 .nav {

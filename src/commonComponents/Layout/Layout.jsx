@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { RiLogoutCircleLine } from "react-icons/ri";
+import { logout } from '../../store/slices/authSlice';
 import logo from '../../assets/images/logo.png';
 import navLogo from '../../assets/images/navLogo2.png';
 import cameraImg from '../../assets/images/camera-img.png';
@@ -10,6 +13,13 @@ import './Layout.css';
 
 export default function Layout() {
     const [token, setToken] = useState(localStorage.getItem('token'));
+    const dispatch = useDispatch();
+
+    const handleLogout = () => {
+        dispatch(logout());
+        localStorage.removeItem('token');
+        setToken(null);
+    };
 
     useEffect(() => {
         const handleStorageChange = () => {
@@ -41,6 +51,11 @@ export default function Layout() {
                             <Link to=''>
                                 <li>
                                     <img src={profilePic} alt="profilePic" /> Profile
+                                </li>
+                            </Link>
+                            <Link to=''>
+                                <li className='logout flex'>
+                                    <RiLogoutCircleLine style={{marginRight: '0.5em', fontSize: '1.25rem'}}/> Logout
                                 </li>
                             </Link>
                         </ul>
