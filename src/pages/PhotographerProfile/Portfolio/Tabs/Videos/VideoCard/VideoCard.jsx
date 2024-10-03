@@ -1,6 +1,6 @@
 import React from 'react';
-import img from '../../../assets/images/photoCard.png';
-import playButtonImg from '../../../assets/images/playButtonImg.png';
+import img from '../../../../../../assets/images/photoCard.png';
+import playButtonImg from '../../../../../../assets/images/playButtonImg.png';
 import './VideoCard.css';
 
 export default function VideoCard() {
