@@ -5,7 +5,8 @@ import { getApiWithAuth } from '../../apis/index';
 import { FETCH_PHOTOGRAPHER_BY_ID } from '../../apis/apiUrls';
 import profileImg from '../../assets/images/ProfileImg.png';
 import Button from '../../commonComponents/Button';
-import LayoutNav from '../../commonComponents/ProfileLayout/LayoutNav';
+import Portfolio from './Portfolio';
+import Packages from './Packages';
 import './PhotographerProfile.css';
 
 export default function PhotographerProfile() {
@@ -56,22 +57,15 @@ export default function PhotographerProfile() {
                     <span>(5 reviews)</span>
                 </p>
                 <div className='btns flex'>
-                    <Link onClick={() => setSelectedTab('portfolio')}>
-                        <Button text='Portfolio' styles={portfolioButtonStyles} />
-                    </Link>
-                    <Link onClick={() => setSelectedTab('package')}>
-                        <Button text='Package' styles={packageButtonStyles} />
-                    </Link>
+                    <Button text='Portfolio' styles={portfolioButtonStyles} onClick={() => setSelectedTab('portfolio')} />
+
+                    <Button text='Package' styles={packageButtonStyles} onClick={() => setSelectedTab('package')} />
                 </div>
             </div>
 
-            {selectedTab === 'portfolio' ? (
-                <>
-                    <LayoutNav selectedTab={selectedTab} />
-                </>
-            ) : (
+            {selectedTab === 'portfolio' ? ( <Portfolio /> ) : (
                 <div className="package-content">
-                    <LayoutNav selectedTab={selectedTab} />
+                    <Packages />
                 </div>
             )}
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../../../commonComponents/Button';
 import { Link } from 'react-router-dom';
+import Button from '../../../../commonComponents/Button';
 import './PackageCard.css';
 
 export default function PackageCard({ obj }) {
