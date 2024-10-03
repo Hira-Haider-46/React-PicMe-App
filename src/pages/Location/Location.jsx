@@ -8,7 +8,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import { LuLoader2 } from "react-icons/lu";
 
 import PhotographerList from "./PhotographerList";
-import { GLOBAL_CATEGORIES } from "../../apis/apiUrls";
+import { GLOBAL_CATEGORIES, SEARCH_BY_LOCATION, SEARCH_BY_CATEGORY, SEARCH_BY_NAME } from "../../apis/apiUrls";
 import { getApiWithAuth } from "../../apis/index";
 import { formatCategoryName } from "../../helper/helper";
 import "leaflet/dist/leaflet.css";
@@ -58,7 +58,7 @@ export default function Location() {
     const coords = await fetchCoordinates(locationName);
     if (coords) {
       const { lat, lon } = coords;
-      const url = `customers/search_photographer?start_date=${encodeURIComponent(
+      const url = `${SEARCH_BY_LOCATION}${encodeURIComponent(
         startDate
       )}&end_date=${encodeURIComponent(
         endDate
@@ -78,7 +78,7 @@ export default function Location() {
 
   const handleSearchByCategory = async (unformattedCategory) => {
     setLoading(true);
-    const url = `/customers/photographer_by_category?search[]=${unformattedCategory}`;
+    const url = `${SEARCH_BY_CATEGORY}${unformattedCategory}`;
     const res = await getApiWithAuth(url);
     if (res.success) {
       setPhotographers(res.data.data);
@@ -110,7 +110,7 @@ export default function Location() {
     setPhotographerName(e.target.value);
     setLoading(true);
     try {
-      const url = `/customers/photographer_by_name?search=${photographerName}`;
+      const url = `${SEARCH_BY_NAME}${photographerName}`;
       const res = await getApiWithAuth(url);
       if (res.success) {
         setPhotographers(res.data.data);

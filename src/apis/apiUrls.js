@@ -4,4 +4,7 @@ export const FORGOT_PASS = '/auth/password';
 export const OTP_VERIFY = '/users/verify_otp';
 export const NEW_PASS = '/auth/password';
 export const GLOBAL_CATEGORIES = '/customers/global_categories';
+export const SEARCH_BY_NAME = "/customers/photographer_by_name?search=";
+export const SEARCH_BY_CATEGORY = "/customers/photographer_by_category?search[]=";
+export const SEARCH_BY_LOCATION = "/customers/search_photographer?start_date=";
 export const ME = '/users/me';
