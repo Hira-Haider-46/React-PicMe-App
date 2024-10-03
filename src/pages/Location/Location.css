@@ -122,7 +122,6 @@
 .msg {
     padding: 1em;
     font-size: 0.75rem;
-    margin: 70% auto;
     color: var(--text);
     text-align: center;
 }
