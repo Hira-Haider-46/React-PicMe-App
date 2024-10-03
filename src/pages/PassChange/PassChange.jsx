@@ -13,7 +13,7 @@ export default function PassChange() {
             <h2>Password Changed!</h2>
             <p>Your password has been changed successfully.</p>
             <Link to={`/login?type=${encodeURIComponent(type)}`}> 
-                <Button text='BACK TO LOGIN' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='BACK TO LOGIN' variant='fill' />
             </Link>
         </div>
     );

@@ -35,7 +35,7 @@ export default function BookingCalendar() {
             />
             <Button
                 text='CONTINUE'
-                styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }}
+                variant='fill'
                 disabled={!startDate || !endDate}
             />
         </div>

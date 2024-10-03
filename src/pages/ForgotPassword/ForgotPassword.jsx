@@ -40,10 +40,10 @@ export default function ForgotPassword() {
                         required 
                     />
                 </div>
-                <Button text='CONTINUE' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='CONTINUE' variant='fill' />
             </form>
             <Link to='/login'>
-                <Button text='BACK TO LOGIN' styles={{ backgroundColor: 'white', color: '#2BAFC7', border: '1px solid #2BAFC7' }} />
+                <Button text='BACK TO LOGIN' variant='empty' />
             </Link>
         </div>
     );

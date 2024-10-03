@@ -74,7 +74,7 @@ export default function Verification() {
                 ))}
             </div>
             <Link to='/choose-location' onClick={handleVerify}>
-                <Button text='CONTINUE' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='CONTINUE' variant='fill' />
             </Link>
             <div className='timer'>
                 {timer > 0 ? (

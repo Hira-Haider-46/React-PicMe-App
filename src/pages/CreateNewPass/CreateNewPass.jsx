@@ -76,7 +76,7 @@ export default function CreateNewPass() {
                     </div>
                 </div>
                 <p className='pass-match'>Both Passwords Must Match.</p>
-                <Button text='UPDATE PASSWORD' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='UPDATE PASSWORD' variant='fill' />
             </form>
         </div>
     );

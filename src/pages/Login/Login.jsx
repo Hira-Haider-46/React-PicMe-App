@@ -99,7 +99,7 @@ export default function Login() {
                     </div>
                     <Link to='/forgot-password' className="forgot-password">Forgot Password?</Link>
                 </div>
-                <Button text='LOG IN' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='LOG IN' variant='fill' />
             </form>
             <div className="signup-option">
                 <p>Don't have an account? <Link to='/signup'>Sign up</Link></p>

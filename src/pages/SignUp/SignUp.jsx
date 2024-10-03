@@ -99,7 +99,7 @@ export default function SignUp() {
                         {confirmPass ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>
-                <Button text='SIGN UP' styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }} />
+                <Button text='SIGN UP' variant='fill' />
             </form>
             <div className="signup-option">
                 <p>Already have an account? <Link to='/login'>Log in</Link></p>

@@ -65,7 +65,7 @@ export default function PaymentMethod({ onContinue }) {
 
             <Button
                 text='CONTINUE'
-                styles={{ backgroundColor: '#2BAFC7', color: 'white', border: 'none' }}
+                variant='fill'
                 onClick={handleContinueClick}
                 disabled={!selectedPaymentMethod}
             />

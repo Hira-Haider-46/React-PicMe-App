@@ -20,12 +20,12 @@ export default function ContinueAsPage() {
             <h1>Experience Photography In a New Dimension</h1>
             <Button
                 text="CONTINUE AS CUSTOMER"
-                styles={{ backgroundColor: '#2BAFC7', color: 'white', border: '1px solid #2BAFC7' }}
+                variant='fill'
                 onClick={() => handleRoleSelection('0')} 
             />
             <Button
                 text="CONTINUE AS PHOTOGRAPHER"
-                styles={{ backgroundColor: 'white', color: '#2BAFC7', border: '1px solid #2BAFC7' }}
+                variant='empty'
                 onClick={() => handleRoleSelection('1')} 
             />
         </div>
