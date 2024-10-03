@@ -54,7 +54,7 @@ export default function Login() {
             if (rememberMe) {
                 localStorage.setItem('email', email);  
             }
-            dispatch(loginSuccess({ token, user: res.data.user, type })); 
+            dispatch(loginSignUpSuccess({ token, user: res.data.user, type })); 
             navigate('/choose-location');
         } else {
             setError(res.data.message || "Login error, please try again."); 

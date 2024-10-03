@@ -42,7 +42,7 @@ export default function SignUp() {
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
-            dispatch(signupSuccess({ token, user: res.data.user, type }));
+            dispatch(loginSignUpSuccess({ token, user: res.data.user, type }));
             navigate(`/verification?email=${encodeURIComponent(email)}`);
         } else {
             console.error("Signup error ", res);
