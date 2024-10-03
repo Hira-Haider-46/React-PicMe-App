@@ -91,9 +91,8 @@ export default function PhotographerList({
                                     : photographerData.photographer?.name,
 
                                 rating: photographerData.average_rating
-                                    ? photographerData.average_rating
-                                    : photographerData.photographer?.average_rating,
-
+                                    ? Number(photographerData.average_rating).toFixed(1)
+                                    : Number(photographerData.photographer?.average_rating).toFixed(1),
                                 NoOfreviews: photographerData.total_review
                                     ? photographerData.total_review
                                     : photographerData.photographer?.total_review,
