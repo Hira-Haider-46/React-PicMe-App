@@ -50,7 +50,7 @@ export default function ProfileLayout() {
             <div className='header flex'>
                 {/* <img src={photographer?.profile_image_url !== '' ? photographer?.profile_image_url : profileImg} alt="profile-img" /> */}
                 <img src={profileImg} alt="profile-img" />
-                <h2>{photographer?.full_name}</h2>
+                <h2>{photographer?.name}</h2>
                 <p>
                     <span><FaStar /></span>
                     <span>4.0</span>

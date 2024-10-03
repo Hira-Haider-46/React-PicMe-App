@@ -16,9 +16,9 @@ export default function LayoutNav({ selectedTab }) {
         return (
             <nav className="layout-nav flex">
                 <div>
-                    <NavLink to="choose-package" style={ {borderBottom: "2px solid #2BAFC7", color: '#2BAFC7' }}>
+                    <a style={ {borderBottom: "2px solid #2BAFC7", color: '#2BAFC7' }}>
                         Choose Package
-                    </NavLink>
+                    </a>
                 </div>
             </nav>
         );
