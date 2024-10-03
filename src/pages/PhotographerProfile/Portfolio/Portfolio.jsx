@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
-import { NavLink, useLocation } from 'react-router-dom';
 import './Portfolio.css';
 
-export default function Portfolio({ }) {
-  const location = useLocation();
+export default function Portfolio() {
   const [navbarTab, setNavbarTab] = useState('photos');
 
   const activeStyles = {
@@ -14,39 +12,36 @@ export default function Portfolio({ }) {
   };
 
   return (
-    <>
-      < nav className="layout-nav flex">
-        <div>
-          <NavLink style={({ isActive }) => (isActive ? activeStyles : null)}>
-            Photos
-            <span>
-              <MdOutlineKeyboardArrowDown />
-            </span>
-          </NavLink>
-          <NavLink to="" style={({ isActive }) => (isActive ? activeStyles : null)}>
-            Videos
-            <span>
-              <MdOutlineKeyboardArrowDown />
-            </span>
-          </NavLink>
-          <NavLink to="" style={({ isActive }) => (isActive ? activeStyles : null)}>
-            Reviews
-            <span>
-              <MdOutlineKeyboardArrowDown />
-            </span>
-          </NavLink>
-        </div>
-        {location.pathname !== '/photographer-profile/reviews' && (
-          <div>
-            <NavLink to="" style={({ isActive }) => (isActive ? activeStyles : null)}>
-              Category
-              <span>
-                <MdOutlineKeyboardArrowDown />
-              </span>
-            </NavLink>
-          </div>
-        )}
-      </nav >
-    </>
-  )
+    <nav className="layout-nav flex">
+      <ul className='flex'>
+        <li
+          style={navbarTab === 'photos' ? activeStyles : {}}
+          onClick={() => setNavbarTab('photos')}
+        >
+          Photos
+          <span>
+            <MdOutlineKeyboardArrowDown />
+          </span>
+        </li>
+        <li
+          style={navbarTab === 'videos' ? activeStyles : {}}
+          onClick={() => setNavbarTab('videos')}
+        >
+          Videos
+          <span>
+            <MdOutlineKeyboardArrowDown />
+          </span>
+        </li>
+        <li
+          style={navbarTab === 'reviews' ? activeStyles : {}}
+          onClick={() => setNavbarTab('reviews')}
+        >
+          Reviews
+          <span>
+            <MdOutlineKeyboardArrowDown />
+          </span>
+        </li>
+      </ul>
+    </nav>
+  );
 }

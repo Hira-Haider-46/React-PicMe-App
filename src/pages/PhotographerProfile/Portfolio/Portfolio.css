@@ -5,15 +5,21 @@
     padding: 1em 2em;
 }
 
-.layout-nav a {
+.layout-nav ul {
+    flex-direction: row;
+}
+
+.layout-nav li {
+    list-style: none;
     text-decoration: none;
     color: var(--text);
     font-weight: 500;
     margin: 0 1em;
     font-size: 1rem;
+    cursor: pointer;
 }
 
-.layout-nav a span {
+.layout-nav li span {
     margin-left: 0.25em;
     font-size: 1.5rem;
     position: relative;
