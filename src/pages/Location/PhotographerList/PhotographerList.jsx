@@ -76,10 +76,12 @@ export default function PhotographerList({
             <div className="cards">
                 {console.log(filteredPhotographers)}
                 {filteredPhotographers?.map((photographerData) => {
+                    console.log('photographerData', photographerData.total_reviews);
                     return (
                         <PhotographerListCard
                             key={nanoid()}
                             obj={{
+                                id: photographerData.id,
                                 profileImg: photographerData.avatar_url
                                     ? photographerData.avatar_url
                                     : photographerData.photographer?.profile_image_url
@@ -90,12 +92,12 @@ export default function PhotographerList({
                                     ? photographerData.name
                                     : photographerData.photographer?.name,
 
-                                rating: photographerData.average_rating
-                                    ? Number(photographerData.average_rating).toFixed(1)
+                                rating: photographerData.average_rating !== ''
+                                    ? photographerData.average_rating
                                     : Number(photographerData.photographer?.average_rating).toFixed(1),
-                                NoOfreviews: photographerData.total_review
-                                    ? photographerData.total_review
-                                    : photographerData.photographer?.total_review,
+                                NoOfreviews: photographerData.total_reviews !== ''
+                                    ? photographerData.total_reviews
+                                    : photographerData.photographer?.total_reviews,
                             }}
                         />
                     );

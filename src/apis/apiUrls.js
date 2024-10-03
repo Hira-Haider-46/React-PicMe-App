@@ -7,4 +7,5 @@ export const GLOBAL_CATEGORIES = '/customers/global_categories';
 export const SEARCH_BY_NAME = "/customers/photographer_by_name?search=";
 export const SEARCH_BY_CATEGORY = "/customers/photographer_by_category?search[]=";
 export const SEARCH_BY_LOCATION = "/customers/search_photographer?start_date=";
+export const FETCH_PHOTOGRAPHER_BY_ID = "/photographers/";
 export const ME = '/users/me';

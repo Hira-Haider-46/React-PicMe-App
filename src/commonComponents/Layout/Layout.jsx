@@ -53,7 +53,7 @@ export default function Layout() {
                                     <img src={profilePic} alt="profilePic" /> Profile
                                 </li>
                             </Link>
-                            <Link to=''>
+                            <Link to='' onClick={handleLogout}>
                                 <li className='logout flex'>
                                     <RiLogoutCircleLine style={{marginRight: '0.5em', fontSize: '1.25rem'}}/> Logout
                                 </li>
