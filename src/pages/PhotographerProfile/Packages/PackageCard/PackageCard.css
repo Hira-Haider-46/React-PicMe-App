@@ -30,7 +30,14 @@
     margin: 0.5em 0 3em 1.5em;
 }
 
-.package-card ul li {
+.package-card ul li, .package-card ul div {
     font-size: 1rem;
     font-weight: 300;
+}
+
+.read-more {
+    font-size: 0.8rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline; 
 }

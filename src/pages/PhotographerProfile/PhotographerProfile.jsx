@@ -35,7 +35,6 @@ export default function PhotographerProfile() {
         const res = await getApiWithAuth(`${SHOW_PACKAGE}${photographerId}`);
         if (res.success) {
             setPackages(res.data.data);
-            console.log('packages', packages);
         } else {
             console.error('error fetching data', res.data)
         }

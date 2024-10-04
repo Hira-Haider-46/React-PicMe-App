@@ -13,19 +13,17 @@ export default function Packages({ packages }) {
             </div>
 
             <div className='packages-container flex'>
-                <PackageCard
-                    obj={
-                        {
-                            logo: basic,
-                            name: 'Basic',
-                            price: '10',
-                            days: '2',
-                            photos: '8',
-                            video: '1'
-                        }
-                    }
-                />
+                {packages && packages.length > 0 ? (
+                    packages.map((pkg, index) => (
+                        <PackageCard
+                            key={index}
+                            pkg={{ logo: basic, ...pkg }}
+                        />
+                    ))
+                ) : (
+                    <p>No packages available</p> 
+                )}
             </div>
         </>
-    )
+    );
 }
