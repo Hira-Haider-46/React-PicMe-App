@@ -8,3 +8,7 @@
     margin: 2em 0 3em 1.5em;
     line-height: 50px;
 }
+
+.pkg-card :nth-child(5) {
+    cursor: not-allowed;
+}

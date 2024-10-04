@@ -1,7 +1,7 @@
 import React from 'react';
 import './Button.css';
 
-export default function Button({ text, onClick, disabled, variant, bgColor }) {
+export default function Button({ text, onClick, disabled, variant }) {
 
     const variant1 = {
         backgroundColor: '#2BAFC7',

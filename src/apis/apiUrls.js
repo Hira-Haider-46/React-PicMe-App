@@ -11,4 +11,5 @@ export const FETCH_PHOTOGRAPHER_BY_ID = "/photographers/";
 export const FETCH_PHOTOGRAPHER_WORK_BY_ID ="/photographers/work_list?photographer_id=";
 export const FETCH_PHOTOGRAPHER_WORK_CATEGORY ="/photographers/categories?photographer_id=";
 export const SHOW_PACKAGE = "/packages?photographer_id=";
+export const GET_PACKAGE = "/packages/";
 export const ME = '/users/me';

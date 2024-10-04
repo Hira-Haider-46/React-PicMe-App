@@ -1,19 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import logo from '../../../assets/images/basic.png';
 import Button from '../../../commonComponents/Button';
+import { convertToBullets } from '../../../helper/helper';
 import './PkgCard.css';
 
-export default function PkgCard({packageDetails}) {
+export default function PkgCard({ packageDetails }) {
+
+    const [expanded, setExpanded] = useState(false);
+
+    const bulletPoints = convertToBullets(packageDetails.description); 
+    const shouldShowReadMore = bulletPoints.length > 1;
+
     return (
-        <div className='pkg-card package-card' style={{ backgroundColor: packageDetails.bgColor }}>
-            <img src={packageDetails.logo} alt={packageDetails.name} />
+        <div className='pkg-card package-card'>
+            <img src={logo} alt={packageDetails.name} />
             <h2>{packageDetails.name}</h2>
             <h3>${packageDetails.price}</h3>
             <ul>
-                <li>{packageDetails.days} days Package</li>
-                <li>Up to {packageDetails.photos} Photos</li>
-                <li>Up to {packageDetails.video} Video</li>
+                <li>{packageDetails.delivery_days} days Package</li>
+                <div>
+                    {bulletPoints.slice(0, expanded ? bulletPoints.length : 1).map((item, index) => (
+                        <li key={index}>{item}</li>
+                    ))}
+                </div>
+                {shouldShowReadMore && (
+                    <span className="read-more" onClick={() => setExpanded(prev => !prev)}>
+                        {expanded ? 'Show Less' : 'Read More'}
+                    </span>
+                )}
             </ul>
-            <Button text='SELECTED' styles={{ backgroundColor: 'white', color: packageDetails.bgColor, border: '1.5px solid white', fontWeight: 'bolder', fontSize: '0.9rem', cursor: 'auto' }} />
+            <Button text='SELECTED' variant='empty' />
         </div>
-    )
+    );
 }

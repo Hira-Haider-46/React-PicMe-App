@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../../../../commonComponents/Button';
+import { convertToBullets } from '../../../../helper/helper';
 import './PackageCard.css';
 
 export default function PackageCard({ pkg }) {
-    
-    const [expanded, setExpanded] = useState(false);
 
-    const convertToBullets = (input) => {
-        const items = input.split('-').filter(item => item.trim() !== '');
-        return items.map(item => `${item.trim()}`);
-    };
+    const [expanded, setExpanded] = useState(false);
 
     const bulletPoints = convertToBullets(pkg.description);
     const shouldShowReadMore = bulletPoints.length > 5;
