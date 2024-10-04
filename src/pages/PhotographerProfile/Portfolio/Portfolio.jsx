@@ -32,19 +32,17 @@ export default function Portfolio() {
         value: category,
       }));
       setCategories(formattedCategories);
-      console.log('categories:', formattedCategories);
     } else {
       console.error(res.data.message);
     }
-    setLoading(false); // Stop loading
+    setLoading(false);
   };
 
   const fetchPhotographerWork = async () => {
-    setLoading(true); // Start loading
+    setLoading(true); 
     const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_BY_ID}${photographerId}`);
     if (res.success) {
       setPhotographerWork(res.data.data);
-      console.log('Photographer work:', res.data.data);
     } else {
       console.error(res.data.message);
     }

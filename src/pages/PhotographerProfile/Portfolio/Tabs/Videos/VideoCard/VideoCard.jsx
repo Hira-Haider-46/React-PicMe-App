@@ -4,7 +4,9 @@ import './VideoCard.css';
 export default function VideoCard({ videoUrl }) {
     return (
         <div className='video-card'>
-            <img src={videoUrl} alt="card-img" />
+            <video controls>
+                <source src={videoUrl} />
+            </video>
         </div>
-    )
+    );
 }
