@@ -21,7 +21,7 @@ export default function Portfolio() {
   const [videos, setVideos] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
 
   const fetchCategories = async () => {
     setLoading(true);
@@ -39,14 +39,14 @@ export default function Portfolio() {
   };
 
   const fetchPhotographerWork = async () => {
-    setLoading(true); 
+    setLoading(true);
     const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_BY_ID}${photographerId}`);
     if (res.success) {
       setPhotographerWork(res.data.data);
     } else {
       console.error(res.data.message);
     }
-    setLoading(false); 
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -132,7 +132,7 @@ export default function Portfolio() {
           {navbarTab === 'photos' && <Photos photos={photos} selectedCategory={selectedCategory} />}
           {navbarTab === 'videos' && <Videos videos={videos} selectedCategory={selectedCategory} />}
           {navbarTab === 'reviews' && <Reviews />}
-          {!selectedCategory && <p className='select-msg'>Select category to list photographers work</p>}
+          {(!selectedCategory || navbarTab !== 'reviews') && <p className='select-msg'>Select category to list photographers work</p>}
         </>
       )}
     </>
