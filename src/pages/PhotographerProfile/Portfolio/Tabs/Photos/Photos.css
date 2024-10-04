@@ -2,7 +2,14 @@
     width: 100%;
     padding: 1em 2em;
     margin-bottom: 3em;
-    display: grid;
     grid-template-columns: repeat(6, 1fr);
     row-gap: 0.7em;
+    justify-content: center;
+    align-items: center;
+}
+
+.photos-container p {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 500;
 }

@@ -102,22 +102,24 @@ export default function Portfolio() {
             </span>
           </li>
         </ul>
-        <select
-          className='choose-category'
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-        >
-          <option value="">Select Category</option>
-          {categories?.length > 0 ? (
-            categories.map((category, index) => (
-              <option key={index} value={category.value}>
-                {category.label}
-              </option>
-            ))
-          ) : (
-            <option>No category available</option>
-          )}
-        </select>
+        {navbarTab !== 'reviews' &&
+          <select
+            className='choose-category'
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="">Select Category</option>
+            {categories?.length > 0 ? (
+              categories.map((category, index) => (
+                <option key={index} value={category.value}>
+                  {category.label}
+                </option>
+              ))
+            ) : (
+              <option>No category available</option>
+            )}
+          </select>
+        }
       </nav>
       {navbarTab === 'photos' && <Photos photos={photos} />}
       {navbarTab === 'videos' && <Videos videos={videos} />}

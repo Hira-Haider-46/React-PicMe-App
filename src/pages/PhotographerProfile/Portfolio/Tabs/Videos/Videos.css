@@ -5,4 +5,12 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     row-gap: 0.7em;
+    justify-content: center;
+    align-items: center;
+}
+
+.videos-container p {
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 500;
 }
