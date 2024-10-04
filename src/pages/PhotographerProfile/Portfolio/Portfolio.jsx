@@ -132,7 +132,7 @@ export default function Portfolio() {
           {navbarTab === 'photos' && <Photos photos={photos} selectedCategory={selectedCategory} />}
           {navbarTab === 'videos' && <Videos videos={videos} selectedCategory={selectedCategory} />}
           {navbarTab === 'reviews' && <Reviews />}
-          {(!selectedCategory || navbarTab !== 'reviews') && <p className='select-msg'>Select category to list photographers work</p>}
+          {(!selectedCategory && navbarTab !== 'reviews') && <p className='select-msg'>Select category to list photographers work</p>}
         </>
       )}
     </>

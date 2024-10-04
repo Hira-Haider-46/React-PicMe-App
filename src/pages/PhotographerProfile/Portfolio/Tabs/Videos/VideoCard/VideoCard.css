@@ -6,4 +6,5 @@
 .video-card :first-child {
     width: 100%;
     border-radius: 10px;
+    height: 180px;
 }
