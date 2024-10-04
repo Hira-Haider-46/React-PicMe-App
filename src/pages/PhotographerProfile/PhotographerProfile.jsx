@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
+import { LuLoader2 } from "react-icons/lu";
 import { getApiWithAuth } from '../../apis/index';
 import { FETCH_PHOTOGRAPHER_BY_ID } from '../../apis/apiUrls';
 import profileImg from '../../assets/images/ProfileImg.png';
@@ -42,7 +43,7 @@ export default function PhotographerProfile() {
         : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <LuLoader2 className="loader profileLoader" />;
     }
 
     return (

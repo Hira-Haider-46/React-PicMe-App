@@ -60,3 +60,9 @@
 .btns :first-child, .btns :nth-child(2) {
     width: 47%;
 }
+
+.profileLoader {
+    margin: 18% 50%;
+    color: var(--text);
+    font-size: 2rem;
+}
