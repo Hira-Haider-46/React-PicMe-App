@@ -10,7 +10,7 @@ export default function PackageCard({ obj }) {
     }
 
     return (
-        <div className='package-card' style={{ backgroundColor: obj.bgColor }}>
+        <div className='package-card'>
             <img src={obj.logo} alt={obj.name} />
             <h2>{obj.name}</h2>
             <h3>${obj.price}</h3>
@@ -20,7 +20,7 @@ export default function PackageCard({ obj }) {
                 <li>Up to {obj.video} Video</li>
             </ul>
             <Link to='/checkout' onClick={handleContinue}>
-                <Button text='CONTINUE' styles={{ backgroundColor: obj.bgColor, color: 'white', border: '1.5px solid white' }} />
+                <Button text='CONTINUE' variant='pkg'/>
             </Link>
         </div>
     )

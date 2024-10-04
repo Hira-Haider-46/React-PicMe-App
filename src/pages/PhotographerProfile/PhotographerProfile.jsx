@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { FaStar } from "react-icons/fa";
 import { LuLoader2 } from "react-icons/lu";
 import { getApiWithAuth } from '../../apis/index';
-import { FETCH_PHOTOGRAPHER_BY_ID } from '../../apis/apiUrls';
+import { FETCH_PHOTOGRAPHER_BY_ID, SHOW_PACKAGE } from '../../apis/apiUrls';
 import profileImg from '../../assets/images/ProfileImg.png';
 import Button from '../../commonComponents/Button';
 import Portfolio from './Portfolio';
@@ -16,6 +16,7 @@ export default function PhotographerProfile() {
     const photographerId = queryParams.get('id');
     const [selectedTab, setSelectedTab] = useState('portfolio');
     const [photographer, setPhotographer] = useState();
+    const [packages, setPackages] = useState(null);
     const [loading, setLoading] = useState(false);
 
     const fetchPhotographer = async () => {
@@ -23,24 +24,30 @@ export default function PhotographerProfile() {
         const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_BY_ID}${photographerId}`);
         if (res.success) {
             setPhotographer(res.data.data);
-            console.log(res.data.data);
         } else {
             console.error('error fetching data', res.data)
         }
         setLoading(false);
     };
 
+    const fetchPackages = async () => {
+        setLoading(true);
+        const res = await getApiWithAuth(`${SHOW_PACKAGE}${photographerId}`);
+        if (res.success) {
+            setPackages(res.data.data);
+            console.log('packages', packages);
+        } else {
+            console.error('error fetching data', res.data)
+        }
+        setLoading(false);
+    }
+
     useEffect(() => {
         fetchPhotographer();
     }, [photographerId]);
 
-    const portfolioButtonStyles = selectedTab === 'portfolio'
-        ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' }
-        : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
-
-    const packageButtonStyles = selectedTab === 'package'
-        ? { backgroundColor: '#2BAFC7', color: 'white', border: '1.5px solid' }
-        : { backgroundColor: 'white', color: '#2BAFC7', border: '1.5px solid #2BAFC7' };
+    const variant = selectedTab === 'portfolio' ? 'fill' : 'empty';
+    const variant1 = selectedTab === 'package' ? 'fill' : 'empty';
 
     if (loading) {
         return <LuLoader2 className="loader profileLoader" />;
@@ -58,15 +65,18 @@ export default function PhotographerProfile() {
                     <span>(5 reviews)</span>
                 </p>
                 <div className='btns flex'>
-                    <Button text='Portfolio' styles={portfolioButtonStyles} onClick={() => setSelectedTab('portfolio')} />
-
-                    <Button text='Package' styles={packageButtonStyles} onClick={() => setSelectedTab('package')} />
+                    <Button text='Portfolio' variant={variant} onClick={() => setSelectedTab('portfolio')} />
+                    <Button text='Package' variant={variant1} onClick={() => {
+                        setSelectedTab('package');
+                        fetchPackages();
+                    }
+                    } />
                 </div>
             </div>
 
             {selectedTab === 'portfolio' ? ( <Portfolio /> ) : (
                 <div className="package-content">
-                    <Packages />
+                    {loading ? <LuLoader2 className="loader" /> : <Packages packages={packages} />}
                 </div>
             )}
         </div>
