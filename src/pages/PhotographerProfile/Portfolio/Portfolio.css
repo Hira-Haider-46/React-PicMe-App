@@ -44,3 +44,8 @@
     font-size: 1rem;
     margin: 1em auto 3em auto;
 }
+
+.load {
+    margin: 3em auto;
+    color: var(--text);
+}
