@@ -50,10 +50,19 @@ export default function Portfolio() {
   }, [photographerId]);
 
   useEffect(() => {
-    if (selectedCategory) {
-      fetchPhotographerWork();
-    }
+    fetchPhotographerWork();
   }, [selectedCategory]);
+
+  useEffect(() => {
+    if (photographerWork) {
+      const filteredObj = photographerWork.filter(obj => obj.work_type === selectedCategory);
+      if (filteredObj.length > 0) {
+        const { photos, videos } = filteredObj[0];
+        setPhotos(photos);
+        setVideos(videos);
+      }
+    }
+  }, [photographerWork]);
 
   const activeStyles = {
     fontWeight: "bold",
@@ -99,16 +108,15 @@ export default function Portfolio() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">Select Category</option>
-          {categories?.length > 0 ?
-            <>
-              {categories.map((category, index) => (
-                <option key={index} value={category.value}>
-                  {category.label}
-                </option>
-              ))}
-            </> :
+          {categories?.length > 0 ? (
+            categories.map((category, index) => (
+              <option key={index} value={category.value}>
+                {category.label}
+              </option>
+            ))
+          ) : (
             <option>No category available</option>
-          }
+          )}
         </select>
       </nav>
       {navbarTab === 'photos' && <Photos photos={photos} />}
