@@ -1,11 +1,10 @@
 import React from 'react';
-import img from '../../../../../../assets/images/photoCard.png';
 import './PhotoCard.css';
 
-export default function PhotoCard() {
+export default function PhotoCard({ photoUrl }) {
   return (
-    <div className='photo-card'>
-      <img src={img} alt="card-img" />
+    <div className="photo-card">
+      <img src={photoUrl} alt="photographer-work-img" />
     </div>
-  )
+  );
 }
