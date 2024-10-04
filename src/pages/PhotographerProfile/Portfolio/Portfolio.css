@@ -37,3 +37,10 @@
     border-radius: 8px;
     color: var(--text);
 }
+
+.select-msg {
+    color: var(--text);
+    font-weight: 500;
+    font-size: 1rem;
+    margin: 1em auto 3em auto;
+}
