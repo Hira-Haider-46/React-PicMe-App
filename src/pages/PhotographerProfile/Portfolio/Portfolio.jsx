@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FETCH_PHOTOGRAPHER_WORK_BY_ID, FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls';
+import { FETCH_PHOTOGRAPHER_WORK_BY_ID, FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls'; 
 import { getApiWithAuth } from '../../../apis/index';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { formatCategoryName } from '../../../helper/helper';
@@ -19,12 +19,17 @@ export default function Portfolio() {
   const [photos, setPhotos] = useState([]);
   const [videos, setVideos] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const fetchCategories = async () => {
     const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_CATEGORY}${photographerId}`);
     if (res.success) {
-      setCategories(res.data.data);
-      console.log('categories:', res.data.data);
+      const formattedCategories = res.data.data.map(category => ({
+        label: formatCategoryName(category),
+        value: category,
+      }));
+      setCategories(formattedCategories);
+      console.log('categories:', formattedCategories);
     } else {
       console.error(res.data.message);
     }
@@ -34,10 +39,6 @@ export default function Portfolio() {
     const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_BY_ID}${photographerId}`);
     if (res.success) {
       setPhotographerWork(res.data.data);
-      setPhotos(res.data.data.photos || []);
-      setVideos(res.data.data.videos || []);
-      // console.log('photos', photos);
-      // console.log('videos', videos);
       console.log('Photographer work:', res.data.data);
     } else {
       console.error(res.data.message);
@@ -46,8 +47,13 @@ export default function Portfolio() {
 
   useEffect(() => {
     fetchCategories();
-    fetchPhotographerWork();
   }, [photographerId]);
+
+  useEffect(() => {
+    if (selectedCategory) {
+      fetchPhotographerWork();
+    }
+  }, [selectedCategory]);
 
   const activeStyles = {
     fontWeight: "bold",
@@ -87,9 +93,17 @@ export default function Portfolio() {
             </span>
           </li>
         </ul>
-        <select className='choose-category'>
+        <select
+          className='choose-category'
+          value={selectedCategory}
+          onChange={(e) => setSelectedCategory(e.target.value)}
+        >
           <option value="">Select Category</option>
-          <option value="">No categories available</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category.value}>
+              {category.label}
+            </option>
+          ))}
         </select>
       </nav>
       {navbarTab === 'photos' && <Photos photos={photos} />}
