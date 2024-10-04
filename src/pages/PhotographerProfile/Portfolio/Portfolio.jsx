@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FETCH_PHOTOGRAPHER_WORK_BY_ID, FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls'; 
+import { FETCH_PHOTOGRAPHER_WORK_BY_ID, FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls';
 import { getApiWithAuth } from '../../../apis/index';
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { formatCategoryName } from '../../../helper/helper';
@@ -99,11 +99,16 @@ export default function Portfolio() {
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
           <option value="">Select Category</option>
-          {categories.map((category, index) => (
-            <option key={index} value={category.value}>
-              {category.label}
-            </option>
-          ))}
+          {categories?.length > 0 ?
+            <>
+              {categories.map((category, index) => (
+                <option key={index} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </> :
+            <option>No category available</option>
+          }
         </select>
       </nav>
       {navbarTab === 'photos' && <Photos photos={photos} />}
