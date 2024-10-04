@@ -4,8 +4,9 @@ import Button from '../../../../commonComponents/Button';
 import './PackageCard.css';
 
 export default function PackageCard({ pkg }) {
-    const [expanded, setExpanded] = useState(false);
     
+    const [expanded, setExpanded] = useState(false);
+
     const convertToBullets = (input) => {
         const items = input.split('-').filter(item => item.trim() !== '');
         return items.map(item => `${item.trim()}`);
@@ -32,7 +33,7 @@ export default function PackageCard({ pkg }) {
                     </span>
                 )}
             </ul>
-            <Link to='/checkout' onClick={handleContinue}>
+            <Link to={`/checkout/${pkg.id}`}>
                 <Button text='CONTINUE' variant='pkg' />
             </Link>
         </div>

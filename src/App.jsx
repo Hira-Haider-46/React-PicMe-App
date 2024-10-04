@@ -35,7 +35,7 @@ export default function App() {
             <Route path="choose-location" element={<ChooseLocation />} />
             <Route path="location" element={<Location />} />
             <Route path="photographer-profile" element={<PhotographerProfile />} />
-            <Route path="checkout" element={<PaymentDetails />} />
+            <Route path="checkout/:id" element={<PaymentDetails />} />
           </Route>
         </Route>
       </Routes>
