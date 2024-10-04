@@ -9,4 +9,5 @@ export const SEARCH_BY_CATEGORY = "/customers/photographer_by_category?search[]=
 export const SEARCH_BY_LOCATION = "/customers/search_photographer?start_date=";
 export const FETCH_PHOTOGRAPHER_BY_ID = "/photographers/";
 export const FETCH_PHOTOGRAPHER_WORK_BY_ID ="/photographers/work_list?photographer_id=";
+export const FETCH_PHOTOGRAPHER_WORK_CATEGORY ="/photographers/categories?photographer_id=";
 export const ME = '/users/me';

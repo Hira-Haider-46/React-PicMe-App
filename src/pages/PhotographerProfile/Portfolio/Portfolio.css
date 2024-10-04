@@ -29,3 +29,11 @@
 .layout-nav a:hover {
     border-bottom: 2px solid var(--primary-color);
 }
+
+.choose-category {
+    border: 1px solid var(--border);
+    outline: none;
+    padding: 0.25em 1em;
+    border-radius: 8px;
+    color: var(--text);
+}
