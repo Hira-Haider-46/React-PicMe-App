@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Button from '../../commonComponents/Button';
 import { Link, useLocation } from 'react-router-dom';
 import { postApiWithoutAuth } from '../../apis/index'; 
-import { OTP_VERIFY } from '../../apis/apiUrls'; 
-import { useNavigate } from 'react-router-dom';
+import { OTP_VERIFY } from '../../apis/apiUrls';
 import './Verification.css';
 
 export default function Verification() {
     const [code, setCode] = useState(['', '', '', '']);
     const [timer, setTimer] = useState(30);
     const [email, setEmail] = useState('');
-    const navigate = useNavigate()
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);

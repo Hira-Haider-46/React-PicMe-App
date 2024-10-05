@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { logout } from '../../store/slices/authSlice';
 import logo from '../../assets/images/logo.png';
@@ -12,24 +12,13 @@ import profilePic from '../../assets/images/profile.png';
 import './Layout.css';
 
 export default function Layout() {
-    const [token, setToken] = useState(localStorage.getItem('token'));
     const dispatch = useDispatch();
+    const token = useSelector((state) => state.auth.token);
 
     const handleLogout = () => {
         dispatch(logout());
         localStorage.removeItem('token');
-        setToken(null);
     };
-
-    useEffect(() => {
-        const handleStorageChange = () => {
-            setToken(localStorage.getItem('token'));
-        };
-        window.addEventListener('storage', handleStorageChange);
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
-    }, []);
 
     return (
         <>
@@ -55,7 +44,7 @@ export default function Layout() {
                             </Link>
                             <Link to='' onClick={handleLogout}>
                                 <li className='logout flex'>
-                                    <RiLogoutCircleLine style={{marginRight: '0.5em', fontSize: '1.25rem'}}/> Logout
+                                    <RiLogoutCircleLine style={{ marginRight: '0.5em', fontSize: '1.25rem' }} /> Logout
                                 </li>
                             </Link>
                         </ul>

@@ -13,13 +13,17 @@ import PublicRoutes from "./commonComponents/PublicRoutes";
 import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import PhotographerProfile from "./pages/PhotographerProfile";
 import PaymentDetails from "./pages/PaymentDetails";
+import PhotographerLayout from "./commonComponents/PhotographerLayout";
+import PhotographerPrivateRoutes from "./commonComponents/PhotographerPrivateRoutes";
 import './App.css';
 
 export default function App() {
 
   return (
     <BrowserRouter>
+      
       <Routes>
+
         <Route element={<Layout />}>
           <Route element={<PublicRoutes />}>
             <Route index element={<ContinueAsPage />} />
@@ -31,6 +35,7 @@ export default function App() {
             <Route path="password-change" element={<PassChange />} />
           </Route>
         </Route>
+
         <Route element={<Layout />}>
           <Route element={<PrivateRoutes />}>
             <Route path="choose-location" element={<ChooseLocation />} />
@@ -39,7 +44,15 @@ export default function App() {
             <Route path="checkout/:id" element={<PaymentDetails />} />
           </Route>
         </Route>
+
+        <Route element={<PhotographerLayout />}>
+          <Route element={<PhotographerPrivateRoutes />}>
+            <Route path="create-profile" element={<h1>Create Profile</h1>} />
+          </Route>
+        </Route>
+
       </Routes>
+      
     </BrowserRouter>
   );
 }
