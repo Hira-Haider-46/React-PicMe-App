@@ -57,7 +57,7 @@ export default function Layout() {
                 <div className='layout flex'>
                     <div className='text-portion'>
                         <nav className='nav'>
-                            <Link to='/choose-location'><img src={logo} alt="logo" /></Link>
+                            <Link to='/'><img src={logo} alt="logo" /></Link>
                         </nav>
                         <Outlet />
                     </div>
