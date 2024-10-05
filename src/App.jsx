@@ -29,7 +29,8 @@ export default function App() {
             <Route path="verification" element={<Verification />} />
             <Route path="new-password" element={<CreateNewPass />} />
             <Route path="password-change" element={<PassChange />} />
-          </Route></Route>
+          </Route>
+        </Route>
         <Route element={<Layout />}>
           <Route element={<PrivateRoutes />}>
             <Route path="choose-location" element={<ChooseLocation />} />
