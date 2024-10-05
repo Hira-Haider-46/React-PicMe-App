@@ -14,7 +14,6 @@ import PrivateRoutes from "./commonComponents/PrivateRoutes";
 import PhotographerProfile from "./pages/PhotographerProfile";
 import PaymentDetails from "./pages/PaymentDetails";
 import PhotographerLayout from "./commonComponents/PhotographerLayout";
-import PhotographerPrivateRoutes from "./commonComponents/PhotographerPrivateRoutes";
 import './App.css';
 
 export default function App() {
@@ -46,13 +45,13 @@ export default function App() {
         </Route>
 
         <Route element={<PhotographerLayout />}>
-          <Route element={<PhotographerPrivateRoutes />}>
+          <Route element={<PrivateRoutes />}>
             <Route path="create-profile" element={<h1>Create Profile</h1>} />
           </Route>
         </Route>
 
       </Routes>
-      
+
     </BrowserRouter>
   );
 }
