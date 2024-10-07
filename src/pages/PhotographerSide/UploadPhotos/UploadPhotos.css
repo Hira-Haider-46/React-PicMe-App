@@ -29,3 +29,23 @@
     margin-right: 0.5em;
     font-size: 1rem;
 }
+
+/* .photos-section {
+    border: 2px solid;
+} */
+
+.header-section {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+
+.header-section h3 {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1.13rem;
+}
+
+.category {
+    width: 25%;
+}

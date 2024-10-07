@@ -8,7 +8,7 @@ export default function UploadPhotos() {
         <div className='border' id='upload-photos'>
             <h2 className='h2'>Upload Photos</h2>
             <p className='p'>Upload your professional photos.</p>
-            <div className="file-upload" style={{margin: '2em 0'}}>
+            <div className="file-upload" style={{ margin: '2em 0' }}>
                 <label htmlFor="photos-upload" className="upload-section flex">
                     <img src={photosImg} alt="photos-img" />
                     <p className='upload-text'>
@@ -17,6 +17,16 @@ export default function UploadPhotos() {
                     </p>
                 </label>
                 <input id="photos-upload" type="file" accept="image/png, image/jpeg" />
+            </div>
+            <div className='photos-section'>
+                <div className='header-section flex'>
+                    <h3>Uploaded Photos</h3>
+                    <select className='choose-category category'>
+                        <option value="">Select Category</option>
+                        <option>No category available</option>
+                    </select>
+                </div>
+                <div></div>
             </div>
         </div>
     )
