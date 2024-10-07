@@ -27,15 +27,27 @@
 }
 
 .input-field {
-    position: relative;
+    padding: 0.75em 1em;
+    font-size: 1rem;
+    border-radius: 12px;
 }
 
-input, select {
+.input-field, select {
     width: 100%;
-    padding: 0.75em;
-    border-radius: 5px;
     border: 1px solid var(--border);
-    font-size: 1rem;
+    color: var(--text);
+}
+
+.profile-page form input, select {
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.profile-page form :nth-child(4) {
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0.95em 1em;
 }
 
 .file-upload {

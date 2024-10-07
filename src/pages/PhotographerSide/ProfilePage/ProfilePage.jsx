@@ -1,5 +1,7 @@
 import React from 'react';
 import { FiUpload } from "react-icons/fi";
+import { GoPlusCircle } from "react-icons/go";
+import idCardImg from '../../../assets/images/upload-id.png';
 import Button from '../../../commonComponents/Button';
 import './ProfilePage.css';
 
@@ -23,8 +25,9 @@ export default function ProfilePage() {
         <div className="input-field">
           <input type="text" placeholder='Address' />
         </div>
-        <div className="input-field">
+        <div className="input-field flex">
           <input type="text" placeholder='Add Custom Photographer Type' />
+          <GoPlusCircle />
         </div>
         <div className="input-field">
           <select>
@@ -34,12 +37,18 @@ export default function ProfilePage() {
         </div>
         <div className="file-upload">
           <label htmlFor="id-card-upload" className="upload-box">
-            <img src="" alt="Upload ID Card" />
-            <p>Upload ID Card<br />Upload only in png, jpeg.</p>
+            <img src={idCardImg} alt="Upload ID Card" />
+            <p>
+              <span><FiUpload /></span>
+              Upload ID Card
+            </p>
+            <p>
+              Upload only in png, jpeg.
+            </p>
           </label>
           <input id="id-card-upload" type="file" accept="image/png, image/jpeg" />
         </div>
-        <Button text='SUBMIT' variant='fill'/>
+        <Button text='SUBMIT' variant='fill' />
       </form>
     </div>
   );
