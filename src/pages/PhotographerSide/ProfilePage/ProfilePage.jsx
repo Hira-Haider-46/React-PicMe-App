@@ -17,8 +17,8 @@ export default function ProfilePage() {
 
   return (
     <div className='profile-page'>
-      <h2>Create Your Profile</h2>
-      <p>Update your details in the form provided.</p>
+      <h2 className='h2'>Create Your Profile</h2>
+      <p className='p'>Update your details in the form provided.</p>
       <form onSubmit={handleSubmit}>
         <div className="input-field">
           <input type="text" placeholder='Full Name' />

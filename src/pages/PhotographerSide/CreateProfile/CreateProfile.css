@@ -11,17 +11,3 @@
     width: 190px;
     height: 182px;
 }
-
-.create-profile-card h2 {
-    font-weight: 500;
-    font-size: 1.4rem;
-    color: var(--heading);
-    margin: 0.25em 0;
-}
-
-.create-profile-card p {
-    font-weight: 400;
-    color: var(--text);
-    font-size: 0.95rem;
-    margin-bottom: 0.65em;
-}

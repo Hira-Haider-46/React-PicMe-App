@@ -17,7 +17,8 @@ import PhotographerRoute from "./commonComponents/PhotographerRoute";
 import PhotographerLayout from "./commonComponents/PhotographerLayout";
 import CreateProfile from "./pages/PhotographerSide/CreateProfile";
 import ProfilePage from "./pages/PhotographerSide/ProfilePage";
-import HomePage from "./pages/PhotographerSide/HomePage/";
+import HomePage from "./pages/PhotographerSide/HomePage";
+import UploadWork from "./pages/PhotographerSide/UploadWork";
 import './App.css';
 
 export default function App() {
@@ -53,6 +54,7 @@ export default function App() {
             <Route path="create-profile" element={<CreateProfile />} />
             <Route path="profile-page" element={<ProfilePage />} />
             <Route path="home-page" element={<HomePage />} />
+            <Route path="upload-work" element={<UploadWork />} />
           </Route>
         </Route>
 
