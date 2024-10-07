@@ -7,15 +7,16 @@ import Verification from "./pages/Verification";
 import ForgotPassword from "./pages/ForgotPassword";
 import CreateNewPass from "./pages/CreateNewPass";
 import PassChange from "./pages/PassChange";
-import ChooseLocation from "./pages/ChooseLocation";
-import Location from "./pages/Location";
+import ChooseLocation from "./pages/CustomerSide/ChooseLocation";
+import Location from "./pages/CustomerSide/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
 import CustomerPrivateRoutes from "./commonComponents/CustomerPrivateRoutes";
-import PhotographerProfile from "./pages/PhotographerProfile";
-import PaymentDetails from "./pages/PaymentDetails";
-import PhotographerLayout from "./commonComponents/PhotographerLayout";
-import CreateProfile from "./pages/CreateProfile";
+import PhotographerProfile from "./pages/CustomerSide/PhotographerProfile";
+import PaymentDetails from "./pages/CustomerSide/PaymentDetails";
 import PhotographerRoute from "./commonComponents/PhotographerRoute";
+import PhotographerLayout from "./commonComponents/PhotographerLayout";
+import CreateProfile from "./pages/PhotographerSide/CreateProfile";
+import ProfilePage from "./pages/PhotographerSide/ProfilePage";
 import './App.css';
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
         <Route element={<PhotographerLayout />}>
           <Route element={<PhotographerRoute />}>
             <Route path="create-profile" element={<CreateProfile />} />
+            <Route path="profile-page" element={<ProfilePage />} />
           </Route>
         </Route>
 

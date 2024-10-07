@@ -1,7 +1,8 @@
 import React from 'react';
-import logo from '../../assets/images/create-profile.png';
+import { Link } from 'react-router-dom';
+import logo from '../../../assets/images/create-profile.png';
+import Button from '../../../commonComponents/Button';
 import './CreateProfile.css';
-import Button from '../../commonComponents/Button';
 
 export default function CreateProfile() {
     return (
@@ -9,7 +10,9 @@ export default function CreateProfile() {
             <img src={logo} alt="create-profile-logo" />
             <h2>Create Your Profile</h2>
             <p>Create your profile to showcase stunning photography and attract clients.</p>
-            <Button text='CREATE PROFILE' variant='fill'/>
+            <Link to='/profile-page'>
+                <Button text='CREATE PROFILE' variant='fill' />
+            </Link>
         </div>
     )
 }

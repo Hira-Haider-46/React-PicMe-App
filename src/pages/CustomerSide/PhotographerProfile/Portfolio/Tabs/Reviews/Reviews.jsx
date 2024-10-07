@@ -1,6 +1,6 @@
 import React from 'react';
 import ReviewCard from './ReviewCard';
-import img from '../../../../../assets/images/reviewProfileImg.png';
+import img from '../../../../../../assets/images/reviewProfileImg.png';
 import './Reviews.css';
 
 export default function Reviews() {

@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import PkgCard from './PkgCard';
 import PaymentMethod from './PaymentMethod';
 import PaymentSchedule from './PaymentSchedule';
-import { getApiWithAuth } from '../../apis/index';
-import { GET_PACKAGE } from '../../apis/apiUrls';
+import { getApiWithAuth } from '../../../apis/index';
+import { GET_PACKAGE } from '../../../apis/apiUrls';
 import './PaymentDetails.css';
 
 export default function PaymentDetails() {

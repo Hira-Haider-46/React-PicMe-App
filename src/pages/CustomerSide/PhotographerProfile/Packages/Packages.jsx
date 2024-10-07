@@ -1,6 +1,6 @@
 import React from 'react';
 import PackageCard from './PackageCard';
-import basic from '../../../assets/images/basic.png';
+import basic from '../../../../assets/images/basic.png';
 import './Packages.css';
 
 export default function Packages({ packages }) {

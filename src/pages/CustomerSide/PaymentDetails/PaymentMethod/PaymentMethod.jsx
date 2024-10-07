@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../../../commonComponents/Button';
-import visa from '../../../assets/images/visa.png';
-import master from '../../../assets/images/master.png';
-import paypal from '../../../assets/images/paypal.png';
+import Button from '../../../../commonComponents/Button';
+import visa from '../../../../assets/images/visa.png';
+import master from '../../../../assets/images/master.png';
+import paypal from '../../../../assets/images/paypal.png';
 import './PaymentMethod.css';
 
 export default function PaymentMethod({ onContinue }) {

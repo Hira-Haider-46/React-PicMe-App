@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../../commonComponents/Button';
-import illustration from '../../assets/images/illustration.png';
+import Button from '../../../commonComponents/Button';
+import illustration from '../../../assets/images/illustration.png';
 import './ChooseLocation.css';
 
 export default function ChooseLocation() {

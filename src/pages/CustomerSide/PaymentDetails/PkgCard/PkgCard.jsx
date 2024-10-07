@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import logo from '../../../assets/images/basic.png';
-import Button from '../../../commonComponents/Button';
-import { convertToBullets } from '../../../helper/helper';
+import logo from '../../../../assets/images/basic.png';
+import Button from '../../../../commonComponents/Button';
+import { convertToBullets } from '../../../../helper/helper';
 import './PkgCard.css';
 
 export default function PkgCard({ packageDetails }) {

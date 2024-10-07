@@ -8,9 +8,9 @@ import { IoIosArrowBack } from "react-icons/io";
 import { LuLoader2 } from "react-icons/lu";
 
 import PhotographerList from "./PhotographerList";
-import { GLOBAL_CATEGORIES, SEARCH_BY_LOCATION, SEARCH_BY_CATEGORY, SEARCH_BY_NAME } from "../../apis/apiUrls";
-import { getApiWithAuth } from "../../apis/index";
-import { formatCategoryName } from "../../helper/helper";
+import { GLOBAL_CATEGORIES, SEARCH_BY_LOCATION, SEARCH_BY_CATEGORY, SEARCH_BY_NAME } from "../../../apis/apiUrls";
+import { getApiWithAuth } from "../../../apis/index";
+import { formatCategoryName } from "../../../helper/helper";
 import "leaflet/dist/leaflet.css";
 import "./Location.css";
 

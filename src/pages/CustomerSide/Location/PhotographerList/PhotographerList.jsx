@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import { IoIosClose, IoIosArrowBack } from "react-icons/io";
-import { formatCategoryName } from "../../../helper/helper";
-import profileImg from '../../../assets/images/ProfileImg.png';
-import PhotographerListCard from "../../../commonComponents/PhotographerListCard";
+import { formatCategoryName } from "../../../../helper/helper";
+import profileImg from '../../../../assets/images/ProfileImg.png';
+import PhotographerListCard from "../../../../commonComponents/PhotographerListCard";
 import "./PhotographerList.css";
 
 export default function PhotographerList({

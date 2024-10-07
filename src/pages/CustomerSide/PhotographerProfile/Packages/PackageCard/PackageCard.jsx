@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Button from '../../../../commonComponents/Button';
-import { convertToBullets } from '../../../../helper/helper';
+import Button from '../../../../../commonComponents/Button';
+import { convertToBullets } from '../../../../../helper/helper';
 import './PackageCard.css';
 
 export default function PackageCard({ pkg }) {
