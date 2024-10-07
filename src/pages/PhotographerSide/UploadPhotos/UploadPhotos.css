@@ -1,0 +1,31 @@
+#upload-photos {
+    padding: 2em 4em;
+    margin: 2em 0;
+}
+
+.upload-section {
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    width: 35%;
+    margin: auto;
+    padding: 1.7em;
+}
+
+.upload-section img {
+    margin: 0;
+}
+
+.upload-section p {
+    margin: 0.25em 0;
+    font-size: 0.95rem;
+}
+
+.upload-section .upload-text {
+    color: var(--primary-color);
+}
+
+.upload-section span {
+    margin-right: 0.5em;
+    font-size: 1rem;
+}
