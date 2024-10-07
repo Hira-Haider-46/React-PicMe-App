@@ -1,0 +1,74 @@
+.profile-page {
+    padding: 0 2em;
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.profile-page h2 {
+    color: var(--heading);
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 0.25em;
+}
+
+.profile-page p {
+    color: var(--text);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin-bottom: 0.5em;
+}
+
+.profile-page form {
+    padding: 2em;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.5em;
+    align-items: center;
+}
+
+.input-field {
+    position: relative;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.75em;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    font-size: 1rem;
+}
+
+.file-upload {
+    grid-column: span 2;
+    text-align: center;
+}
+
+.upload-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px dashed var(--primary);
+    padding: 1.5em;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.upload-box img {
+    width: 50px;
+    height: 50px;
+}
+
+.upload-box p {
+    margin-top: 1em;
+    color: var(--primary);
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.profile-page form :nth-child(7) {
+    grid-column: span 2;
+    width: 25%;
+    margin: auto;
+}
