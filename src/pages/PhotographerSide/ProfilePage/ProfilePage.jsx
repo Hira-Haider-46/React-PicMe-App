@@ -36,13 +36,13 @@ export default function ProfilePage() {
           </select>
         </div>
         <div className="file-upload">
-          <label htmlFor="id-card-upload" className="upload-box">
+          <label htmlFor="id-card-upload" className="upload-box flex">
             <img src={idCardImg} alt="Upload ID Card" />
-            <p>
+            <p className='upload-text'>
               <span><FiUpload /></span>
               Upload ID Card
             </p>
-            <p>
+            <p className='upload-text2'>
               Upload only in png, jpeg.
             </p>
           </label>
