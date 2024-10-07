@@ -10,18 +10,19 @@ import PassChange from "./pages/PassChange";
 import ChooseLocation from "./pages/ChooseLocation";
 import Location from "./pages/Location";
 import PublicRoutes from "./commonComponents/PublicRoutes";
-import PrivateRoutes from "./commonComponents/PrivateRoutes";
+import CustomerPrivateRoutes from "./commonComponents/CustomerPrivateRoutes";
 import PhotographerProfile from "./pages/PhotographerProfile";
 import PaymentDetails from "./pages/PaymentDetails";
 import PhotographerLayout from "./commonComponents/PhotographerLayout";
 import CreateProfile from "./pages/CreateProfile";
+import PhotographerRoute from "./commonComponents/PhotographerRoute";
 import './App.css';
 
 export default function App() {
 
   return (
     <BrowserRouter>
-      
+
       <Routes>
 
         <Route element={<Layout />}>
@@ -37,7 +38,7 @@ export default function App() {
         </Route>
 
         <Route element={<Layout />}>
-          <Route element={<PrivateRoutes />}>
+          <Route element={<CustomerPrivateRoutes />}>
             <Route path="choose-location" element={<ChooseLocation />} />
             <Route path="location" element={<Location />} />
             <Route path="photographer-profile" element={<PhotographerProfile />} />
@@ -46,7 +47,7 @@ export default function App() {
         </Route>
 
         <Route element={<PhotographerLayout />}>
-          <Route element={<PrivateRoutes />}>
+          <Route element={<PhotographerRoute />}>
             <Route path="create-profile" element={<CreateProfile />} />
           </Route>
         </Route>
