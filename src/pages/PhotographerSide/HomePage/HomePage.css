@@ -1,0 +1,84 @@
+.home--page {
+    padding: 2em;
+    text-align: center;
+    border-radius: 10px;
+    margin: 1em 0;
+}
+
+.home--page h2 {
+    color: var(--heading);
+    font-weight: 500;
+    font-size: 1.7rem;
+    margin-bottom: 0.25em;
+}
+
+.home--page p {
+    color: var(--text);
+    font-weight: 400;
+    font-size: 1.15rem;
+    margin-bottom: 0.25em;
+}
+
+.boxes-container {
+    margin: 2em auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+}
+
+.box {
+    border-radius: 12px;
+    width: 28%;
+    padding: 0.7em;
+    cursor: pointer;
+}
+
+.box-img {
+    margin: 2em auto 0.1em auto;
+}
+
+.box p {
+    color: var(--heading);
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 1em;
+}
+
+.box1-img {
+    width: 85px;
+}
+
+.tick-mark {
+    float: right;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+}
+
+.box1 {
+    background-color: #DAF9FF;
+}
+
+.box2 {
+    background-color: #A7DBFB;
+}
+
+.box3 {
+    background-color: #DAE2FF;
+}
+
+.home--page :nth-child(4) {
+    width: 25%;
+    margin: auto;
+    margin: 1em 0 7em 0;
+}
+
+.text-img-box {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 35%;
+    margin: 2em auto;
+    height: 110px;
+}
