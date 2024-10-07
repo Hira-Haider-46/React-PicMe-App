@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import idCardImg from '../../../assets/images/upload-id.png';
@@ -6,6 +6,9 @@ import Button from '../../../commonComponents/Button';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedPhotographerType, setSelectedPhotographerType] = useState('');
+
   return (
     <div className='profile-page'>
       <h2>Create Your Profile</h2>
@@ -15,8 +18,11 @@ export default function ProfilePage() {
           <input type="text" placeholder='Full Name' />
         </div>
         <div className="input-field">
-          <select>
-            <option value="" disabled selected>Gender</option>
+          <select
+            value={selectedGender}
+            onChange={(e) => setSelectedGender(e.target.value)}
+            style={{ color: selectedGender ? 'black' : `{$var(--text)}` }}>
+            <option value="" disabled>Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
             <option value="other">Other</option>
@@ -30,8 +36,12 @@ export default function ProfilePage() {
           <GoPlusCircle />
         </div>
         <div className="input-field">
-          <select>
-            <option value="" disabled selected>Add Photographer Type</option>
+          <select
+            value={selectedPhotographerType}
+            onChange={(e) => setSelectedPhotographerType(e.target.value)}
+            style={{ color: selectedPhotographerType ? 'black' : `{$var(--text)}` }}
+          >
+            <option value="" disabled>Add Photographer Type</option>
             <option value="">No options available</option>
           </select>
         </div>

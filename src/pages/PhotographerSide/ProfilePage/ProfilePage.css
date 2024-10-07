@@ -44,6 +44,10 @@
     width: 100%;
 }
 
+select:focus {
+    color: black;
+}
+
 .profile-page form :nth-child(4) {
     flex-direction: row;
     justify-content: space-around;
