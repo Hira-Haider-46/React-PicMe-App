@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   margin: 0;
@@ -8,11 +8,11 @@
 }
 
 :root {
-  --primary-color: #2BAFC7;
+  --primary-color: #2bafc7;
   --secondary-color: white;
-  --heading: #120D26;
+  --heading: #120d26;
   --text: #747688;
-  --border: #D3D1D8;
+  --border: #d3d1d8;
 }
 
 .flex {
@@ -23,9 +23,13 @@
   padding: 0 3em;
 }
 
+.border {
+  border: 1px solid var(--border);
+}
+
 /* login + signup css */
 .login {
-  width: 50%; 
+  width: 50%;
   margin: 2em auto;
   padding: 0 2em;
   flex-direction: column;
@@ -41,13 +45,13 @@
 
 form {
   flex-direction: column;
-  gap: 1.2em; 
+  gap: 1.2em;
 }
 
 .input-group {
   position: relative;
   align-items: center;
-  border: 1px solid #E4DFDF;
+  border: 1px solid #e4dfdf;
   border-radius: 12px;
   padding-left: 2.5em;
 }

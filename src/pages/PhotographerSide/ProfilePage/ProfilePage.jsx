@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import idCardImg from '../../../assets/images/upload-id.png';
@@ -8,12 +9,17 @@ import './ProfilePage.css';
 export default function ProfilePage() {
   const [selectedGender, setSelectedGender] = useState('');
   const [selectedPhotographerType, setSelectedPhotographerType] = useState('');
+  const navigate = useNavigate();
+
+  const handleSubmit = () => {
+    navigate('/home-page');
+  }
 
   return (
     <div className='profile-page'>
       <h2>Create Your Profile</h2>
       <p>Update your details in the form provided.</p>
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="input-field">
           <input type="text" placeholder='Full Name' />
         </div>
