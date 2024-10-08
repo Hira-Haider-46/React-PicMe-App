@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../../commonComponents/Button';
 import photos from '../../../assets/images/photos-img.png';
 import videos from '../../../assets/images/video-play-button.png';
@@ -6,10 +7,16 @@ import './UploadWork.css';
 
 export default function UploadWork() {
     const [selectedBox, setSelectedBox] = useState(null);
+    const navigate = useNavigate();
 
     const handleBoxClick = (box) => {
         setSelectedBox(selectedBox === box ? null : box);
     };
+
+    const handleContinue = () => {
+        { selectedBox === 'photos' && navigate('/upload-photos'); }
+        { selectedBox === 'videos' && navigate('/upload-videos'); }
+    }
 
     return (
         <div className='upload-work border'>
@@ -31,7 +38,7 @@ export default function UploadWork() {
                     <p>Videos</p>
                 </div>
             </div>
-            <Button text='CONTINUE' variant='fill' />
+            <Button text='CONTINUE' variant='fill' onClick={handleContinue}/>
         </div>
     );
 }
