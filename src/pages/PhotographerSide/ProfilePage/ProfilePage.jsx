@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
-import { AiOutlineClose } from "react-icons/ai"; 
+import { AiOutlineClose } from "react-icons/ai";
 import idCardImg from '../../../assets/images/upload-id.png';
 import Button from '../../../commonComponents/Button';
-import { getApiWithAuth } from '../../../apis/index';
-import { GLOBAL_CATEGORIES } from '../../../apis/apiUrls';
+import { getApiWithAuth, postApiWithAuth } from '../../../apis/index';
+import { GLOBAL_CATEGORIES, ADD_CATEGORY, CREATE_PROFILE } from '../../../apis/apiUrls';
 import { formatCategoryName } from '../../../helper/helper';
 import './ProfilePage.css';
 
@@ -15,7 +15,8 @@ export default function ProfilePage() {
   const [selectedGender, setSelectedGender] = useState('');
   const [photographerTypes, setPhotographerTypes] = useState([]);
   const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
-  const [uploadedImage, setUploadedImage] = useState(null); 
+  const [uploadedImage, setUploadedImage] = useState(null);
+  const [customPhotographerType, setCustomPhotographerType] = useState('');
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -31,6 +32,16 @@ export default function ProfilePage() {
     }
   };
 
+  const addType = async (type) => {
+    const res = await postApiWithAuth(ADD_CATEGORY, { category: [type] });
+    if (res.success) {
+      console.log('Type added successfully');
+      fetchCategories();
+    } else {
+      console.error(res.data);
+    }
+  };
+
   const handlePhotographerTypeChange = (selectedOptions) => {
     setSelectedPhotographerTypes(selectedOptions);
   };
@@ -38,13 +49,23 @@ export default function ProfilePage() {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file); 
-      setUploadedImage(imageUrl); 
+      const imageUrl = URL.createObjectURL(file);
+      setUploadedImage(imageUrl);
     }
   };
 
   const handleImageRemove = () => {
     setUploadedImage(null);
+  };
+
+  const handleCustomTypeAdd = () => {
+    const exists = photographerTypes.some(type => type.value === customPhotographerType);
+    if (!exists && customPhotographerType) {
+      addType(customPhotographerType);
+      setCustomPhotographerType('');
+    } else {
+      alert('Photographer type already exists or is empty!');
+    }
   };
 
   const handleSubmit = (e) => {
@@ -81,8 +102,13 @@ export default function ProfilePage() {
           <input type="text" placeholder='Address' />
         </div>
         <div className="input-field flex">
-          <input type="text" placeholder='Add Custom Photographer Type' />
-          <GoPlusCircle />
+          <input
+            type="text"
+            placeholder='Add Custom Photographer Type'
+            value={customPhotographerType}
+            onChange={(e) => setCustomPhotographerType(e.target.value)}
+          />
+          <GoPlusCircle onClick={handleCustomTypeAdd} style={{cursor: 'pointer'}}/>
         </div>
         <Select
           isMulti
@@ -120,7 +146,7 @@ export default function ProfilePage() {
             type="file"
             accept="image/png, image/jpeg"
             onChange={handleImageUpload}
-            style={{ display: 'none' }} 
+            style={{ display: 'none' }}
           />
         </div>
         <Button text='SUBMIT' variant='fill' />

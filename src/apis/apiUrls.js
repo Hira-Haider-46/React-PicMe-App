@@ -12,4 +12,6 @@ export const FETCH_PHOTOGRAPHER_WORK_BY_ID ="/photographers/work_list?photograph
 export const FETCH_PHOTOGRAPHER_WORK_CATEGORY ="/photographers/categories?photographer_id=";
 export const SHOW_PACKAGE = "/packages?photographer_id=";
 export const GET_PACKAGE = "/packages/";
+export const ADD_CATEGORY = "/photographers/add_categories";
+export const CREATE_PROFILE = "/photographers/create_profile";
 export const ME = '/users/me';
