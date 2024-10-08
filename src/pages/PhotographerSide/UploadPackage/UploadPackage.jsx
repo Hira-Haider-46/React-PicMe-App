@@ -12,7 +12,6 @@ export default function UploadPackage() {
         description: '',
     });
 
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -21,10 +20,9 @@ export default function UploadPackage() {
         });
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); // Process the form data, e.g., send it to the server
+        console.log(formData); 
     };
 
     return (

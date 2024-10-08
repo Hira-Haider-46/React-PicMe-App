@@ -1,0 +1,11 @@
+.pkg-container {
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+    gap: 1em;
+    margin: 2em 0;
+}
+
+.create-pkg .btn {
+    width: 28%;
+    margin: auto;
+}
