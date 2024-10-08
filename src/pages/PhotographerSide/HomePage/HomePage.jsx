@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../../commonComponents/Button';
 import portfolio from '../../../assets/images/portfolio.png';
 import packageImg from '../../../assets/images/package.png';
@@ -9,10 +10,16 @@ import './HomePage.css';
 export default function HomePage() {
     const name = localStorage.getItem('name');
     const [selectedBox, setSelectedBox] = useState(null);
+    const navigate = useNavigate();
 
     const handleBoxClick = (box) => {
         setSelectedBox(selectedBox === box ? null : box);
     };
+
+    const handleContinue = () => {
+        { selectedBox === 'portfolio' && navigate('/upload-work'); }
+        { selectedBox === 'package' && navigate('/create-package'); }
+    }
 
     return (
         <div className='border home--page'>
@@ -41,7 +48,7 @@ export default function HomePage() {
                     </div>
                 </div>
             </div>
-            <Button text='CONTINUE' variant='fill' />
+            <Button text='CONTINUE' variant='fill' onClick={handleContinue}/>
         </div>
     );
 }
