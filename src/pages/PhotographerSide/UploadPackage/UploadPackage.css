@@ -1,0 +1,55 @@
+#upload-pkg {
+    padding: 2em 4em;
+}
+
+.pkg-upload {
+  margin: 2em auto;
+  padding: 3em 0;
+  cursor: pointer;
+}
+
+.upload-pkg-text {
+  color: var(--primary-color);
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0.2em auto;
+  width: 18%;
+}
+
+.pkg-upload .upload-pkg-text span {
+    margin-right: 0.5em;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+#upload-pkg h3 {
+    text-align: left;
+    margin-bottom: 1em;
+    color: var(--heading);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+#upload-pkg form {
+    border-color: #e7e6eb;
+    padding: 2em 1.5em;
+    flex-direction: column;
+}
+
+.pkg-input {
+    justify-content: space-around;
+    margin: 0.25em 0;
+}
+
+.pkg-input input{
+    width: 48%;
+    padding: 1em 1.5em;
+    border-radius: 10px;
+    outline: none;
+    border: 1px solid var(--border);
+}
+
+#upload-pkg form :nth-child(3) {
+    width: 25%;
+    margin: 1em auto;
+}

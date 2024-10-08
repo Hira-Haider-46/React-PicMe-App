@@ -21,6 +21,7 @@ import HomePage from "./pages/PhotographerSide/HomePage";
 import UploadWork from "./pages/PhotographerSide/UploadWork";
 import UploadPhotos from "./pages/PhotographerSide/UploadPhotos";
 import UploadVideos from "./pages/PhotographerSide/UploadVideos";
+import UploadPackage from "./pages/PhotographerSide/UploadPackage";
 import './App.css';
 
 export default function App() {
@@ -59,6 +60,7 @@ export default function App() {
             <Route path="upload-work" element={<UploadWork />} />
             <Route path="upload-photos" element={<UploadPhotos />} />
             <Route path="upload-videos" element={<UploadVideos />} />
+            <Route path="upload-package" element={<UploadPackage />} />
           </Route>
         </Route>
 
