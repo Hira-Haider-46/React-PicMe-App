@@ -1,19 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import idCardImg from '../../../assets/images/upload-id.png';
 import Button from '../../../commonComponents/Button';
+import { getApiWithAuth } from '../../../apis/index';
+import { GLOBAL_CATEGORIES } from '../../../apis/apiUrls';
+import { formatCategoryName } from '../../../helper/helper';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
   const [selectedGender, setSelectedGender] = useState('');
+  const [photographerTypes, setPhotographerTypes] = useState([]);
   const [selectedPhotographerType, setSelectedPhotographerType] = useState('');
   const navigate = useNavigate();
+
+  const fetchCategories = async () => {
+    const res = await getApiWithAuth(`${GLOBAL_CATEGORIES}`);
+    if (res.success) {
+      const formattedsetPhotographerTypes = res.data.data.map(category => ({
+        label: formatCategoryName(category),
+        value: category,
+      }));
+      setPhotographerTypes(formattedsetPhotographerTypes);
+    } else {
+      console.error(res.data.message);
+    }
+  };
 
   const handleSubmit = () => {
     navigate('/home-page');
   }
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <div className='profile-page'>
@@ -47,8 +68,16 @@ export default function ProfilePage() {
             onChange={(e) => setSelectedPhotographerType(e.target.value)}
             style={{ color: selectedPhotographerType ? 'black' : `{$var(--text)}` }}
           >
-            <option value="" disabled>Add Photographer Type</option>
-            <option value="">No options available</option>
+            <option value="">Add Photographer Type</option>
+            {photographerTypes?.length > 0 ? (
+              photographerTypes.map((type, index) => (
+                <option key={index} value={type.value}>
+                  {type.label}
+                </option>
+              ))
+            ) : (
+                <option>No type available</option>
+            )}
           </select>
         </div>
         <div className="file-upload">
