@@ -106,3 +106,25 @@ input[type="file"] {
 .profile-page .css-v7duua {
     border-radius: 50%;
 }
+
+.uploaded-image {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.uploaded-image img {
+  width: 100px; 
+  height: auto;
+  border-radius: 8px;
+  margin: auto;
+}
+
+.remove-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: black; 
+  cursor: pointer;
+  font-size: 20px; 
+}

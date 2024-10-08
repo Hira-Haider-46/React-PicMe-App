@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
+import { AiOutlineClose } from "react-icons/ai"; 
 import idCardImg from '../../../assets/images/upload-id.png';
 import Button from '../../../commonComponents/Button';
 import { getApiWithAuth } from '../../../apis/index';
@@ -14,6 +15,7 @@ export default function ProfilePage() {
   const [selectedGender, setSelectedGender] = useState('');
   const [photographerTypes, setPhotographerTypes] = useState([]);
   const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
+  const [uploadedImage, setUploadedImage] = useState(null); 
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -31,6 +33,18 @@ export default function ProfilePage() {
 
   const handlePhotographerTypeChange = (selectedOptions) => {
     setSelectedPhotographerTypes(selectedOptions);
+  };
+
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); 
+      setUploadedImage(imageUrl); 
+    }
+  };
+
+  const handleImageRemove = () => {
+    setUploadedImage(null);
   };
 
   const handleSubmit = (e) => {
@@ -55,7 +69,7 @@ export default function ProfilePage() {
           <select
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}
-            style={{ color: selectedGender ? 'black' : `{$var(--text)}` }}
+            style={{ color: selectedGender ? 'black' : 'var(--text)' }}
           >
             <option value="" disabled>Select Gender</option>
             <option value="male">Male</option>
@@ -84,17 +98,30 @@ export default function ProfilePage() {
           }}
         />
         <div className="file-upload">
-          <label htmlFor="id-card-upload" className="upload-box flex">
-            <img src={idCardImg} alt="Upload ID Card" />
-            <p className='upload-text'>
-              <span><FiUpload /></span>
-              Upload ID Card
-            </p>
-            <p className='upload-text2'>
-              Upload only in png, jpeg.
-            </p>
-          </label>
-          <input id="id-card-upload" type="file" accept="image/png, image/jpeg" />
+          {uploadedImage ? (
+            <div className="uploaded-image">
+              <img src={uploadedImage} alt="Uploaded" />
+              <AiOutlineClose onClick={handleImageRemove} className="remove-icon" />
+            </div>
+          ) : (
+            <label htmlFor="id-card-upload" className="upload-box flex">
+              <img src={idCardImg} alt="Upload ID Card" />
+              <p className='upload-text'>
+                <span><FiUpload /></span>
+                Upload ID Card
+              </p>
+              <p className='upload-text2'>
+                Upload only in png, jpeg.
+              </p>
+            </label>
+          )}
+          <input
+            id="id-card-upload"
+            type="file"
+            accept="image/png, image/jpeg"
+            onChange={handleImageUpload}
+            style={{ display: 'none' }} 
+          />
         </div>
         <Button text='SUBMIT' variant='fill' />
       </form>
