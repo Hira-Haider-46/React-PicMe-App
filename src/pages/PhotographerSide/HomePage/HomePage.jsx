@@ -7,6 +7,7 @@ import tick from '../../../assets/images/tick.png';
 import './HomePage.css';
 
 export default function HomePage() {
+    const name = localStorage.getItem('name');
     const [selectedBox, setSelectedBox] = useState(null);
 
     const handleBoxClick = (box) => {
@@ -15,7 +16,7 @@ export default function HomePage() {
 
     return (
         <div className='border home--page'>
-            <h2>Tim’s Offering</h2>
+            <h2>{name}'s Offering</h2>
             <p>Update Your Services Below.</p>
             <div className='boxes-container flex'>
                 <div className='box box1' onClick={() => handleBoxClick('portfolio')}>

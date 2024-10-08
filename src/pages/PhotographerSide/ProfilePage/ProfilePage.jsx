@@ -12,6 +12,8 @@ import { formatCategoryName } from '../../../helper/helper';
 import './ProfilePage.css';
 
 export default function ProfilePage() {
+  const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
   const [selectedGender, setSelectedGender] = useState('');
   const [photographerTypes, setPhotographerTypes] = useState([]);
   const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
@@ -50,7 +52,7 @@ export default function ProfilePage() {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(imageUrl);
+      setUploadedImage(file); 
     }
   };
 
@@ -68,10 +70,32 @@ export default function ProfilePage() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selectedPhotographerTypes);
-    navigate('/home-page');
+    if (!name || !address || !selectedGender || selectedPhotographerTypes.length === 0 || !uploadedImage) {
+      alert('Please fill all required fields!');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('address', address);
+    formData.append('gender', selectedGender);
+    formData.append('category', JSON.stringify(selectedPhotographerTypes.map(option => option.value)));
+    formData.append('document_pictures[]', uploadedImage);
+
+    try {
+      const res = await postApiWithAuth(CREATE_PROFILE, formData);
+      if (res.success) {
+        console.log('Profile created successfully');
+        localStorage.setItem('name', name);
+        navigate('/home-page');
+      } else {
+        console.error(res.data);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   useEffect(() => {
@@ -84,13 +108,20 @@ export default function ProfilePage() {
       <p className='p'>Update your details in the form provided.</p>
       <form onSubmit={handleSubmit}>
         <div className="input-field">
-          <input type="text" placeholder='Full Name' />
+          <input
+            type="text"
+            placeholder='Full Name'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
         <div className="input-field">
           <select
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}
             style={{ color: selectedGender ? 'black' : 'var(--text)' }}
+            required
           >
             <option value="" disabled>Select Gender</option>
             <option value="male">Male</option>
@@ -99,7 +130,13 @@ export default function ProfilePage() {
           </select>
         </div>
         <div className="input-field">
-          <input type="text" placeholder='Address' />
+          <input
+            type="text"
+            placeholder='Address'
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            required
+          />
         </div>
         <div className="input-field flex">
           <input
@@ -108,7 +145,7 @@ export default function ProfilePage() {
             value={customPhotographerType}
             onChange={(e) => setCustomPhotographerType(e.target.value)}
           />
-          <GoPlusCircle onClick={handleCustomTypeAdd} style={{cursor: 'pointer'}}/>
+          <GoPlusCircle onClick={handleCustomTypeAdd} style={{ cursor: 'pointer' }} />
         </div>
         <Select
           isMulti
@@ -122,11 +159,12 @@ export default function ProfilePage() {
               color: selectedPhotographerTypes.length > 0 ? 'black' : 'gray',
             }),
           }}
+          required
         />
         <div className="file-upload">
           {uploadedImage ? (
             <div className="uploaded-image">
-              <img src={uploadedImage} alt="Uploaded" />
+              <img src={URL.createObjectURL(uploadedImage)} alt="Uploaded" />
               <AiOutlineClose onClick={handleImageRemove} className="remove-icon" />
             </div>
           ) : (
@@ -147,6 +185,7 @@ export default function ProfilePage() {
             accept="image/png, image/jpeg"
             onChange={handleImageUpload}
             style={{ display: 'none' }}
+            required
           />
         </div>
         <Button text='SUBMIT' variant='fill' />
