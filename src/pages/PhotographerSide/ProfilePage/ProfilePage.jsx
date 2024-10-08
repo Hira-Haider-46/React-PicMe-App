@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Select from 'react-select';
 import { FiUpload } from "react-icons/fi";
 import { GoPlusCircle } from "react-icons/go";
 import idCardImg from '../../../assets/images/upload-id.png';
@@ -12,25 +13,31 @@ import './ProfilePage.css';
 export default function ProfilePage() {
   const [selectedGender, setSelectedGender] = useState('');
   const [photographerTypes, setPhotographerTypes] = useState([]);
-  const [selectedPhotographerType, setSelectedPhotographerType] = useState('');
+  const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
     const res = await getApiWithAuth(`${GLOBAL_CATEGORIES}`);
     if (res.success) {
-      const formattedsetPhotographerTypes = res.data.data.map(category => ({
+      const formattedPhotographerTypes = res.data.data.map(category => ({
         label: formatCategoryName(category),
         value: category,
       }));
-      setPhotographerTypes(formattedsetPhotographerTypes);
+      setPhotographerTypes(formattedPhotographerTypes);
     } else {
       console.error(res.data.message);
     }
   };
 
-  const handleSubmit = () => {
+  const handlePhotographerTypeChange = (selectedOptions) => {
+    setSelectedPhotographerTypes(selectedOptions);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(selectedPhotographerTypes);
     navigate('/home-page');
-  }
+  };
 
   useEffect(() => {
     fetchCategories();
@@ -48,7 +55,8 @@ export default function ProfilePage() {
           <select
             value={selectedGender}
             onChange={(e) => setSelectedGender(e.target.value)}
-            style={{ color: selectedGender ? 'black' : `{$var(--text)}` }}>
+            style={{ color: selectedGender ? 'black' : `{$var(--text)}` }}
+          >
             <option value="" disabled>Select Gender</option>
             <option value="male">Male</option>
             <option value="female">Female</option>
@@ -62,24 +70,19 @@ export default function ProfilePage() {
           <input type="text" placeholder='Add Custom Photographer Type' />
           <GoPlusCircle />
         </div>
-        <div className="input-field">
-          <select
-            value={selectedPhotographerType}
-            onChange={(e) => setSelectedPhotographerType(e.target.value)}
-            style={{ color: selectedPhotographerType ? 'black' : `{$var(--text)}` }}
-          >
-            <option value="">Add Photographer Type</option>
-            {photographerTypes?.length > 0 ? (
-              photographerTypes.map((type, index) => (
-                <option key={index} value={type.value}>
-                  {type.label}
-                </option>
-              ))
-            ) : (
-                <option>No type available</option>
-            )}
-          </select>
-        </div>
+        <Select
+          isMulti
+          options={photographerTypes}
+          value={selectedPhotographerTypes}
+          onChange={handlePhotographerTypeChange}
+          placeholder="Add Photographer Types"
+          styles={{
+            control: (provided) => ({
+              ...provided,
+              color: selectedPhotographerTypes.length > 0 ? 'black' : 'gray',
+            }),
+          }}
+        />
         <div className="file-upload">
           <label htmlFor="id-card-upload" className="upload-box flex">
             <img src={idCardImg} alt="Upload ID Card" />

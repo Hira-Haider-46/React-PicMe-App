@@ -34,12 +34,6 @@ select:focus {
     color: black;
 }
 
-.profile-page form :nth-child(4) {
-    flex-direction: row;
-    justify-content: space-around;
-    padding: 0.95em 1em;
-}
-
 .file-upload {
     grid-column: span 2;
     text-align: center;
@@ -90,4 +84,25 @@ input[type="file"] {
     grid-column: span 2;
     width: 25%;
     margin: auto;
+}
+
+.profile-page .css-1g3ep13-control, .profile-page .css-ovqh0o-control, .profile-page .css-1kpf0e6-control, .profile-page .css-fifirx-control {
+    border-radius: 12px;
+    padding: 0.35em 0.7em;
+}
+
+.css-1jqq78o-placeholder {
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+.profile-page .css-1p3m7a8-multiValue {
+    background-color: #1aceef7d;
+    border-radius: 50px;
+    padding: 0.25em;
+    margin: 0.2em;
+}
+
+.profile-page .css-v7duua {
+    border-radius: 50%;
 }
