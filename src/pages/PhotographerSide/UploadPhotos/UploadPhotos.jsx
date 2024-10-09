@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FiUpload } from "react-icons/fi";
-import { FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls';
+import { FETCH_PHOTOGRAPHER_WORK_CATEGORY, FETCH_PHOTOGRAPHER_WORK_BY_ID } from '../../../apis/apiUrls';
 import { getApiWithAuth } from '../../../apis/index';
 import photosImg from '../../../assets/images/photos-img.png';
 import { formatCategoryName } from '../../../helper/helper';
 import UploadCard from '../../../commonComponents/UploadCard';
 import './UploadPhotos.css';
+import Photos from '../../CustomerSide/PhotographerProfile/Portfolio/Tabs/Photos';
 
 export default function UploadPhotos() {
     const [showUploadPhotos, setShowUploadPhotos] = useState(false);
@@ -29,6 +30,15 @@ export default function UploadPhotos() {
         }
     };
 
+    const fetchPhotographerWork = async () => {
+        const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_BY_ID}=${photographerId}`);
+        if (res.success) {
+            console.log('photo work', res.data.data);
+        } else {
+            console.error(res.data.message);
+        }
+    }
+
     const handleUploadPhotosClick = () => {
         setShowUploadPhotos(true);
     };
@@ -42,6 +52,7 @@ export default function UploadPhotos() {
     useEffect(() => {
         if (photographerId) {
             fetchCategories();
+            fetchPhotographerWork();
         }
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
@@ -78,7 +89,7 @@ export default function UploadPhotos() {
                             )}
                         </select>
                     </div>
-                    <div></div>
+                    <Photos photos='' selectedCategory= ''/>
                 </div>
             </div>
 
