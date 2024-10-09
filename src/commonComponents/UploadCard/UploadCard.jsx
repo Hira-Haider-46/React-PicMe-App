@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { LuLoader2 } from "react-icons/lu"; 
+import { AiOutlineClose } from "react-icons/ai";
+import { LuLoader2 } from "react-icons/lu";
 import { UPLOAD_WORK } from '../../apis/apiUrls';
 import { postApiWithAuth } from '../../apis/index';
 import cloud from '../../assets/images/cloud.png';
@@ -10,7 +11,7 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
     const fileInputRef = useRef(null);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
 
     const uploadWork = async () => {
         const workItem = photographerWork.find(item => item.work_type === selectedCategory);
@@ -43,8 +44,12 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
 
     const handleFileUpload = (event) => {
         const files = Array.from(event.target.files);
-        setSelectedFiles(files);
+        setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
         console.log(files);
+    };
+
+    const handleRemoveFile = (index) => {
+        setSelectedFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
     };
 
     return (
@@ -55,6 +60,7 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
                 className='choose-category category1'
                 value={selectedCategory}
                 onChange={(e) => { setSelectedCategory(e.target.value) }}
+                required
             >
                 <option value=''>Select category</option>
                 {categories?.length > 0 ? (
@@ -68,14 +74,28 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
                 )}
             </select>
             <div className="file-upload" style={{ margin: '0.5em 0' }}>
-                <label htmlFor="photos-upload" className="upload-pics flex">
-                    <img src={cloud} alt="cloud-img" />
-                    <p className='pics-text'>
-                        Drag & drop files or
-                        <span> Browse</span>
-                    </p>
-                    <p>Supported formats: JPEG, PNG</p>
-                </label>
+                {selectedFiles.length > 0 ? (
+                    <div className="uploaded-images">
+                        {selectedFiles.map((file, index) => (
+                            <div key={index} className="uploaded-image">
+                                <img src={URL.createObjectURL(file)} alt={`uploaded-${index}`} />
+                                <AiOutlineClose
+                                    onClick={() => handleRemoveFile(index)} // Pass the index here
+                                    className="remove-icon"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <label htmlFor="photos-upload" className="upload-pics flex">
+                        <img src={cloud} alt="cloud-img" />
+                        <p className='pics-text'>
+                            Drag & drop files or
+                            <span> Browse</span>
+                        </p>
+                        <p>Supported formats: JPEG, PNG</p>
+                    </label>
+                )}
                 <input
                     id="photos-upload"
                     type="file"
@@ -83,6 +103,8 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
                     ref={fileInputRef}
                     onChange={handleFileUpload}
                     multiple
+                    style={{ display: 'none' }}
+                    required
                 />
             </div>
             <Button text={loading ? <LuLoader2 className="loader" /> : 'SUBMIT'} variant='fill' onClick={uploadWork} />
