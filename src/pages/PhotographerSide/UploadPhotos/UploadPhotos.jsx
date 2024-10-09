@@ -127,7 +127,7 @@ export default function UploadPhotos() {
                         <LuLoader2 className="loader" />
                     ) : (
                         selectedCategory ? (
-                            <Photos photos={filteredPhotos} selectedCategory={selectedCategory} />
+                            <Photos photos={filteredPhotos} selectedCategory={selectedCategory} path='upload-photos'/>
                         ) : (
                             <p className='select-msg'>Select category to view photos</p>
                         )

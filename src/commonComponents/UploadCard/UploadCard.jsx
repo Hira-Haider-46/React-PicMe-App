@@ -80,7 +80,7 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
                             <div key={index} className="uploaded-image">
                                 <img src={URL.createObjectURL(file)} alt={`uploaded-${index}`} />
                                 <AiOutlineClose
-                                    onClick={() => handleRemoveFile(index)} // Pass the index here
+                                    onClick={() => handleRemoveFile(index)} 
                                     className="remove-icon"
                                 />
                             </div>
