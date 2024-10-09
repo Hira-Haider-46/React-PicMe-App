@@ -42,7 +42,6 @@ export default function App() {
         token: res.data.token,
         type: res.data.user.type
       }));
-      console.log('user data', res.data.user);
     } else {
       console.error("Failed to fetch user data");
     }

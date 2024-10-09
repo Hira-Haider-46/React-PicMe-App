@@ -7,10 +7,22 @@
     border-radius: 15px;
 }
 
-.edit-logo {
+.logos {
     float: right;
     cursor: pointer;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
 } 
+
+.edit-logo {
+    margin-bottom: 0.5em;
+    width: 34px;
+}
+
+.del-logo {
+    font-size: 2.5rem;
+}
 
 .list {
     margin: 2em;
