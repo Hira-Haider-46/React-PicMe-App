@@ -16,3 +16,4 @@ export const ADD_CATEGORY = "/photographers/add_categories";
 export const CREATE_PROFILE = "/photographers/create_profile";
 export const ME = '/users/me';
 export const UPLOAD_WORK = "/photographers/upload_work";
+export const CREATE_PACKAGE = "/packages";

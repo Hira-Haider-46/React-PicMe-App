@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CiCirclePlus } from "react-icons/ci";
+import { CREATE_PACKAGE } from '../../../apis/apiUrls';
+import { postApiWithAuth } from '../../../apis/index';
 import pkg from '../../../assets/images/pkg.png';
 import Button from '../../../commonComponents/Button';
 import './UploadPackage.css';
 
 export default function UploadPackage() {
+
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         packageName: '',
         packagePrice: '',
@@ -20,9 +26,43 @@ export default function UploadPackage() {
         });
     };
 
+    const isValidDescription = (description) => {
+        // Check if the description is in the required format (separated by hyphens)
+        const descriptionPattern = /^([a-zA-Z0-9]+-)*[a-zA-Z0-9]+$/;
+        return descriptionPattern.test(description);
+    };
+
+    const createPackage = async () => {
+        if (!isValidDescription(formData.description)) {
+            console.error('Description must be separated by hyphens');
+            return;
+        }
+
+        const days = parseInt(formData.noOfDays, 10);
+        if (isNaN(days)) {
+            console.error('No. of Days must be a valid number');
+            return;
+        }
+
+        const payload = {
+            name: formData.packageName,
+            description: formData.description,
+            price: formData.packagePrice,
+            delivery_days: days
+        };
+
+        const res = await postApiWithAuth(CREATE_PACKAGE, payload);
+        if (res.success) {
+            console.log('Package created successfully');
+            navigate('/create-package');
+        } else {
+            console.error(res.data);
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(formData); 
+        createPackage();
     };
 
     return (
@@ -65,7 +105,7 @@ export default function UploadPackage() {
                     <input
                         type="text"
                         name="description"
-                        placeholder="Description"
+                        placeholder="Description (separate with hyphens)"
                         value={formData.description}
                         onChange={handleChange}
                     />

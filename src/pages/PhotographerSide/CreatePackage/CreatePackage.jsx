@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getApiWithAuth } from '../../../apis/index';
 import { SHOW_PACKAGE } from '../../../apis/apiUrls';
 import Button from '../../../commonComponents/Button';
@@ -8,6 +9,7 @@ import './CreatePackage.css';
 export default function CreatePackage() {
 
     const [packages, setPackages] = useState(null);
+    const navigate = useNavigate();
 
     const fetchPackages = async () => {
         const res = await getApiWithAuth(SHOW_PACKAGE);
@@ -18,6 +20,10 @@ export default function CreatePackage() {
         else {
             console.error(res.data);
         }
+    }
+
+    const handleCreatPackage = () => {
+        navigate('/upload-package');
     }
 
     useEffect(() => {
@@ -32,7 +38,7 @@ export default function CreatePackage() {
             <div className='pkg-container'>
                 <PackageCard packages={packages} />
             </div>
-            <div className='btn'>
+            <div className='btn' onClick={handleCreatPackage}>
                 <Button text='CREATE NEW PACKAGE' variant='empty' />
             </div>
         </div>
