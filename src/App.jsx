@@ -1,4 +1,9 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginSignUpSuccess } from "./store/slices/authSlice";
+import { getApiWithAuth } from './apis/index';
+import { ME } from './apis/apiUrls';
 import Layout from "./commonComponents/Layout";
 import ContinueAsPage from "./pages/ContinueAsPage";
 import Login from "./pages/Login";
@@ -26,6 +31,26 @@ import UploadPackage from "./pages/PhotographerSide/UploadPackage";
 import './App.css';
 
 export default function App() {
+
+  const dispatch = useDispatch();
+
+  const fetchUser = async () => {
+    const res = await getApiWithAuth(`${ME}`);
+    if (res.success) {
+      dispatch(loginSignUpSuccess({
+        user: res.data.user,
+        token: res.data.token,
+        type: res.data.user.type
+      }));
+      console.log('user data', res.data.user);
+    } else {
+      console.error("Failed to fetch user data");
+    }
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <BrowserRouter>

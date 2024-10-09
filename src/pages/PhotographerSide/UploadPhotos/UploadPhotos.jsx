@@ -1,12 +1,33 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { FiUpload } from "react-icons/fi";
+import { FETCH_PHOTOGRAPHER_WORK_CATEGORY } from '../../../apis/apiUrls';
+import { getApiWithAuth } from '../../../apis/index';
 import photosImg from '../../../assets/images/photos-img.png';
+import { formatCategoryName } from '../../../helper/helper';
 import UploadCard from '../../../commonComponents/UploadCard';
 import './UploadPhotos.css';
 
 export default function UploadPhotos() {
     const [showUploadPhotos, setShowUploadPhotos] = useState(false);
     const uploadRef = useRef(null);
+    const [categories, setCategories] = useState([]);
+
+    const user = useSelector((state) => state.auth.user);
+    const photographerId = user?.id;
+
+    const fetchCategories = async () => {
+        const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_CATEGORY}${photographerId}`);
+        if (res.success) {
+            const formattedCategories = res.data.data.map(category => ({
+                label: formatCategoryName(category),
+                value: category,
+            }));
+            setCategories(formattedCategories);
+        } else {
+            console.error(res.data.message);
+        }
+    };
 
     const handleUploadPhotosClick = () => {
         setShowUploadPhotos(true);
@@ -19,11 +40,14 @@ export default function UploadPhotos() {
     };
 
     useEffect(() => {
+        if (photographerId) {
+            fetchCategories();
+        }
         document.addEventListener('mousedown', handleClickOutside);
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, []);
+    }, [photographerId]);
 
     return (
         <>
@@ -43,8 +67,15 @@ export default function UploadPhotos() {
                     <div className='header-section flex'>
                         <h3>Uploaded Photos</h3>
                         <select className='choose-category category'>
-                            <option value="">Select Category</option>
-                            <option>No category available</option>
+                            {categories?.length > 0 ? (
+                                categories.map((category, index) => (
+                                    <option key={index} value={category.value}>
+                                        {category.label}
+                                    </option>
+                                ))
+                            ) : (
+                                <option>No category available</option>
+                            )}
                         </select>
                     </div>
                     <div></div>
