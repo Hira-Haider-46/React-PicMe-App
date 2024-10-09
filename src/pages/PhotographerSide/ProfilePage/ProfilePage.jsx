@@ -89,6 +89,7 @@ export default function ProfilePage() {
       if (res.success) {
         console.log('Profile created successfully');
         localStorage.setItem('name', name);
+        localStorage.setItem('profileCreated', true);
         navigate('/home-page');
       } else {
         console.error(res.data);
