@@ -1,0 +1,22 @@
+.upload-pics {
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+.upload-pics p {
+    font-size: 0.8rem;
+    color: var(--text);
+}
+
+.upload-pics .pics-text {
+    margin-top: 0.5em;
+    font-weight: 600;
+    color: var(--heading);
+}
+
+.upload-pics span {
+    text-decoration: underline;
+    color: var(--primary-color);
+    font-weight: 600;
+}
