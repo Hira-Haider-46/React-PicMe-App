@@ -1,11 +1,12 @@
 .photos-container {
     width: 100%;
-    padding: 1em 2em;
+    padding: 1em 0;
     margin-bottom: 3em;
     grid-template-columns: repeat(6, 1fr);
     row-gap: 0.7em;
     justify-content: center;
     align-items: center;
+    margin-top: 1em;
 }
 
 .photos-container p {
