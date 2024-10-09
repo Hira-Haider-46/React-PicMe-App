@@ -111,7 +111,7 @@ export default function UploadPhotos() {
                             value={selectedCategory}
                             onChange={handleCategoryChange}
                         >
-                            <option>Select category</option>
+                            <option value="">Select category</option>
                             {categories?.length > 0 ? (
                                 categories.map((category, index) => (
                                     <option key={index} value={category.value}>
@@ -126,7 +126,11 @@ export default function UploadPhotos() {
                     {loading ? (
                         <LuLoader2 className="loader" />
                     ) : (
-                        <Photos photos={filteredPhotos} selectedCategory={selectedCategory} />
+                        selectedCategory ? (
+                            <Photos photos={filteredPhotos} selectedCategory={selectedCategory} />
+                        ) : (
+                            <p className='select-msg'>Select category to view photos</p>
+                        )
                     )}
                 </div>
             </div>
@@ -137,7 +141,7 @@ export default function UploadPhotos() {
                     onClose={() => setShowUploadPhotos(false)}
                     categories={categories}
                     photographerWork={photographerWork}
-                    onUploadSuccess={handleRefreshPhotos} 
+                    onUploadSuccess={handleRefreshPhotos}
                 />
             )}
         </>
