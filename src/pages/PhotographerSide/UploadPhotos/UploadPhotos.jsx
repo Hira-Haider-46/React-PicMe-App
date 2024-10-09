@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FiUpload } from "react-icons/fi";
+import { LuLoader2 } from "react-icons/lu";
 import { FETCH_PHOTOGRAPHER_WORK_CATEGORY, FETCH_PHOTOGRAPHER_WORK_BY_ID } from '../../../apis/apiUrls';
 import { getApiWithAuth } from '../../../apis/index';
 import photosImg from '../../../assets/images/photos-img.png';
@@ -13,9 +14,10 @@ export default function UploadPhotos() {
     const [showUploadPhotos, setShowUploadPhotos] = useState(false);
     const uploadRef = useRef(null);
     const [categories, setCategories] = useState([]);
-    const [photographerWork, setPhotographerWork] = useState([]); 
+    const [photographerWork, setPhotographerWork] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [filteredPhotos, setFilteredPhotos] = useState([]);
+    const [loading, setLoading] = useState(false);
     const user = useSelector((state) => state.auth.user);
     const photographerId = user?.id;
 
@@ -33,10 +35,10 @@ export default function UploadPhotos() {
     };
 
     const fetchPhotographerWork = async () => {
+        setLoading(true);
         const res = await getApiWithAuth(`${FETCH_PHOTOGRAPHER_WORK_BY_ID}=${photographerId}`);
         if (res.success) {
             setPhotographerWork(res.data.data);
-            // Default to the first category if available
             if (res.data.data.length > 0) {
                 setSelectedCategory(res.data.data[0].work_type);
                 setFilteredPhotos(res.data.data[0].photos);
@@ -44,9 +46,11 @@ export default function UploadPhotos() {
         } else {
             console.error(res.data.message);
         }
+        setLoading(false);
     };
 
     const handleCategoryChange = (event) => {
+        setLoading(true);
         const category = event.target.value;
         setSelectedCategory(category);
         const selectedWork = photographerWork.find(work => work.work_type === category);
@@ -55,6 +59,7 @@ export default function UploadPhotos() {
         } else {
             setFilteredPhotos([]);
         }
+        setLoading(false);
     };
 
     const handleUploadPhotosClick = () => {
@@ -65,6 +70,12 @@ export default function UploadPhotos() {
         if (uploadRef.current && !uploadRef.current.contains(event.target)) {
             setShowUploadPhotos(false);
         }
+    };
+
+    const handleRefreshPhotos = async () => {
+        setLoading(true);
+        await fetchPhotographerWork();
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -80,7 +91,7 @@ export default function UploadPhotos() {
 
     return (
         <>
-            <div className='border' id='upload-photos'>
+            <div className='border' id='upload-photos' style={showUploadPhotos ? { opacity: 0.4 } : null}>
                 <h2 className='h2'>Upload Photos</h2>
                 <p className='p'>Upload your professional photos.</p>
                 <div className="file-upload" style={{ margin: '2em 0' }} onClick={handleUploadPhotosClick}>
@@ -97,9 +108,10 @@ export default function UploadPhotos() {
                         <h3>Uploaded Photos</h3>
                         <select
                             className='choose-category category'
-                            value={selectedCategory} 
-                            onChange={handleCategoryChange} 
+                            value={selectedCategory}
+                            onChange={handleCategoryChange}
                         >
+                            <option>Select category</option>
                             {categories?.length > 0 ? (
                                 categories.map((category, index) => (
                                     <option key={index} value={category.value}>
@@ -111,11 +123,23 @@ export default function UploadPhotos() {
                             )}
                         </select>
                     </div>
-                    <Photos photos={filteredPhotos} selectedCategory={selectedCategory} />
+                    {loading ? (
+                        <LuLoader2 className="loader" />
+                    ) : (
+                        <Photos photos={filteredPhotos} selectedCategory={selectedCategory} />
+                    )}
                 </div>
             </div>
 
-            {showUploadPhotos && <UploadCard uploadRef={uploadRef} onClose={() => setShowUploadPhotos(false)} />}
+            {showUploadPhotos && (
+                <UploadCard
+                    uploadRef={uploadRef}
+                    onClose={() => setShowUploadPhotos(false)}
+                    categories={categories}
+                    photographerWork={photographerWork}
+                    onUploadSuccess={handleRefreshPhotos} 
+                />
+            )}
         </>
     );
 }
