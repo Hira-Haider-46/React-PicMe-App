@@ -1,10 +1,13 @@
 .video-card {
     width: 85%;
     margin: auto;
+    position: relative;
+    cursor: pointer;
 }
 
-.video-card :first-child {
+.video-card video {
     width: 100%;
     border-radius: 10px;
-    height: 180px;
+    max-height: 170px;
+    min-height: 100px;
 }

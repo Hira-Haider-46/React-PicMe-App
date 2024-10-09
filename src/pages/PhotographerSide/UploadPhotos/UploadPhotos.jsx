@@ -142,6 +142,7 @@ export default function UploadPhotos() {
                     categories={categories}
                     photographerWork={photographerWork}
                     onUploadSuccess={handleRefreshPhotos}
+                    mediaType='photos'
                 />
             )}
         </>

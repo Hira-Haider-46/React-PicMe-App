@@ -7,7 +7,8 @@ import cloud from '../../assets/images/cloud.png';
 import Button from '../Button';
 import './UploadCard.css';
 
-export default function UploadCard({ uploadRef, onClose, categories, photographerWork, onUploadSuccess }) {
+export default function UploadCard({ uploadRef, onClose, categories, photographerWork, onUploadSuccess, mediaType }) {
+    
     const fileInputRef = useRef(null);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [selectedFiles, setSelectedFiles] = useState([]);
@@ -27,7 +28,7 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
         formData.append('work_type', work_type);
 
         selectedFiles.forEach(file => {
-            formData.append('photos[]', file);
+            formData.append(`${mediaType === 'photos' ? 'photos[]' : 'videos[]'}`, file);
         });
 
         setLoading(true);
@@ -54,8 +55,8 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
 
     return (
         <div className='upload-pictures-div' ref={uploadRef}>
-            <h2 className='h2'>Select Your Photos</h2>
-            <p className='p'>Create your profile to showcase stunning photography and attract clients.</p>
+            <h2 className='h2'>Select Your {mediaType === 'photos' ? 'Photos' : 'Videos'}</h2>
+            <p className='p'>Create your profile to showcase stunning {mediaType === 'photos' ? 'photography' : 'videos'} and attract clients.</p>
             <select
                 className='choose-category category1'
                 value={selectedCategory}
@@ -80,26 +81,26 @@ export default function UploadCard({ uploadRef, onClose, categories, photographe
                             <div key={index} className="uploaded-image">
                                 <img src={URL.createObjectURL(file)} alt={`uploaded-${index}`} />
                                 <AiOutlineClose
-                                    onClick={() => handleRemoveFile(index)} 
+                                    onClick={() => handleRemoveFile(index)}
                                     className="remove-icon"
                                 />
                             </div>
                         ))}
                     </div>
                 ) : (
-                    <label htmlFor="photos-upload" className="upload-pics flex">
+                    <label htmlFor="media-upload" className="upload-pics flex">
                         <img src={cloud} alt="cloud-img" />
                         <p className='pics-text'>
                             Drag & drop files or
                             <span> Browse</span>
                         </p>
-                        <p>Supported formats: JPEG, PNG</p>
+                        <p>Supported formats: {mediaType === 'photos' ? 'JPEG, PNG' : 'MP4, MKV'}</p>
                     </label>
                 )}
                 <input
-                    id="photos-upload"
+                    id="media-upload"
                     type="file"
-                    accept="image/png, image/jpeg"
+                    accept={mediaType === 'photos' ? "image/png, image/jpeg" : "video/mp4, video/x-matroska"}
                     ref={fileInputRef}
                     onChange={handleFileUpload}
                     multiple
