@@ -36,7 +36,16 @@ export default function CreatePackage() {
             <h2 className='h2'>Upload Package</h2>
             <p className='p'>Upload details of your service packages.</p>
             <div className='pkg-container'>
-                <PackageCard packages={packages} />
+                {packages && packages.length > 0 ? (
+                    packages.map((pkg, index) => (
+                        <PackageCard
+                            key={index}
+                            pkg={pkg}
+                        />
+                    ))
+                ) : (
+                    <p>No packages available</p>
+                )}
             </div>
             <div className='btn' onClick={handleCreatPackage}>
                 <Button text='CREATE NEW PACKAGE' variant='empty' />
