@@ -16,8 +16,7 @@ export default function CreatePackage() {
         if (res.success) {
             console.log('packages', res.data.data);
             setPackages(res.data.data);
-        }
-        else {
+        } else {
             console.error(res.data);
         }
     }
@@ -29,24 +28,24 @@ export default function CreatePackage() {
     useEffect(() => {
         fetchPackages();
     }, []);
-    
 
     return (
         <div className='border create-pkg'>
             <h2 className='h2'>Upload Package</h2>
             <p className='p'>Upload details of your service packages.</p>
-            <div className='pkg-container'>
-                {packages && packages.length > 0 ? (
-                    packages.map((pkg, index) => (
+            {(packages && packages.length > 0) ? (
+                <div className='pkg-container'>
+                    {packages.map((pkg, index) => (
                         <PackageCard
                             key={index}
                             pkg={pkg}
+                            refreshPackages={fetchPackages} 
                         />
-                    ))
-                ) : (
-                    <p>No packages available</p>
-                )}
-            </div>
+                    ))}
+                </div>
+            ) : (
+                <p className='select-msg' style={{ marginTop: '2em' }}>No packages available</p>
+            )}
             <div className='btn' onClick={handleCreatPackage}>
                 <Button text='CREATE NEW PACKAGE' variant='empty' />
             </div>
