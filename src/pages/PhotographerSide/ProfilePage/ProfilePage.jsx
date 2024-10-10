@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { FiUpload } from "react-icons/fi";
+import { LuLoader2 } from "react-icons/lu";
 import { GoPlusCircle } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 import idCardImg from '../../../assets/images/upload-id.png';
@@ -19,6 +20,8 @@ export default function ProfilePage() {
   const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [customPhotographerType, setCustomPhotographerType] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -35,6 +38,7 @@ export default function ProfilePage() {
   };
 
   const addType = async (type) => {
+    setLoading(true);
     const res = await postApiWithAuth(ADD_CATEGORY, { category: [type] });
     if (res.success) {
       console.log('Type added successfully');
@@ -42,6 +46,7 @@ export default function ProfilePage() {
     } else {
       console.error(res.data);
     }
+    setLoading(false);
   };
 
   const handlePhotographerTypeChange = (selectedOptions) => {
@@ -70,10 +75,25 @@ export default function ProfilePage() {
     }
   };
 
+  const validateFields = () => {
+    const newErrors = {};
+
+    if (!name) newErrors.name = 'Please enter atleast 5 characters.';
+    if (!selectedGender) newErrors.gender = 'Please select your gender.';
+    if (!address) newErrors.address = 'Please enter your address.';
+    if (selectedPhotographerTypes.length === 0) newErrors.photographerTypes = 'Please select at least one photographer type.';
+    if (!uploadedImage) newErrors.image = 'Please upload an ID card image.';
+
+    return newErrors;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !address || !selectedGender || selectedPhotographerTypes.length === 0 || !uploadedImage) {
-      alert('Please fill all required fields!');
+
+    const validationErrors = validateFields();
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length > 0) {
       return;
     }
 
@@ -81,7 +101,6 @@ export default function ProfilePage() {
     formData.append('name', name);
     formData.append('address', address);
     formData.append('gender', selectedGender);
-
     formData.append('category', JSON.stringify(selectedPhotographerTypes.map(option => option.value)));
     formData.append('document_pictures[]', uploadedImage);
 
@@ -89,8 +108,6 @@ export default function ProfilePage() {
       const res = await postApiWithAuth(CREATE_PROFILE, formData);
       if (res.success) {
         console.log('Profile created successfully');
-        localStorage.setItem('name', name);
-        localStorage.setItem('profileCreated', true);
         navigate('/home-page');
       } else {
         console.error(res.data);
@@ -109,37 +126,44 @@ export default function ProfilePage() {
       <h2 className='h2'>Create Your Profile</h2>
       <p className='p'>Update your details in the form provided.</p>
       <form onSubmit={handleSubmit}>
-        <div className="input-field">
-          <input
-            type="text"
-            placeholder='Full Name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
+        <div>
+          <div className="input-field">
+            <input
+              type="text"
+              placeholder='Full Name'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          {errors.name && <p className="error-message">{errors.name}</p>}
         </div>
-        <div className="input-field">
-          <select
-            value={selectedGender}
-            onChange={(e) => setSelectedGender(e.target.value)}
-            style={{ color: selectedGender ? 'black' : 'var(--text)' }}
-            required
-          >
-            <option value="" disabled>Select Gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="other">Other</option>
-          </select>
+        <div>
+          <div className="input-field">
+            <select
+              value={selectedGender}
+              onChange={(e) => setSelectedGender(e.target.value)}
+              style={{ color: selectedGender ? 'black' : 'var(--text)' }}
+            >
+              <option value="" disabled>Select Gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          {errors.gender && <p className="error-message">{errors.gender}</p>}
         </div>
-        <div className="input-field">
-          <input
-            type="text"
-            placeholder='Address'
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          />
+        <div>
+          <div className="input-field">
+            <input
+              type="text"
+              placeholder='Address'
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          {errors.address && <p className="error-message">{errors.address}</p>}
         </div>
+
         <div className="input-field flex">
           <input
             type="text"
@@ -149,20 +173,22 @@ export default function ProfilePage() {
           />
           <GoPlusCircle onClick={handleCustomTypeAdd} style={{ cursor: 'pointer' }} />
         </div>
-        <Select
-          isMulti
-          options={photographerTypes}
-          value={selectedPhotographerTypes}
-          onChange={handlePhotographerTypeChange}
-          placeholder="Add Photographer Types"
-          styles={{
-            control: (provided) => ({
-              ...provided,
-              color: selectedPhotographerTypes.length > 0 ? 'black' : 'gray',
-            }),
-          }}
-          required
-        />
+        <div>
+          <Select
+            isMulti
+            options={photographerTypes}
+            value={selectedPhotographerTypes}
+            onChange={handlePhotographerTypeChange}
+            placeholder="Add Photographer Types"
+            styles={{
+              control: (provided) => ({
+                ...provided,
+                color: selectedPhotographerTypes.length > 0 ? 'black' : 'gray',
+              }),
+            }}
+          />
+          {errors.photographerTypes && <p className="error-message">{errors.photographerTypes}</p>}
+        </div>
         <div className="file-upload">
           {uploadedImage ? (
             <div className="uploaded-image">
@@ -187,10 +213,12 @@ export default function ProfilePage() {
             accept="image/png, image/jpeg"
             onChange={handleImageUpload}
             style={{ display: 'none' }}
-            required
           />
         </div>
-        <Button text='SUBMIT' variant='fill' />
+        {errors.image && <p className="error-message">{errors.image}</p>}
+        <div className='button'>
+          <Button text={loading ? <LuLoader2 className="loader" /> : 'SUBMIT'} variant='fill' />
+        </div>
       </form>
     </div>
   );

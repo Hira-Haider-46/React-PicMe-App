@@ -80,7 +80,7 @@ input[type="file"] {
     display: none;
 }
 
-.profile-page form :nth-child(7) {
+.button {
     grid-column: span 2;
     width: 25%;
     margin: auto;
@@ -127,4 +127,13 @@ input[type="file"] {
   color: black; 
   cursor: pointer;
   font-size: 20px; 
+}
+
+.error-message {
+    text-align: left;
+    font-size: 0.7rem;
+    margin-top: 0.5em;
+    margin-bottom: -1.25em;
+    color: rgb(202, 0, 0);
+    padding-left: 1em;
 }
