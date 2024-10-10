@@ -26,7 +26,7 @@ export default function UploadPackage() {
     });
 
     const [isLoading, setIsLoading] = useState(false);
-    const [formFilled, setFormFilled] = useState(false); 
+    const [formFilled, setFormFilled] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -70,12 +70,13 @@ export default function UploadPackage() {
         }
 
         if (name === "description") {
-            const trimmedDescription = value.trim();
-            const descriptionPattern = /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)*$/;
-            if (!descriptionPattern.test(trimmedDescription)) {
-                newErrors.description = 'Description must be separated by hyphens.';
+            const descriptionPattern = /^[a-zA-Z0-9\s-]+$/;
+            if (!descriptionPattern.test(value)) {
+                newErrors.description = 'Description must be seprated with hyphens (-).';
             } else {
-                const formattedDescription = trimmedDescription.replace(/^-+|-+$/g, '').replace(/-+/g, '-');
+                const formattedDescription = value
+                    .replace(/^-+|-+$/g, '')
+                    .replace(/[\s-]+/g, '-');
                 setFormData((prev) => ({
                     ...prev,
                     description: formattedDescription,
@@ -91,10 +92,6 @@ export default function UploadPackage() {
         const atLeastOneFilled = Object.values(formData).some((field) => field.trim() !== '');
         setFormFilled(atLeastOneFilled);
     };
-
-    useEffect(() => {
-        checkButtonDisabled();
-    }, [formData]);
 
     const createPackage = async () => {
         setIsLoading(true);
@@ -146,6 +143,10 @@ export default function UploadPackage() {
             createPackage();
         }
     };
+
+    useEffect(() => {
+        checkButtonDisabled();
+    }, [formData]);
 
     return (
         <div className='border' id='upload-pkg'>
