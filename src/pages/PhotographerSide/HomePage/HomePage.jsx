@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Button from '../../../commonComponents/Button';
 import portfolio from '../../../assets/images/portfolio.png';
 import packageImg from '../../../assets/images/package.png';
@@ -8,7 +9,8 @@ import tick from '../../../assets/images/tick.png';
 import './HomePage.css';
 
 export default function HomePage() {
-    const name = localStorage.getItem('name');
+    const user = useSelector(state => state.auth.user);
+    const name = user?.name;
     const [selectedBox, setSelectedBox] = useState(null);
     const navigate = useNavigate();
 
