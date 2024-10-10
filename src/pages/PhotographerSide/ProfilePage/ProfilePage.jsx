@@ -22,7 +22,7 @@ export default function ProfilePage() {
   const [customPhotographerType, setCustomPhotographerType] = useState('');
   const [loading, setLoading] = useState({ submit: false, customType: false });
   const [errors, setErrors] = useState({});
-  const [formFilled, setFormFilled] = useState(false); // New state to track if any field is filled
+  const [formFilled, setFormFilled] = useState(false);
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -55,6 +55,7 @@ export default function ProfilePage() {
     if (selectedOptions.length > 0) {
       setErrors(prev => ({ ...prev, photographerTypes: '' }));
     }
+    checkIfFormFilled(name, address, selectedGender, selectedOptions, uploadedImage);
   };
 
   const handleImageUpload = (event) => {
@@ -73,6 +74,10 @@ export default function ProfilePage() {
     const exists = photographerTypes.some(type => type.value === customPhotographerType);
     if (!exists && customPhotographerType) {
       addType(customPhotographerType);
+      setSelectedPhotographerTypes(prev => [
+        ...prev,
+        { label: formatCategoryName(customPhotographerType), value: customPhotographerType }
+      ]);
       setCustomPhotographerType('');
     } else {
       alert('Photographer type already exists or is empty!');
@@ -82,7 +87,7 @@ export default function ProfilePage() {
   const validateFields = () => {
     const newErrors = {};
     if (name.length < 5 || !/^[a-zA-Z0-9_ ]+$/.test(name)) {
-      newErrors.name = 'Please enter at least 5 characters (may consist of letters, numbers, underscores).';
+      newErrors.name = 'Please enter atleast 5 characters (may consist of letters, numbers, underscores).';
     }
     if (!selectedGender) newErrors.gender = 'Please select your gender.';
     if (!address) newErrors.address = 'Please enter your address.';
@@ -234,19 +239,22 @@ export default function ProfilePage() {
               <AiOutlineClose onClick={handleImageRemove} className="remove-icon" />
             </div>
           ) : (
-            <label htmlFor="id-card-upload" className="upload-box flex">
-              <img src={idCardImg} alt="Upload ID Card" />
-              <p className='upload-text'>
-                <span><FiUpload /></span>
-                Upload ID Card Image
-              </p>
-              <input
-                id="id-card-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-            </label>
+              <label htmlFor="id-card-upload" className="upload-box flex">
+                <img src={idCardImg} alt="Upload ID Card" />
+                <p className='upload-text'>
+                  <span><FiUpload /></span>
+                  Upload ID Card Image
+                </p>
+                <p className='upload-text2'>
+                  Upload only in png, jpeg.
+                </p>
+                <input
+                  id="id-card-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </label>
           )}
         </div>
         {errors.image && <p className="error-message">{errors.image}</p>}
