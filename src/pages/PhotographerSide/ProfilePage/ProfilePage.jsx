@@ -78,6 +78,7 @@ export default function ProfilePage() {
         ...prev,
         { label: formatCategoryName(customPhotographerType), value: customPhotographerType }
       ]);
+      setErrors(prev => ({ ...prev, photographerTypes: '' }));
       setCustomPhotographerType('');
     } else {
       alert('Photographer type already exists or is empty!');
