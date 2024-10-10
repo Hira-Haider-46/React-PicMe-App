@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CiCirclePlus } from "react-icons/ci";
+import { LuLoader2 } from "react-icons/lu";
 import { CREATE_PACKAGE } from '../../../apis/apiUrls';
 import { postApiWithAuth } from '../../../apis/index';
 import pkg from '../../../assets/images/pkg.png';
@@ -24,6 +25,9 @@ export default function UploadPackage() {
         description: '',
     });
 
+    const [isLoading, setIsLoading] = useState(false);
+    const [formFilled, setFormFilled] = useState(false); 
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
@@ -32,17 +36,16 @@ export default function UploadPackage() {
         }));
 
         validateField(name, value);
+        checkButtonDisabled();
     };
 
     const validateField = (name, value) => {
-        let valid = true;
         const newErrors = { ...errors };
 
         if (name === "packageName") {
             const namePattern = /^[a-zA-Z0-9\s-]+$/;
             if (!namePattern.test(value)) {
-                newErrors.packageName = 'Package name can have letters, numbers, hyphens, and spaces only.';
-                valid = false;
+                newErrors.packageName = 'Package name can have letters, numbers, and hyphens only.';
             } else {
                 newErrors.packageName = '';
             }
@@ -52,7 +55,6 @@ export default function UploadPackage() {
             const price = parseFloat(value);
             if (isNaN(price) || price <= 0 || price > 9999) {
                 newErrors.packagePrice = 'Price must be a number between 1 and 9999.';
-                valid = false;
             } else {
                 newErrors.packagePrice = '';
             }
@@ -62,7 +64,6 @@ export default function UploadPackage() {
             const days = parseInt(value, 10);
             if (isNaN(days) || days <= 0 || days > 30) {
                 newErrors.noOfDays = 'Number of days must be a valid number between 1 and 30.';
-                valid = false;
             } else {
                 newErrors.noOfDays = '';
             }
@@ -73,7 +74,6 @@ export default function UploadPackage() {
             const descriptionPattern = /^([a-zA-Z0-9]+(-[a-zA-Z0-9]+)*)*$/;
             if (!descriptionPattern.test(trimmedDescription)) {
                 newErrors.description = 'Description must be separated by hyphens.';
-                valid = false;
             } else {
                 const formattedDescription = trimmedDescription.replace(/^-+|-+$/g, '').replace(/-+/g, '-');
                 setFormData((prev) => ({
@@ -85,21 +85,19 @@ export default function UploadPackage() {
         }
 
         setErrors(newErrors);
-        return valid;
     };
 
-    const validateForm = () => {
-        let valid = true;
-        Object.keys(formData).forEach((key) => {
-            valid = validateField(key, formData[key]) && valid;
-        });
-        return valid;
+    const checkButtonDisabled = () => {
+        const atLeastOneFilled = Object.values(formData).some((field) => field.trim() !== '');
+        setFormFilled(atLeastOneFilled);
     };
+
+    useEffect(() => {
+        checkButtonDisabled();
+    }, [formData]);
 
     const createPackage = async () => {
-        if (!validateForm()) {
-            return;
-        }
+        setIsLoading(true);
 
         const days = parseInt(formData.noOfDays, 10);
         const payload = {
@@ -110,8 +108,10 @@ export default function UploadPackage() {
         };
 
         const res = await postApiWithAuth(CREATE_PACKAGE, payload);
+
         if (res.success) {
             console.log('Package created successfully');
+            setIsLoading(false);
             navigate('/create-package');
         } else {
             console.error(res.data);
@@ -120,7 +120,29 @@ export default function UploadPackage() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateForm()) {
+        const newErrors = { ...errors };
+        let hasError = false;
+
+        if (!formData.packageName.trim()) {
+            newErrors.packageName = 'Package name is required.';
+            hasError = true;
+        }
+        if (!formData.packagePrice.trim()) {
+            newErrors.packagePrice = 'Package price is required.';
+            hasError = true;
+        }
+        if (!formData.noOfDays.trim()) {
+            newErrors.noOfDays = 'Number of days is required.';
+            hasError = true;
+        }
+        if (!formData.description.trim()) {
+            newErrors.description = 'Description is required.';
+            hasError = true;
+        }
+
+        setErrors(newErrors);
+
+        if (!hasError && Object.values(errors).every((error) => error === '')) {
             createPackage();
         }
     };
@@ -179,7 +201,11 @@ export default function UploadPackage() {
                     {errors.description && <p className='error-message'>{errors.description}</p>}
                 </div>
                 <div className='Btn'>
-                    <Button text='SAVE' variant='fill' />
+                    <Button
+                        text={isLoading ? <LuLoader2 className="loader" /> : 'SAVE'}
+                        variant='fill'
+                        disabled={!formFilled || isLoading}
+                    />
                 </div>
             </form>
         </div>
