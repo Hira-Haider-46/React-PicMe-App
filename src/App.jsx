@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginSignUpSuccess } from "./store/slices/authSlice";
@@ -33,6 +33,7 @@ import './App.css';
 export default function App() {
 
   const dispatch = useDispatch();
+  const [profileCreated, setProfileCreated] = useState(null);
 
   const fetchUser = async () => {
     const res = await getApiWithAuth(`${ME}`);
@@ -43,6 +44,8 @@ export default function App() {
         token: res.data.token,
         type: res.data.user.type
       }));
+      setProfileCreated(res.data.user.profile_created)
+      console.log('profile created', res.data.user.profile_created);
     } else {
       console.error("Failed to fetch user data");
     }
@@ -80,17 +83,22 @@ export default function App() {
 
         <Route element={<PhotographerLayout />}>
           <Route element={<PhotographerRoute />}>
-            <Route path="create-profile" element={<CreateProfile />} />
-            <Route path="profile-page" element={<ProfilePage />} />
-            <Route path="home-page" element={<HomePage />} />
-            <Route path="upload-work" element={<UploadWork />} />
-            <Route path="upload-photos" element={<UploadPhotos />} />
-            <Route path="upload-videos" element={<UploadVideos />} />
-            <Route path="create-package" element={<CreatePackage />} />
-            <Route path="upload-package" element={<UploadPackage />} />
+            {!profileCreated ? <>
+              <Route path="create-profile" element={<CreateProfile />} />
+              <Route path="profile-page" element={<ProfilePage />} />
+            </> : <>
+              <Route path="home-page" element={<HomePage />} />
+              <Route path="upload-work" element={<UploadWork />} />
+              <Route path="upload-photos" element={<UploadPhotos />} />
+              <Route path="upload-videos" element={<UploadVideos />} />
+              <Route path="create-package" element={<CreatePackage />} />
+              <Route path="upload-package" element={<UploadPackage />} />
+            </>
+            }
           </Route>
         </Route>
 
+        <Route path="*" element={<h1>Error 404</h1>} />
       </Routes>
 
     </BrowserRouter>
