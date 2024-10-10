@@ -76,7 +76,7 @@ export default function PhotographerList({
             <div className="cards">
                 {console.log(filteredPhotographers)}
                 {filteredPhotographers?.map((photographerData) => {
-                    console.log('photographerData', photographerData.total_reviews);
+                    console.log('photographerData', photographerData);
                     return (
                         <PhotographerListCard
                             key={nanoid()}

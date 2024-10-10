@@ -13,7 +13,8 @@ import './Layout.css';
 
 export default function Layout() {
     const dispatch = useDispatch();
-    const token = useSelector((state) => state.auth.token);
+    const token = localStorage.getItem('token');
+    console.log('token', token);
 
     const handleLogout = () => {
         dispatch(logout());

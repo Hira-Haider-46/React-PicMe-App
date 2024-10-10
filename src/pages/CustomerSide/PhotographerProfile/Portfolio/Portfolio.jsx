@@ -32,6 +32,7 @@ export default function Portfolio() {
         value: category,
       }));
       setCategories(formattedCategories);
+      console.log('categories, photographerId', res.data.data, photographerId);
     } else {
       console.error(res.data.message);
     }
@@ -109,6 +110,7 @@ export default function Portfolio() {
         {navbarTab !== 'reviews' &&
           <select
             className='choose-category'
+            style={{width: '25%'}}
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
           >

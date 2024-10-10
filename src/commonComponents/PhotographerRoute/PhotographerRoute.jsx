@@ -10,13 +10,18 @@ export default function PhotographerRoute() {
         return <Navigate to="/" />;
     }
 
-    if (type === 0) {
+    if (Number(type) === 0) {
+        console.log("in if---", type)
         return <Navigate to="/choose-location" />;
     }
 
     if (profileCreated) {
+        console.log("in profileCreated---", profileCreated, type)
         return <Navigate to="/home-page" />;
     }
+
+    console.log("in elsee---", profileCreated, type, typeof type)
+
 
     return <Outlet />;
 }

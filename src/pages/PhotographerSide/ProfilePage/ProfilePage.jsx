@@ -52,7 +52,7 @@ export default function ProfilePage() {
     const file = event.target.files[0];
     if (file) {
       const imageUrl = URL.createObjectURL(file);
-      setUploadedImage(file); 
+      setUploadedImage(file);
     }
   };
 
@@ -81,6 +81,7 @@ export default function ProfilePage() {
     formData.append('name', name);
     formData.append('address', address);
     formData.append('gender', selectedGender);
+
     formData.append('category', JSON.stringify(selectedPhotographerTypes.map(option => option.value)));
     formData.append('document_pictures[]', uploadedImage);
 

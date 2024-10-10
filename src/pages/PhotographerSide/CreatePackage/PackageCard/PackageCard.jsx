@@ -29,7 +29,7 @@ export default function PackageCard({ pkg, refreshPackages }) {
                 <img src={edit} alt="edit-logo" className='edit-logo' />
                 <MdDeleteOutline className='del-logo' onClick={delPkg} />
             </div>
-            <div className='list'>
+            <div className='listItems'>
                 <h2>{pkg.name}</h2>
                 <h3>${pkg.price}</h3>
                 <ul>
