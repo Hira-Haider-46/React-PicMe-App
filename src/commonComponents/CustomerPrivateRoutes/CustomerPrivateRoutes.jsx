@@ -1,21 +1,20 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function CustomerPrivateRoutes() {
     const token = localStorage.getItem('token');
-    const type = localStorage.getItem('type');
-    const profileCreated = localStorage.getItem('profileCreated');
-    console.log('type customer layout', type);
+    const user = useSelector(state => state.auth.user);
+    const type = user?.type;
+    const profileCreated = user?.profile_created;
 
     if (!token) {
         return <Navigate to="/" />;
     }
 
     if (type === 1) {
-        console.log('type-------------',type)
         return <Navigate to={profileCreated ? '/create-profile' : '/home-page'} />;
     }
-    console.log('type 0-------------', type)
 
     return <Outlet />;
 }

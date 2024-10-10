@@ -1,27 +1,24 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 export default function PhotographerRoute() {
     const token = localStorage.getItem('token');
-    const type = localStorage.getItem('type');
-    const profileCreated = localStorage.getItem('profileCreated');
+    const user = useSelector(state => state.auth.user);
+    const type = user?.type;
+    const profileCreated = user?.profile_created;
 
     if (!token) {
         return <Navigate to="/" />;
     }
 
-    if (Number(type) === 0) {
-        console.log("in if---", type)
+    if (type === 0) {
         return <Navigate to="/choose-location" />;
     }
 
     if (profileCreated) {
-        console.log("in profileCreated---", profileCreated, type)
         return <Navigate to="/home-page" />;
     }
-
-    console.log("in elsee---", profileCreated, type, typeof type)
-
 
     return <Outlet />;
 }

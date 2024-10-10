@@ -71,7 +71,7 @@ export default function Verification() {
                     />
                 ))}
             </div>
-            <Link to='/choose-location' onClick={handleVerify}>
+            <Link to='/login' onClick={handleVerify}>
                 <Button text='CONTINUE' variant='fill' />
             </Link>
             <div className='timer'>

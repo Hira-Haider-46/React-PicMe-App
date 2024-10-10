@@ -14,7 +14,6 @@ import './Layout.css';
 export default function Layout() {
     const dispatch = useDispatch();
     const token = localStorage.getItem('token');
-    console.log('token', token);
 
     const handleLogout = () => {
         dispatch(logout());

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import { postApiWithoutAuth } from '../../apis/index';
 import { LOGIN } from '../../apis/apiUrls';
-import { useDispatch, useSelector } from 'react-redux'; 
-import { loginSignUpSuccess } from '../../store/slices/authSlice'; 
+import { loginSignUpSuccess } from '../../store/slices/authSlice';
 import './Login.css';
 
 export default function Login() {
@@ -17,10 +17,10 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-    const dispatch = useDispatch(); 
-    const location = useLocation();
-    const typeFromParams = new URLSearchParams(location.search).get('type');
-    const type = useSelector((state) => state.auth.type) || typeFromParams; 
+    const dispatch = useDispatch();
+    const type = localStorage.getItem('type');
+
+    const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
         if (rememberMe) {
@@ -41,23 +41,24 @@ export default function Login() {
 
     const handleLogIn = async (e) => {
         e.preventDefault();
-        
+
         if (!type) {
             console.error("Type is not set");
             return;
         }
 
-        const res = await postApiWithoutAuth(LOGIN, { email, password, type }); 
+        const res = await postApiWithoutAuth(LOGIN, { email, password, type });
         if (res.success) {
             const token = res.headers.authorization;
             localStorage.setItem('token', token);
             if (rememberMe) {
-                localStorage.setItem('email', email);  
+                localStorage.setItem('email', email);
             }
-            dispatch(loginSignUpSuccess({ token, user: res.data.user, type })); 
+            dispatch(loginSignUpSuccess({ token, user: res.data.data, type }));
+            console.log('user login', user)
             navigate('/choose-location');
         } else {
-            setError(res.data.message || "Login error, please try again."); 
+            setError(res.data.message || "Login error, please try again.");
         }
     };
 

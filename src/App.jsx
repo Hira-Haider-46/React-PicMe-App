@@ -37,6 +37,7 @@ export default function App() {
   const fetchUser = async () => {
     const res = await getApiWithAuth(`${ME}`);
     if (res.success) {
+      console.log('user---app.jsx', res.data.user);
       dispatch(loginSignUpSuccess({
         user: res.data.user,
         token: res.data.token,

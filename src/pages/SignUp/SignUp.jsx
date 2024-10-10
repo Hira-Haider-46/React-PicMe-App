@@ -20,7 +20,7 @@ export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const type = useSelector((state) => state.auth.type);
+    const type = localStorage.getItem('type');
 
     const toggleConfirmPass = () => {
         setConfirmPass(!confirmPass);
@@ -36,13 +36,11 @@ export default function SignUp() {
             alert("Passwords do not match");
             return;
         }
-
-        console.log({ email, password, name, type: type });
         const res = await postApiWithoutAuth(SIGNUP, { email, password, name, type: type });
         if (res.success) {
-            const token = res.headers.authorization;
-            localStorage.setItem('token', token);
-            dispatch(loginSignUpSuccess({ token, user: res.data.user, type }));
+            // const token = res.headers.authorization;
+            // localStorage.setItem('token', token);
+            // dispatch(loginSignUpSuccess({ token, user: res.data.data, type }));
             navigate(`/verification?email=${encodeURIComponent(email)}`);
         } else {
             console.error("Signup error ", res);
