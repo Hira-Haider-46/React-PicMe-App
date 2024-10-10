@@ -20,8 +20,9 @@ export default function ProfilePage() {
   const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(null);
   const [customPhotographerType, setCustomPhotographerType] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ submit: false, customType: false });
   const [errors, setErrors] = useState({});
+  const [formFilled, setFormFilled] = useState(false); // New state to track if any field is filled
   const navigate = useNavigate();
 
   const fetchCategories = async () => {
@@ -38,7 +39,7 @@ export default function ProfilePage() {
   };
 
   const addType = async (type) => {
-    setLoading(true);
+    setLoading(prev => ({ ...prev, customType: true }));
     const res = await postApiWithAuth(ADD_CATEGORY, { category: [type] });
     if (res.success) {
       console.log('Type added successfully');
@@ -46,18 +47,21 @@ export default function ProfilePage() {
     } else {
       console.error(res.data);
     }
-    setLoading(false);
+    setLoading(prev => ({ ...prev, customType: false }));
   };
 
   const handlePhotographerTypeChange = (selectedOptions) => {
     setSelectedPhotographerTypes(selectedOptions);
+    if (selectedOptions.length > 0) {
+      setErrors(prev => ({ ...prev, photographerTypes: '' }));
+    }
   };
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
       setUploadedImage(file);
+      setErrors(prev => ({ ...prev, image: '' }));
     }
   };
 
@@ -77,19 +81,18 @@ export default function ProfilePage() {
 
   const validateFields = () => {
     const newErrors = {};
-
-    if (!name) newErrors.name = 'Please enter atleast 5 characters.';
+    if (name.length < 5 || !/^[a-zA-Z0-9_ ]+$/.test(name)) {
+      newErrors.name = 'Please enter at least 5 characters (may consist of letters, numbers, underscores).';
+    }
     if (!selectedGender) newErrors.gender = 'Please select your gender.';
     if (!address) newErrors.address = 'Please enter your address.';
     if (selectedPhotographerTypes.length === 0) newErrors.photographerTypes = 'Please select at least one photographer type.';
     if (!uploadedImage) newErrors.image = 'Please upload an ID card image.';
-
     return newErrors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const validationErrors = validateFields();
     setErrors(validationErrors);
 
@@ -97,6 +100,7 @@ export default function ProfilePage() {
       return;
     }
 
+    setLoading(prev => ({ ...prev, submit: true }));
     const formData = new FormData();
     formData.append('name', name);
     formData.append('address', address);
@@ -115,6 +119,31 @@ export default function ProfilePage() {
     } catch (error) {
       console.error('Error submitting form:', error);
     }
+    setLoading(prev => ({ ...prev, submit: false }));
+  };
+
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    setName(value);
+
+    const validationErrors = validateFields();
+    setErrors(prev => ({ ...prev, name: validationErrors.name || '' }));
+    checkIfFormFilled(value, address, selectedGender, selectedPhotographerTypes, uploadedImage);
+  };
+
+  const handleAddressChange = (e) => {
+    const value = e.target.value;
+    setAddress(value);
+    if (value) setErrors(prev => ({ ...prev, address: '' }));
+    checkIfFormFilled(name, value, selectedGender, selectedPhotographerTypes, uploadedImage);
+  };
+
+  const checkIfFormFilled = (name, address, gender, photographerTypes, image) => {
+    if (name || address || gender || photographerTypes.length > 0 || image) {
+      setFormFilled(true);
+    } else {
+      setFormFilled(false);
+    }
   };
 
   useEffect(() => {
@@ -132,7 +161,7 @@ export default function ProfilePage() {
               type="text"
               placeholder='Full Name'
               value={name}
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleNameChange}
             />
           </div>
           {errors.name && <p className="error-message">{errors.name}</p>}
@@ -141,7 +170,11 @@ export default function ProfilePage() {
           <div className="input-field">
             <select
               value={selectedGender}
-              onChange={(e) => setSelectedGender(e.target.value)}
+              onChange={(e) => {
+                setSelectedGender(e.target.value);
+                if (e.target.value) setErrors(prev => ({ ...prev, gender: '' }));
+                checkIfFormFilled(name, address, e.target.value, selectedPhotographerTypes, uploadedImage);
+              }}
               style={{ color: selectedGender ? 'black' : 'var(--text)' }}
             >
               <option value="" disabled>Select Gender</option>
@@ -158,7 +191,7 @@ export default function ProfilePage() {
               type="text"
               placeholder='Address'
               value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              onChange={handleAddressChange}
             />
           </div>
           {errors.address && <p className="error-message">{errors.address}</p>}
@@ -171,7 +204,12 @@ export default function ProfilePage() {
             value={customPhotographerType}
             onChange={(e) => setCustomPhotographerType(e.target.value)}
           />
-          <GoPlusCircle onClick={handleCustomTypeAdd} style={{ cursor: 'pointer' }} />
+          {loading.customType ? <LuLoader2 className="loader" /> :
+            <GoPlusCircle
+              onClick={handleCustomTypeAdd}
+              style={{ cursor: 'pointer' }}
+            />
+          }
         </div>
         <div>
           <Select
@@ -200,24 +238,20 @@ export default function ProfilePage() {
               <img src={idCardImg} alt="Upload ID Card" />
               <p className='upload-text'>
                 <span><FiUpload /></span>
-                Upload ID Card
+                Upload ID Card Image
               </p>
-              <p className='upload-text2'>
-                Upload only in png, jpeg.
-              </p>
+              <input
+                id="id-card-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+              />
             </label>
           )}
-          <input
-            id="id-card-upload"
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleImageUpload}
-            style={{ display: 'none' }}
-          />
         </div>
         {errors.image && <p className="error-message">{errors.image}</p>}
-        <div className='button'>
-          <Button text={loading ? <LuLoader2 className="loader" /> : 'SUBMIT'} variant='fill' />
+        <div className="button">
+          <Button text={loading.submit ? <LuLoader2 className="loader" /> : 'Submit'} disabled={!formFilled || loading.submit} variant='fill' />
         </div>
       </form>
     </div>
