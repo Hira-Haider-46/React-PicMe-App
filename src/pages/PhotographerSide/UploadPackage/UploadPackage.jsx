@@ -27,7 +27,6 @@ export default function UploadPackage() {
     };
 
     const isValidDescription = (description) => {
-        // Check if the description is in the required format (separated by hyphens)
         const descriptionPattern = /^([a-zA-Z0-9]+-)*[a-zA-Z0-9]+$/;
         return descriptionPattern.test(description);
     };
@@ -77,40 +76,38 @@ export default function UploadPackage() {
                 </p>
             </div>
             <h3>Enter Your Package Details</h3>
-            <form className='border package-form flex' onSubmit={handleSubmit}>
-                <div className="pkg-input flex">
-                    <input
-                        type="text"
-                        name="packageName"
-                        placeholder="Package Name"
-                        value={formData.packageName}
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="text"
-                        name="packagePrice"
-                        placeholder="Package Price"
-                        value={formData.packagePrice}
-                        onChange={handleChange}
-                    />
+            <form className='border package-form' onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    name="packageName"
+                    placeholder="Package Name"
+                    value={formData.packageName}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="packagePrice"
+                    placeholder="Package Price"
+                    value={formData.packagePrice}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="noOfDays"
+                    placeholder="No. of Days"
+                    value={formData.noOfDays}
+                    onChange={handleChange}
+                />
+                <input
+                    type="text"
+                    name="description"
+                    placeholder="Description (separate with -)"
+                    value={formData.description}
+                    onChange={handleChange}
+                />
+                <div className='Btn'>
+                    <Button text='SAVE' variant='fill' />
                 </div>
-                <div className="pkg-input flex">
-                    <input
-                        type="text"
-                        name="noOfDays"
-                        placeholder="No. of Days"
-                        value={formData.noOfDays}
-                        onChange={handleChange}
-                    />
-                    <input
-                        type="text"
-                        name="description"
-                        placeholder="Description (separate with hyphens)"
-                        value={formData.description}
-                        onChange={handleChange}
-                    />
-                </div>
-                <Button text='SAVE' variant='fill' />
             </form>
         </div>
     );

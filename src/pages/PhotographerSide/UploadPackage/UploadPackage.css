@@ -3,17 +3,17 @@
 }
 
 .pkg-upload {
-  margin: 2em auto;
-  padding: 3em 0;
-  cursor: pointer;
+    margin: 2em auto;
+    padding: 3em 0;
+    cursor: pointer;
 }
 
 .upload-pkg-text {
-  color: var(--primary-color);
-  font-size: 1rem;
-  font-weight: 400;
-  margin: 0.2em auto;
-  width: 18%;
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 0.2em auto;
+    width: 18%;
 }
 
 .pkg-upload .upload-pkg-text span {
@@ -33,23 +33,21 @@
 #upload-pkg form {
     border-color: #e7e6eb;
     padding: 2em 1.5em;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 1em; 
 }
 
-.pkg-input {
-    justify-content: space-around;
-    margin: 0.25em 0;
-}
-
-.pkg-input input{
-    width: 48%;
+#upload-pkg form input {
     padding: 1em 1.5em;
     border-radius: 10px;
     outline: none;
     border: 1px solid var(--border);
+    width: 100%; 
 }
 
-#upload-pkg form :nth-child(3) {
-    width: 25%;
+#upload-pkg form .Btn {
+    grid-column: span 2; 
     margin: 1em auto;
+    width: 25%;
 }
