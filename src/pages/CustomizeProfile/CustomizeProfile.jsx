@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Button from '../../commonComponents/Button';
+import Input from '../../commonComponents/Input';
 import profile from '../../assets/images/profileImg.png';
 import editProfile from '../../assets/images/editProfile.png';
 import './CustomizeProfile.css';
@@ -7,6 +9,63 @@ import './CustomizeProfile.css';
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
     console.log('user', user);
+    const initialFormValues = {
+        firstName: '',
+        lastName: '',
+        password: '',
+        confirmPassword: '',
+        currentPassword: '',
+    };
+
+    const [formValues, setFormValues] = useState(initialFormValues);
+    const [errors, setErrors] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+
+    const nameRegex = /^[a-zA-Z0-9_ ]*$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    const validateField = (name, value) => {
+        let error = '';
+        if (name === 'firstName' || name === 'lastName') {
+            if (value && !nameRegex.test(value)) {
+                error = 'Name can only contain letters, numbers, and underscores';
+            }
+        } else if (name === 'password') {
+            if (value && !passwordRegex.test(value)) {
+                error = 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters';
+            } else if (value === formValues.currentPassword) {
+                error = 'New password must be different from the current password';
+            }
+        } else if (name === 'confirmPassword') {
+            if (value && value !== formValues.password) {
+                error = 'Passwords do not match';
+            }
+        } else if (name === 'currentPassword' && !value && (formValues.password || formValues.confirmPassword)) {
+            error = 'Please enter your current password';
+        }
+
+        return error;
+    };
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues((prevValues) => ({
+            ...prevValues,
+            [name]: value,
+        }));
+        const error = validateField(name, value);
+        setErrors((prevErrors) => ({
+            ...prevErrors,
+            [name]: error,
+        }));
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('formValues', formValues)
+    }
 
     return (
         <div className='customize-profile border'>
@@ -20,7 +79,67 @@ export default function CustomizeProfile() {
             </div>
             <div className='border input-form'>
                 <h2 className='h2'>Customize Your Profile</h2>
-                
+                <form className='profile-form' onSubmit={handleSubmit}>
+                    <div className='form-group'>
+                        <input type="email" name="email" value={user?.email} placeholder="abc@email.com" className='form-input' disabled />
+                    </div>
+
+                    <Input
+                        type="text"
+                        name="firstName"
+                        placeholder="First name"
+                        value={formValues.firstName}
+                        onChange={handleInputChange}
+                        error={errors.firstName}
+                    />
+
+                    <Input
+                        type="text"
+                        name="lastName"
+                        placeholder="Last name"
+                        value={formValues.lastName}
+                        onChange={handleInputChange}
+                        error={errors.lastName}
+                    />
+
+                    <Input
+                        type="password"
+                        name="currentPassword"
+                        placeholder="Current Password"
+                        value={formValues.currentPassword}
+                        onChange={handleInputChange}
+                        error={errors.currentPassword}
+                        showPassword={showCurrentPassword}
+                        toggleShowPassword={() => setShowCurrentPassword(prev => !prev)}
+                    />
+
+                    <Input
+                        type="password"
+                        name="password"
+                        placeholder="New Password"
+                        value={formValues.password}
+                        onChange={handleInputChange}
+                        error={errors.password}
+                        showPassword={showPassword}
+                        toggleShowPassword={() => setShowPassword(prev => !prev)}
+                    />
+
+                    <Input
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm Password"
+                        value={formValues.confirmPassword}
+                        onChange={handleInputChange}
+                        error={errors.confirmPassword}
+                        showPassword={showConfirmPassword}
+                        toggleShowPassword={() => setShowConfirmPassword(prev => !prev)}
+                    />
+
+                    <div className='buttons flex'>
+                        <Button text='UPDATE' variant='fill' />
+                        <Button text='CANCEL' variant='empty' />
+                    </div>
+                </form>
             </div>
         </div>
     )
