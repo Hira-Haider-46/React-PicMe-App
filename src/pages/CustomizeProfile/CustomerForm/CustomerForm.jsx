@@ -7,23 +7,26 @@ import './CustomerForm.css';
 
 export default function CustomerForm({ email, id }) {
     const initialFormValues = {
-        fullName: '',
+        firstName: '',
+        lastName: '',
         password: '',
         confirmPassword: '',
-        currentPassword: '',  
+        currentPassword: '',
+        profile_image: null,
     };
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({
-        fullName: '',
+        firstName: '',
+        lastName: '',
         password: '',
         confirmPassword: '',
-        currentPassword: '',  
+        currentPassword: '',
     });
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false); 
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
 
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -32,23 +35,24 @@ export default function CustomerForm({ email, id }) {
         let error = '';
 
         switch (name) {
-            case 'fullName':
-                if (!nameRegex.test(value)) {
-                    error = 'Name can only contain letters, numbers and underscores';
+            case 'firstName':
+            case 'lastName':
+                if (value && !nameRegex.test(value)) {
+                    error = 'Name can only contain letters, numbers, and underscores';
                 }
                 break;
             case 'password':
-                if (!passwordRegex.test(value)) {
+                if (value && !passwordRegex.test(value)) {
                     error = 'Password must contain at least 8 characters, including uppercase, lowercase, numbers, and special characters';
                 }
                 break;
             case 'confirmPassword':
-                if (value !== formValues.password) {
+                if (value && value !== formValues.password) {
                     error = 'Passwords do not match';
                 }
                 break;
-            case 'currentPassword': 
-                if (!value) {
+            case 'currentPassword':
+                if (value && !value) {
                     error = 'Please enter your current password';
                 }
                 break;
@@ -71,21 +75,33 @@ export default function CustomerForm({ email, id }) {
         validateField(name, value);
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setFormValues({
+            ...formValues,
+            profile_image: file,
+        });
+    };
+
     const validateForm = () => {
         const validationErrors = {};
-        if (!nameRegex.test(formValues.fullName)) {
-            validationErrors.fullName = 'Name can only contain letters, numbers and underscores';
+        if (formValues.firstName && !nameRegex.test(formValues.firstName)) {
+            validationErrors.firstName = 'First name can only contain letters, numbers and underscores';
         }
 
-        if (!passwordRegex.test(formValues.password)) {
+        if (formValues.lastName && !nameRegex.test(formValues.lastName)) {
+            validationErrors.lastName = 'Last name can only contain letters, numbers and underscores';
+        }
+
+        if (formValues.password && !passwordRegex.test(formValues.password)) {
             validationErrors.password = 'Password must have at least 8 characters, including uppercase, lowercase, numbers, and special characters';
         }
 
-        if (formValues.password !== formValues.confirmPassword) {
+        if (formValues.confirmPassword && formValues.password !== formValues.confirmPassword) {
             validationErrors.confirmPassword = 'Passwords do not match';
         }
 
-        if (!formValues.currentPassword) {
+        if (formValues.currentPassword && !formValues.currentPassword) {
             validationErrors.currentPassword = 'Please enter your current password';
         }
 
@@ -104,10 +120,18 @@ export default function CustomerForm({ email, id }) {
 
     const editProfile = async () => {
         const formData = new FormData();
-        formData.append("user[current_password]", formValues.currentPassword);
-        formData.append("user[username]", formValues.fullName);
-        formData.append("user[password]", formValues.password);
-
+        if (formValues.currentPassword) {
+            formData.append("user[current_password]", formValues.currentPassword);
+        }
+        if (formValues.firstName) {
+            formData.append("user[first_name]", formValues.firstName);
+        }
+        if (formValues.lastName) {
+            formData.append("user[last_name]", formValues.lastName);
+        }
+        if (formValues.password) {
+            formData.append("user[password]", formValues.password);
+        }
         if (formValues.profile_image) {
             formData.append("user[profile_image]", formValues.profile_image);
         }
@@ -150,16 +174,13 @@ export default function CustomerForm({ email, id }) {
     const handleCancel = (e) => {
         e.preventDefault();
         setFormValues(initialFormValues);
-        setErrors({
-            fullName: '',
-            password: '',
-            confirmPassword: '',
-            currentPassword: '',
-        });
+        setErrors(initialFormValues);
         setShowPassword(false);
         setShowConfirmPassword(false);
         setShowCurrentPassword(false);
     };
+
+    const isFormFilled = Object.values(formValues).some(value => value !== '' || value !== null);
 
     return (
         <form className='profile-form' onSubmit={handleEditProfile}>
@@ -177,13 +198,25 @@ export default function CustomerForm({ email, id }) {
             <div className='form-group'>
                 <input
                     type="text"
-                    name="fullName"
-                    placeholder="Full name"
+                    name="firstName"
+                    placeholder="First name"
                     className='form-input'
-                    value={formValues.fullName}
+                    value={formValues.firstName}
                     onChange={handleInputChange}
                 />
-                {errors.fullName && <span className='error-message'>{errors.fullName}</span>}
+                {errors.firstName && <span className='error-message'>{errors.firstName}</span>}
+            </div>
+
+            <div className='form-group'>
+                <input
+                    type="text"
+                    name="lastName"
+                    placeholder="Last name"
+                    className='form-input'
+                    value={formValues.lastName}
+                    onChange={handleInputChange}
+                />
+                {errors.lastName && <span className='error-message'>{errors.lastName}</span>}
             </div>
 
             <div className='form-group'>
@@ -234,9 +267,18 @@ export default function CustomerForm({ email, id }) {
                 {errors.confirmPassword && <span className='error-message'>{errors.confirmPassword}</span>}
             </div>
 
+            <div className='form-group'>
+                <input
+                    type="file"
+                    name="profile_image"
+                    className='form-input'
+                    onChange={handleImageChange}
+                />
+            </div>
+
             <div className='buttons flex'>
-                <Button text='UPDATE' variant='fill' />
-                <Button text='CANCEL' variant='empty' onClick={handleCancel} /> 
+                <Button text='UPDATE' variant='fill' disabled={!isFormFilled} />
+                <Button text='CANCEL' variant='empty' onClick={handleCancel} />
             </div>
         </form>
     );

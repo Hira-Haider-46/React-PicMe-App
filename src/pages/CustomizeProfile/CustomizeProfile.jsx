@@ -14,10 +14,10 @@ export default function CustomizeProfile() {
         <div className='customize-profile border'>
             <div className='bio'>
                 <div className='bio-img'>
-                    <img src={user?.profile_image_url ? profile_image_url : profile} alt="profile-img" />
+                    <img src={user?.profile_image_url ? user.profile_image_url : profile} alt="profile-img" />
                     <img src={editProfile} alt="profile-edit" />
                 </div>
-                <h1>{user?.name}</h1>
+                <h1>{user?.first_name} {user?.last_name}</h1>
                 <p>{user?.email }</p>
             </div>
             <div className='border input-form'>
