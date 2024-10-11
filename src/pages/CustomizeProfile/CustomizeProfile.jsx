@@ -10,10 +10,14 @@ import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
+    const profile_image_url = user?.profile_image_url;
 
     const [showPasswordFields, setShowPasswordFields] = useState({ password: false, confirmPassword: false, currentPassword: false });
 
-    const initialFormValues = { firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '', profileImage: user?.profile_image_url || profile };
+    const initialFormValues = {
+        firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '',
+        profileImage: profile_image_url ? profile_image_url : profile
+    };
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
@@ -106,14 +110,21 @@ export default function CustomizeProfile() {
         if (formValues.profileImage && formValues.profileImage !== profile) {
             formData.append('user[profile_image]', formValues.profileImage);
         }
-        console.log('formData', formData);
 
         const res = await patchApiWithAuth(`${EDIT_PROFILE}${user.id}`, formData);
+
         if (res.success) {
             console.log('Profile updated successfully');
-            handleCancel(); 
+            handleCancel();
         } else {
-            console.log(res.data);
+            if (res.data.message === 'Please enter your current password') {
+                setErrors(prevErrors => ({
+                    ...prevErrors,
+                    currentPassword: 'Incorrect password',
+                }));
+            } else {
+                console.log(res.data);
+            }
         }
     };
 
