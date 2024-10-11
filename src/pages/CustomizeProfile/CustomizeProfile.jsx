@@ -12,14 +12,7 @@ export default function CustomizeProfile() {
 
     const [showPasswordFields, setShowPasswordFields] = useState({ password: false, confirmPassword: false, currentPassword: false });
 
-    const initialFormValues = {
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        currentPassword: '',
-        profileImage: user?.profile_image_url || profile
-    };
+    const initialFormValues = {firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '', profileImage: user?.profile_image_url || profile};
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
