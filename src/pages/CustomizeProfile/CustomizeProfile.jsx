@@ -143,7 +143,7 @@ export default function CustomizeProfile() {
         <div className='customize-profile border'>
             <div className='bio'>
                 <div className='bio-img'>
-                    <img src={profileImagePreview} alt="profile-img" className='profile-icon' />
+                    <img src={profileImagePreview ? profileImagePreview : initialFormValues.profileImage} alt="profile-img" className='profile-icon' />
                     <label htmlFor="profileImageUpload">
                         <img src={editProfile} alt="profile-edit" className='edit' />
                     </label>
