@@ -11,20 +11,12 @@ import './CustomizeProfile.css';
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
     console.log('user', user);
-    const initialFormValues = {
-        firstName: '',
-        lastName: '',
-        password: '',
-        confirmPassword: '',
-        currentPassword: '',
-    };
+
+    const [showPasswordFields, setShowPasswordFields] = useState({password: false, confirmPassword: false, currentPassword: false});
+    const initialFormValues = { firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '' };
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
-
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -64,10 +56,17 @@ export default function CustomizeProfile() {
         }));
     };
 
+    const handleTogglePassword = (fieldName) => {
+        setShowPasswordFields((prevState) => ({
+            ...prevState,
+            [fieldName]: !prevState[fieldName]
+        }));
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('formValues', formValues)
-    }
+        console.log('formValues', formValues);
+    };
 
     return (
         <div className='customize-profile border'>
@@ -90,11 +89,11 @@ export default function CustomizeProfile() {
 
                     <Input type="text" name="lastName" placeholder="Last name" value={formValues.lastName} onChange={handleInputChange} error={errors.lastName} />
 
-                    <Input type="password" name="currentPassword" placeholder="Current Password" value={formValues.currentPassword} onChange={handleInputChange} error={errors.currentPassword} showPassword={showCurrentPassword} toggleShowPassword={() => setShowCurrentPassword(prev => !prev)} />
+                    <Input type="password" name="currentPassword" placeholder="Current Password" value={formValues.currentPassword} onChange={handleInputChange} error={errors.currentPassword} showPassword={showPasswordFields.currentPassword} toggleShowPassword={() => handleTogglePassword('currentPassword')} />
 
-                    <Input type="password" name="password" placeholder="New Password" value={formValues.password} onChange={handleInputChange} error={errors.password} showPassword={showPassword} toggleShowPassword={() => setShowPassword(prev => !prev)} />
+                    <Input type="password" name="password" placeholder="New Password" value={formValues.password} onChange={handleInputChange} error={errors.password} showPassword={showPasswordFields.password} toggleShowPassword={() => handleTogglePassword('password')} />
 
-                    <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showConfirmPassword} toggleShowPassword={() => setShowConfirmPassword(prev => !prev)} />
+                    <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showPasswordFields.confirmPassword} toggleShowPassword={() => handleTogglePassword('confirmPassword')} />
 
                     <div className='buttons flex'>
                         <Button text='UPDATE' variant='fill' />
@@ -103,5 +102,5 @@ export default function CustomizeProfile() {
                 </form>
             </div>
         </div>
-    )
+    );
 }
