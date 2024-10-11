@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LuLoader2 } from "react-icons/lu";
 import Button from '../../commonComponents/Button';
 import { Link, useLocation } from 'react-router-dom';
 import { postApiWithoutAuth } from '../../apis/index'; 
@@ -9,6 +10,7 @@ export default function Verification() {
     const [code, setCode] = useState(['', '', '', '']);
     const [timer, setTimer] = useState(30);
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -45,6 +47,7 @@ export default function Verification() {
     };
 
     const handleVerify = async () => {
+        setLoading(true);
         const otp_code = code.join('');
         const res = await postApiWithoutAuth(OTP_VERIFY, { email, otp_code });
         if (res.success) {
@@ -52,6 +55,7 @@ export default function Verification() {
         } else {
             console.error("Error verifying OTP: ", res);
         }
+        setLoading(false);
     };
 
     return (
@@ -72,7 +76,7 @@ export default function Verification() {
                 ))}
             </div>
             <Link to='/login' onClick={handleVerify}>
-                <Button text='CONTINUE' variant='fill' />
+                <Button text={loading ? <LuLoader2 className="loader" /> : 'CONTINUE'} variant='fill' />
             </Link>
             <div className='timer'>
                 {timer > 0 ? (

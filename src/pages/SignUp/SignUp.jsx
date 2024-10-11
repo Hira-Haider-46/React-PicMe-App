@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
+import { LuLoader2 } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
-import { loginSignUpSuccess } from '../../store/slices/authSlice';
 import { postApiWithoutAuth } from '../../apis/index';
-import { useDispatch, useSelector } from 'react-redux';
 import { SIGNUP } from '../../apis/apiUrls';
 import './SignUp.css';
 
@@ -14,7 +13,7 @@ export default function SignUp() {
     const [confirmPass, setConfirmPass] = useState(false);
     const [showPass, setShowPass] = useState(false);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
 
     const [name, setname] = useState('');
     const [email, setEmail] = useState('');
@@ -31,6 +30,7 @@ export default function SignUp() {
     };
 
     const handleSignUp = async (e) => {
+        setLoading(true);
         e.preventDefault();
         if (password !== confirmPassword) {
             alert("Passwords do not match");
@@ -38,13 +38,11 @@ export default function SignUp() {
         }
         const res = await postApiWithoutAuth(SIGNUP, { email, password, name, type: type });
         if (res.success) {
-            // const token = res.headers.authorization;
-            // localStorage.setItem('token', token);
-            // dispatch(loginSignUpSuccess({ token, user: res.data.data, type }));
             navigate(`/verification?email=${encodeURIComponent(email)}`);
         } else {
             console.error("Signup error ", res);
         }
+        setLoading(false);
     };
 
     return (
@@ -97,7 +95,7 @@ export default function SignUp() {
                         {confirmPass ? <FaEye /> : <FaEyeSlash />}
                     </div>
                 </div>
-                <Button text='SIGN UP' variant='fill' />
+                <Button text={loading ? <LuLoader2 className="loader" /> : 'SIGN UP'} variant='fill' />
             </form>
             <div className="signup-option">
                 <p>Already have an account? <Link to='/login'>Log in</Link></p>

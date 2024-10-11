@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
+import { LuLoader2 } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
@@ -16,6 +17,7 @@ export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const type = localStorage.getItem('type');
@@ -40,8 +42,9 @@ export default function Login() {
     };
 
     const handleLogIn = async (e) => {
+        setLoading(true);
         e.preventDefault();
-
+        
         if (!type) {
             console.error("Type is not set");
             return;
@@ -60,12 +63,13 @@ export default function Login() {
         } else {
             setError(res.data.message || "Login error, please try again.");
         }
+        setLoading(false);
     };
 
     return (
         <div className="login flex">
             <h2>Log in</h2>
-            {error && <p className="error-message">{error}</p>}
+            {error && <p className="error-message" style={{margin: '0.5em'}}>{error}</p>}
             <form className='flex' onSubmit={handleLogIn}>
                 <div className="input-group flex">
                     <FaRegEnvelope />
@@ -100,7 +104,7 @@ export default function Login() {
                     </div>
                     <Link to='/forgot-password' className="forgot-password">Forgot Password?</Link>
                 </div>
-                <Button text='LOG IN' variant='fill' />
+                <Button text={loading ? <LuLoader2 className="loader" /> : 'LOG IN'} variant='fill' />
             </form>
             <div className="signup-option">
                 <p>Don't have an account? <Link to='/signup'>Sign up</Link></p>
