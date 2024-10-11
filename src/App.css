@@ -52,19 +52,6 @@
   gap: 1em;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.form-input {
-  padding: 1em;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-size: 0.9rem;
-  outline: none;
-}
-
 /* login + signup css */
 .login {
   width: 50%;

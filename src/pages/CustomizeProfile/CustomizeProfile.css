@@ -17,6 +17,7 @@
     width: 30px;
     float: right;
     margin-top: -2.25em;
+    cursor: pointer;
 }
 
 .bio h1 {
@@ -45,6 +46,7 @@
     justify-content: space-between;
     flex-direction: row;
     margin-left: 70%;
+    grid-column: span 2;
 }
 
 .buttons :first-child, .buttons :nth-child(2) {

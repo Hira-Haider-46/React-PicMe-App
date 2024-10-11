@@ -1,9 +1,0 @@
-.form-group .pass {
-    padding: 0.2em 0 0.2em 1em;
-}
-
-.buttons {
-  grid-column: span 2;
-  display: flex;
-  justify-content: space-between;
-}

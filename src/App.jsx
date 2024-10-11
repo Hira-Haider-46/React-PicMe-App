@@ -28,7 +28,7 @@ import UploadPhotos from "./pages/PhotographerSide/UploadPhotos";
 import UploadVideos from "./pages/PhotographerSide/UploadVideos";
 import CreatePackage from "./pages/PhotographerSide/CreatePackage";
 import UploadPackage from "./pages/PhotographerSide/UploadPackage";
-import CustomizeProfile from "./pages/CustomizeProfile/";
+import CustomizeProfile from "./pages/CustomizeProfile";
 import './App.css';
 
 export default function App() {
