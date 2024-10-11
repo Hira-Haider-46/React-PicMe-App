@@ -84,56 +84,15 @@ export default function CustomizeProfile() {
                         <input type="email" name="email" value={user?.email} placeholder="abc@email.com" className='form-input' disabled />
                     </div>
 
-                    <Input
-                        type="text"
-                        name="firstName"
-                        placeholder="First name"
-                        value={formValues.firstName}
-                        onChange={handleInputChange}
-                        error={errors.firstName}
-                    />
+                    <Input type="text" name="firstName" placeholder="First name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
 
-                    <Input
-                        type="text"
-                        name="lastName"
-                        placeholder="Last name"
-                        value={formValues.lastName}
-                        onChange={handleInputChange}
-                        error={errors.lastName}
-                    />
+                    <Input type="text" name="lastName" placeholder="Last name" value={formValues.lastName} onChange={handleInputChange} error={errors.lastName} />
 
-                    <Input
-                        type="password"
-                        name="currentPassword"
-                        placeholder="Current Password"
-                        value={formValues.currentPassword}
-                        onChange={handleInputChange}
-                        error={errors.currentPassword}
-                        showPassword={showCurrentPassword}
-                        toggleShowPassword={() => setShowCurrentPassword(prev => !prev)}
-                    />
+                    <Input type="password" name="currentPassword" placeholder="Current Password" value={formValues.currentPassword} onChange={handleInputChange} error={errors.currentPassword} showPassword={showCurrentPassword} toggleShowPassword={() => setShowCurrentPassword(prev => !prev)} />
 
-                    <Input
-                        type="password"
-                        name="password"
-                        placeholder="New Password"
-                        value={formValues.password}
-                        onChange={handleInputChange}
-                        error={errors.password}
-                        showPassword={showPassword}
-                        toggleShowPassword={() => setShowPassword(prev => !prev)}
-                    />
+                    <Input type="password" name="password" placeholder="New Password" value={formValues.password} onChange={handleInputChange} error={errors.password} showPassword={showPassword} toggleShowPassword={() => setShowPassword(prev => !prev)} />
 
-                    <Input
-                        type="password"
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formValues.confirmPassword}
-                        onChange={handleInputChange}
-                        error={errors.confirmPassword}
-                        showPassword={showConfirmPassword}
-                        toggleShowPassword={() => setShowConfirmPassword(prev => !prev)}
-                    />
+                    <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showConfirmPassword} toggleShowPassword={() => setShowConfirmPassword(prev => !prev)} />
 
                     <div className='buttons flex'>
                         <Button text='UPDATE' variant='fill' />
