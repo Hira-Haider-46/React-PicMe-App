@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '../../commonComponents/Button';
 import Input from '../../commonComponents/Input';
@@ -8,15 +8,15 @@ import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
-    console.log('user', user);
 
     const [showPasswordFields, setShowPasswordFields] = useState({ password: false, confirmPassword: false, currentPassword: false });
 
-    const initialFormValues = {firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '', profileImage: user?.profile_image_url || profile};
+    const initialFormValues = { firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '', profileImage: user?.profile_image_url || profile };
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
     const [profileImagePreview, setProfileImagePreview] = useState(formValues.profileImage);
+    const [isFormModified, setIsFormModified] = useState(false);
 
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -73,16 +73,30 @@ export default function CustomizeProfile() {
             }));
             const reader = new FileReader();
             reader.onloadend = () => {
-                setProfileImagePreview(reader.result); 
+                setProfileImagePreview(reader.result);
             };
-            reader.readAsDataURL(file); 
+            reader.readAsDataURL(file);
         }
+    };
+
+    const handleCancel = () => {
+        setFormValues(initialFormValues);
+        setErrors({});
+        setProfileImagePreview(initialFormValues.profileImage);
+        setIsFormModified(false);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('formValues', formValues);
     };
+
+    useEffect(() => {
+        const isModified = Object.keys(formValues).some(
+            key => key !== 'profileImage' ? formValues[key] !== '' : formValues.profileImage !== profile
+        );
+        setIsFormModified(isModified);
+    }, [formValues]);
 
     return (
         <div className='customize-profile border'>
@@ -122,8 +136,8 @@ export default function CustomizeProfile() {
                     <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showPasswordFields.confirmPassword} toggleShowPassword={() => handleTogglePassword('confirmPassword')} />
 
                     <div className='buttons flex'>
-                        <Button text='UPDATE' variant='fill' />
-                        <Button text='CANCEL' variant='empty' />
+                        <Button text='UPDATE' variant='fill' disabled={!isFormModified} />
+                        <Button text='CANCEL' variant='empty' onClick={handleCancel} disabled={!isFormModified} />
                     </div>
                 </form>
             </div>
