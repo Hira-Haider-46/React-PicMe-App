@@ -6,20 +6,24 @@ import { patchApiWithAuth } from '../../../apis/index';
 import './CustomerForm.css';
 
 export default function CustomerForm({ email, id }) {
-    const [formValues, setFormValues] = useState({
+    const initialFormValues = {
         fullName: '',
         password: '',
         confirmPassword: '',
-    });
+        currentPassword: '',  
+    };
 
+    const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({
         fullName: '',
         password: '',
         confirmPassword: '',
+        currentPassword: '',  
     });
 
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false); 
 
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -41,6 +45,11 @@ export default function CustomerForm({ email, id }) {
             case 'confirmPassword':
                 if (value !== formValues.password) {
                     error = 'Passwords do not match';
+                }
+                break;
+            case 'currentPassword': 
+                if (!value) {
+                    error = 'Please enter your current password';
                 }
                 break;
             default:
@@ -69,11 +78,15 @@ export default function CustomerForm({ email, id }) {
         }
 
         if (!passwordRegex.test(formValues.password)) {
-            validationErrors.password = 'Password must have atleast 8 characters, including uppercase, lowercase, numbers, and special characters';
+            validationErrors.password = 'Password must have at least 8 characters, including uppercase, lowercase, numbers, and special characters';
         }
 
         if (formValues.password !== formValues.confirmPassword) {
             validationErrors.confirmPassword = 'Passwords do not match';
+        }
+
+        if (!formValues.currentPassword) {
+            validationErrors.currentPassword = 'Please enter your current password';
         }
 
         return validationErrors;
@@ -90,18 +103,35 @@ export default function CustomerForm({ email, id }) {
     };
 
     const editProfile = async () => {
-        const payload = {
-            user: {
-                fullName: formValues.fullName,
-                password: formValues.password
-                // profile_image: formValues.profile_image 
+        const formData = new FormData();
+        formData.append("user[current_password]", formValues.currentPassword);
+        formData.append("user[username]", formValues.fullName);
+        formData.append("user[password]", formValues.password);
+
+        if (formValues.profile_image) {
+            formData.append("user[profile_image]", formValues.profile_image);
+        }
+
+        try {
+            const res = await patchApiWithAuth(`${EDIT_PROFILE}${id}`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            if (res.success) {
+                console.log('Profile updated successfully');
+            } else {
+                if (res.data && res.data.message === 'Password does not match') {
+                    setErrors((prevErrors) => ({
+                        ...prevErrors,
+                        currentPassword: 'Incorrect current password'
+                    }));
+                } else {
+                    console.error(res.data);
+                }
             }
-        };
-        const res = await patchApiWithAuth(`${EDIT_PROFILE}${id}`, {payload});
-        if (res.success) {
-            console.log('Profile updated successfully');
-        } else {
-            console.error(res.data);
+        } catch (error) {
+            console.error('Error updating profile:', error);
         }
     };
 
@@ -111,6 +141,21 @@ export default function CustomerForm({ email, id }) {
 
     const toggleShowConfirmPassword = () => {
         setShowConfirmPassword(!showConfirmPassword);
+    };
+
+    const toggleShowCurrentPassword = () => {
+        setShowCurrentPassword(!showCurrentPassword);
+    };
+
+    const handleCancel = (e) => {
+        e.preventDefault();
+        setFormValues(initialFormValues);
+        setErrors({
+            fullName: '',
+            password: '',
+            confirmPassword: '',
+            currentPassword: '',
+        });
     };
 
     return (
@@ -125,21 +170,7 @@ export default function CustomerForm({ email, id }) {
                     disabled
                 />
             </div>
-            <div className='form-group'>
-                <div className='input-group flex pass'>
-                    <input
-                        type={showConfirmPassword ? "text" : "password"}
-                        name="confirmPassword"
-                        placeholder="Confirm Password"
-                        value={formValues.confirmPassword}
-                        onChange={handleInputChange}
-                    />
-                    <div onClick={toggleShowConfirmPassword}>
-                        {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
-                    </div>
-                </div>
-                {errors.confirmPassword && <span className='error-message'>{errors.confirmPassword}</span>}
-            </div>
+
             <div className='form-group'>
                 <input
                     type="text"
@@ -151,12 +182,29 @@ export default function CustomerForm({ email, id }) {
                 />
                 {errors.fullName && <span className='error-message'>{errors.fullName}</span>}
             </div>
+
+            <div className='form-group'>
+                <div className='input-group flex pass'>
+                    <input
+                        type={showCurrentPassword ? "text" : "password"}
+                        name="currentPassword"
+                        placeholder="Current Password"
+                        value={formValues.currentPassword}
+                        onChange={handleInputChange}
+                    />
+                    <div onClick={toggleShowCurrentPassword}>
+                        {showCurrentPassword ? <FaEye /> : <FaEyeSlash />}
+                    </div>
+                </div>
+                {errors.currentPassword && <span className='error-message'>{errors.currentPassword}</span>}
+            </div>
+
             <div className='form-group'>
                 <div className='input-group flex pass'>
                     <input
                         type={showPassword ? "text" : "password"}
                         name="password"
-                        placeholder="Your password"
+                        placeholder="New password"
                         value={formValues.password}
                         onChange={handleInputChange}
                     />
@@ -166,9 +214,26 @@ export default function CustomerForm({ email, id }) {
                 </div>
                 {errors.password && <span className='error-message'>{errors.password}</span>}
             </div>
+
+            <div className='form-group'>
+                <div className='input-group flex pass'>
+                    <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        name="confirmPassword"
+                        placeholder="Confirm new Password"
+                        value={formValues.confirmPassword}
+                        onChange={handleInputChange}
+                    />
+                    <div onClick={toggleShowConfirmPassword}>
+                        {showConfirmPassword ? <FaEye /> : <FaEyeSlash />}
+                    </div>
+                </div>
+                {errors.confirmPassword && <span className='error-message'>{errors.confirmPassword}</span>}
+            </div>
+
             <div className='buttons flex'>
                 <Button text='UPDATE' variant='fill' />
-                <Button text='CANCEL' variant='empty' />
+                <Button text='CANCEL' variant='empty' onClick={handleCancel} /> 
             </div>
         </form>
     );
