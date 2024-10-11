@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import Button from '../../commonComponents/Button';
 import Input from '../../commonComponents/Input';
-import profile from '../../assets/images/profileImg.png';
+import profile from '../../assets/images/ProfileImg.png';
 import editProfile from '../../assets/images/editProfile.png';
 import { EDIT_PROFILE } from '../../apis/apiUrls';
 import { patchApiWithAuth } from '../../apis/index';
