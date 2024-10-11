@@ -81,7 +81,7 @@ export default function App() {
             <Route path="customize-profile" element={<CustomizeProfile />} />
           </Route>
         </Route>
-
+ 
         <Route element={<PhotographerLayout />}>
           <Route element={<PhotographerRoute />}>
             {!profileCreated ? <>
