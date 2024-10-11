@@ -87,8 +87,8 @@ export default function ProfilePage() {
 
   const validateFields = () => {
     const newErrors = {};
-    if (name.length < 5 || !/^[a-zA-Z0-9_ ]+$/.test(name)) {
-      newErrors.name = 'Please enter atleast 5 characters (may consist of letters, numbers, underscores).';
+    if (!name || !/^[a-zA-Z0-9_ ]+$/.test(name)) {
+      newErrors.name = 'Username may consist of letters, numbers and underscores.';
     }
     if (!selectedGender) newErrors.gender = 'Please select your gender.';
     if (!address) newErrors.address = 'Please enter your address.';
@@ -111,8 +111,13 @@ export default function ProfilePage() {
     formData.append('name', name);
     formData.append('address', address);
     formData.append('gender', selectedGender);
-    formData.append('category', JSON.stringify(selectedPhotographerTypes.map(option => option.value)));
-    formData.append('document_pictures[]', uploadedImage);
+    selectedPhotographerTypes.forEach(option => {
+      formData.append('category[]', option.value); 
+    });
+
+    if (uploadedImage) {
+      formData.append('document_pictures[]', uploadedImage); 
+    }
 
     try {
       const res = await postApiWithAuth(CREATE_PROFILE, formData);

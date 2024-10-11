@@ -41,7 +41,7 @@ export default function PhotographerLayout() {
                   <img src={homePic} alt="homePic" /> Home
                 </li>
               </Link>
-              <Link to=''>
+              {/* <Link to=''>
                 <li>
                   <img src={chatPic} alt="chatPic" /> Chats
                 </li>
@@ -50,7 +50,7 @@ export default function PhotographerLayout() {
                 <li>
                 <img src={transactionHistory} alt="chatPic" /> Transaction History
                 </li>
-              </Link>
+              </Link> */}
               <Link to=''>
                 <li>
                   <img src={profilePic} alt="profilePic" /> Profile
