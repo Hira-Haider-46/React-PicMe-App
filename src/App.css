@@ -45,6 +45,26 @@
   margin-bottom: 0.65em;
 }
 
+.profile-form {
+  padding: 1em 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input {
+  padding: 1em;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
 /* login + signup css */
 .login {
   width: 50%;

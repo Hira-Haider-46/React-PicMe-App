@@ -7,7 +7,6 @@ export default function CustomerPrivateRoutes() {
     const user = useSelector(state => state.auth.user);
     const type = user?.type;
     const profileCreated = user?.profile_created;
-    console.log('profileCreated CustomerPrivateRoutes, type of type', profileCreated, typeof (type))
 
     if (!token) {
         return <Navigate to="/" />;

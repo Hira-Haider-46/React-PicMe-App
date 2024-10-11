@@ -51,7 +51,7 @@ export default function PhotographerLayout() {
                 <img src={transactionHistory} alt="chatPic" /> Transaction History
                 </li>
               </Link> */}
-              <Link to=''>
+              <Link to='/customize-profile'>
                 <li>
                   <img src={profilePic} alt="profilePic" /> Profile
                 </li>

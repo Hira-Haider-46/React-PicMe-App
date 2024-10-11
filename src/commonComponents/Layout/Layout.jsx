@@ -32,12 +32,12 @@ export default function Layout() {
                                     <img src={homePic} alt="homePic" /> Home
                                 </li>
                             </Link>
-                            <Link to=''>
+                            {/* <Link to=''>
                                 <li>
                                     <img src={chatPic} alt="chatPic" /> Chats
                                 </li>
-                            </Link>
-                            <Link to=''>
+                            </Link> */}
+                            <Link to='/customize-profile'>
                                 <li>
                                     <img src={profilePic} alt="profilePic" /> Profile
                                 </li>

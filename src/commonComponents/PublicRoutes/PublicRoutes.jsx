@@ -8,7 +8,6 @@ export default function PublicRoutes() {
     const user = useSelector(state => state.auth.user);
     const type = user?.type;
     const profileCreated = user?.profile_created;
-    console.log('profileCreated public, type of type', profileCreated, typeof(type))
     
     if (token && type === 0) {
         return <Navigate to="/choose-location" />;

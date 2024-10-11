@@ -28,6 +28,7 @@ import UploadPhotos from "./pages/PhotographerSide/UploadPhotos";
 import UploadVideos from "./pages/PhotographerSide/UploadVideos";
 import CreatePackage from "./pages/PhotographerSide/CreatePackage";
 import UploadPackage from "./pages/PhotographerSide/UploadPackage";
+import CustomizeProfile from "./pages/CustomizeProfile/";
 import './App.css';
 
 export default function App() {
@@ -45,7 +46,6 @@ export default function App() {
         type: res.data.user.type
       }));
       setProfileCreated(res.data.user.profile_created)
-      console.log('profile created', res.data.user.profile_created);
     } else {
       console.error("Failed to fetch user data");
     }
@@ -78,6 +78,7 @@ export default function App() {
             <Route path="location" element={<Location />} />
             <Route path="photographer-profile" element={<PhotographerProfile />} />
             <Route path="checkout/:id" element={<PaymentDetails />} />
+            <Route path="customize-profile" element={<CustomizeProfile />} />
           </Route>
         </Route>
 
@@ -93,6 +94,7 @@ export default function App() {
               <Route path="upload-videos" element={<UploadVideos />} />
               <Route path="create-package" element={<CreatePackage />} />
               <Route path="upload-package" element={<UploadPackage />} />
+              <Route path="customize-profile" element={<CustomizeProfile />} />
             </>
             }
           </Route>

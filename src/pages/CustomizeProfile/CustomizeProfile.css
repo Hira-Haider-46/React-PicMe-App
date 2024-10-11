@@ -1,0 +1,52 @@
+.bio {
+    width: 30%;
+    margin: auto;
+}
+
+.bio-img {
+    width: 150px;
+    margin: auto;
+}
+
+.bio-img :first-child {
+    width: 130px;
+    border-radius: 50%;
+}
+
+.bio-img :nth-child(2) {
+    width: 30px;
+    float: right;
+    margin-top: -2.25em;
+}
+
+.bio h1 {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 1.35rem;
+}
+
+.bio p {
+    color: var(--text);
+    font-weight: 400;
+    font-size: 1.1rem;
+    margin-bottom: 1em;
+}
+
+.customize-profile .input-form {
+    border: 1px solid #eceaf1;
+}
+
+.input-form h2 {
+    margin-bottom: 1em;
+}
+
+.buttons {
+    width: 30%;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-left: 70%;
+}
+
+.buttons :first-child, .buttons :nth-child(2) {
+    width: 48%;
+}
