@@ -156,6 +156,9 @@ export default function CustomerForm({ email, id }) {
             confirmPassword: '',
             currentPassword: '',
         });
+        setShowPassword(false);
+        setShowConfirmPassword(false);
+        setShowCurrentPassword(false);
     };
 
     return (
