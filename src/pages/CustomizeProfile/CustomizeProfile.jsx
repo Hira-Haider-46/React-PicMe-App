@@ -99,7 +99,7 @@ export default function CustomizeProfile() {
             formData.append('user[current_pass]', formValues.currentPassword);
         }
         if (formValues.password) {
-            formData.append('user[password]', formValues.password);
+            formData.append('user[new_password]', formValues.password);
         }
         if (formValues.firstName) {
             formData.append('user[first_name]', formValues.firstName);
