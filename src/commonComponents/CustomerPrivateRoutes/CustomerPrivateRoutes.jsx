@@ -13,7 +13,7 @@ export default function CustomerPrivateRoutes() {
     }
 
     if (type === 1) {
-        return <Navigate to={profileCreated ? '/create-profile' : '/home-page'} />;
+        return <Navigate to={profileCreated ? '/home-page' : '/create-profile'} />;
     }
 
     return <Outlet />;
