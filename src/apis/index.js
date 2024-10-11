@@ -96,3 +96,18 @@ export const deleteApiWithAuth = async (url) => {
     return { data: err.response.data, success: false };
   }
 };
+
+export const patchApiWithAuth = async (url, body) => {
+  try {
+    await setApiHeader(); 
+    const res = await axios.patch(url, body); 
+    return {
+      data: res.data,
+      status: res.status,
+      success: true,
+      headers: res.headers,
+    };
+  } catch (err) {
+    return { data: err.response.data, success: false };
+  }
+};

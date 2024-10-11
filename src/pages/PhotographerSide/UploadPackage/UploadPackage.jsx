@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CiCirclePlus } from "react-icons/ci";
 import { LuLoader2 } from "react-icons/lu";
-import { CREATE_PACKAGE } from '../../../apis/apiUrls';
-import { postApiWithAuth } from '../../../apis/index';
+import { CREATE_PACKAGE, SHOW_PACKAGE, EDIT_PACKAGE } from '../../../apis/apiUrls';
+import { postApiWithAuth, getApiWithAuth, patchApiWithAuth } from '../../../apis/index';
 import pkg from '../../../assets/images/pkg.png';
 import Button from '../../../commonComponents/Button';
 import './UploadPackage.css';
 
 export default function UploadPackage() {
     const navigate = useNavigate();
+    const packageId = localStorage.getItem('pkgId');
 
     const [formData, setFormData] = useState({
         packageName: '',
@@ -27,6 +27,29 @@ export default function UploadPackage() {
 
     const [isLoading, setIsLoading] = useState(false);
     const [formFilled, setFormFilled] = useState(false);
+
+    const fetchPackageDetails = async () => {
+        if (packageId) {
+            const res = await getApiWithAuth(`${SHOW_PACKAGE}/${packageId}`);
+            if (res.success) {
+                const packageData = res.data;
+                setFormData({
+                    packageName: packageData.name,
+                    packagePrice: packageData.price,
+                    noOfDays: packageData.delivery_days,
+                    description: packageData.description.replace(/-/g, ' - '),
+                });
+            } else {
+                console.error(res.data);
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (packageId) {
+            fetchPackageDetails();
+        }
+    }, [packageId]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -72,7 +95,7 @@ export default function UploadPackage() {
         if (name === "description") {
             const descriptionPattern = /^[a-zA-Z0-9\s-]+$/;
             if (!descriptionPattern.test(value)) {
-                newErrors.description = 'Description must be seprated with hyphens (-).';
+                newErrors.description = 'Description must be separated with hyphens (-).';
             } else {
                 const formattedDescription = value
                     .replace(/^-+|-+$/g, '')
@@ -93,7 +116,7 @@ export default function UploadPackage() {
         setFormFilled(atLeastOneFilled);
     };
 
-    const createPackage = async () => {
+    const savePackage = async () => {
         setIsLoading(true);
 
         const days = parseInt(formData.noOfDays, 10);
@@ -104,14 +127,17 @@ export default function UploadPackage() {
             delivery_days: days,
         };
 
-        const res = await postApiWithAuth(CREATE_PACKAGE, payload);
+        const res = packageId
+            ? await patchApiWithAuth(`${EDIT_PACKAGE}/${packageId}`, payload)
+            : await postApiWithAuth(CREATE_PACKAGE, payload);
 
         if (res.success) {
-            console.log('Package created successfully');
+            console.log(packageId ? 'Package updated successfully' : 'Package created successfully');
             setIsLoading(false);
             navigate('/create-package');
         } else {
             console.error(res.data);
+            setIsLoading(false);
         }
     };
 
@@ -140,7 +166,7 @@ export default function UploadPackage() {
         setErrors(newErrors);
 
         if (!hasError && Object.values(errors).every((error) => error === '')) {
-            createPackage();
+            savePackage();
         }
     };
 
@@ -150,13 +176,12 @@ export default function UploadPackage() {
 
     return (
         <div className='border' id='upload-pkg'>
-            <h2 className='h2'>Upload Package</h2>
+            <h2 className='h2'>{packageId ? 'Edit Package' : 'Upload Package'}</h2>
             <p className='p'>Upload details of your service packages.</p>
             <div className="file-upload pkg-upload">
                 <img src={pkg} alt="pkg-box" />
                 <p className='upload-pkg-text flex'>
-                    <span><CiCirclePlus /></span>
-                    Create new package
+                    Create or edit package details.
                 </p>
             </div>
             <h3>Enter Your Package Details</h3>

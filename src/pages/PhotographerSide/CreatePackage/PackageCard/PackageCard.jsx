@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MdDeleteOutline } from "react-icons/md";
 import { LuLoader2 } from "react-icons/lu";
 import { DEL_PACKAGE } from '../../../../apis/apiUrls';
@@ -8,6 +9,7 @@ import { convertToBullets } from '../../../../helper/helper';
 import './PackageCard.css';
 
 export default function PackageCard({ pkg, refreshPackages }) {
+    const navigate = useNavigate();
     const [expanded, setExpanded] = useState(false);
     const [loading, setLoading] = useState(false);
     const [loadingEdit, setLoadingEdit] = useState(false);
@@ -20,18 +22,23 @@ export default function PackageCard({ pkg, refreshPackages }) {
         setLoading(true);
         const res = await deleteApiWithAuth(`${DEL_PACKAGE}${packageId}`);
         if (res.success) {
-            console.log("Successfully deleted package");
             await refreshPackages(); 
-            setLoading(false);
         } else {
             console.error(res.data);
         }
+        setLoading(false);
+    }
+
+    const editPkg = async () => {
+        setLoadingEdit(true);
+        localStorage.setItem('pkgId', Number(packageId));
+        navigate('/upload-package');
     }
 
     return (
         <div className='create-pkg-card'>
             <div className='logos flex'>
-                {!loadingEdit ? <img src={edit} alt="edit-logo" className='edit-logo' /> : <LuLoader2 className="loader" />}
+                {!loadingEdit ? <img src={edit} alt="edit-logo" className='edit-logo' onClick={editPkg}/> : <LuLoader2 className="loader" />}
                 {!loading ? <MdDeleteOutline className='del-logo' onClick={delPkg} /> : <LuLoader2 className="loader" />}
             </div>
             <div className='listItems'>

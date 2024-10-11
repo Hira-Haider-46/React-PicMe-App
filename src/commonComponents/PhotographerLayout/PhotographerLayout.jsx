@@ -20,6 +20,8 @@ export default function PhotographerLayout() {
   const handleLogout = () => {
     dispatch(logout());
     localStorage.removeItem('token');
+    localStorage.removeItem('type');
+    localStorage.removeItem('pkgId');
   };
 
   return (

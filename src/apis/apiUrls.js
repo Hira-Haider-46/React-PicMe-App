@@ -18,3 +18,4 @@ export const ME = '/users/me';
 export const UPLOAD_WORK = "/photographers/upload_work";
 export const CREATE_PACKAGE = "/packages";
 export const DEL_PACKAGE = "/packages/";
+export const EDIT_PACKAGE = "/packages/";
