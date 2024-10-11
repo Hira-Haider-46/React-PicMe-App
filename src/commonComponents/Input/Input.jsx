@@ -24,7 +24,6 @@ export default function Input({
                     onChange={onChange}
                     className='form-input'
                     disabled={disabled}
-                    aria-label={placeholder}
                 />
                 {type === "password" && (
                     <div onClick={toggleShowPassword} className='icon'>

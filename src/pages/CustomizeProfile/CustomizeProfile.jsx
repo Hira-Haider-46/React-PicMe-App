@@ -110,6 +110,10 @@ export default function CustomizeProfile() {
         if (formValues.profileImage && formValues.profileImage !== profile) {
             formData.append('user[profile_image]', formValues.profileImage);
         }
+        
+        for (const pair of formData.entries()) {
+            console.log(`${pair[0]}: ${pair[1]}`);
+        }
 
         const res = await patchApiWithAuth(`${EDIT_PROFILE}${user.id}`, formData);
 
