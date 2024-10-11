@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LuLoader2 } from "react-icons/lu";
-import { CREATE_PACKAGE, SHOW_PACKAGE, EDIT_PACKAGE } from '../../../apis/apiUrls';
+import { CREATE_PACKAGE, GET_PACKAGE, EDIT_PACKAGE } from '../../../apis/apiUrls';
 import { postApiWithAuth, getApiWithAuth, patchApiWithAuth } from '../../../apis/index';
 import pkg from '../../../assets/images/pkg.png';
 import Button from '../../../commonComponents/Button';
@@ -30,17 +30,23 @@ export default function UploadPackage() {
 
     const fetchPackageDetails = async () => {
         if (packageId) {
-            const res = await getApiWithAuth(`${SHOW_PACKAGE}/${packageId}`);
-            if (res.success) {
-                const packageData = res.data;
-                setFormData({
-                    packageName: packageData.name,
-                    packagePrice: packageData.price,
-                    noOfDays: packageData.delivery_days,
-                    description: packageData.description.replace(/-/g, ' - '),
-                });
-            } else {
-                console.error(res.data);
+            try {
+                const res = await getApiWithAuth(`${GET_PACKAGE}${packageId}`);
+                if (res.success) {
+                    const packageData = res.data.data;
+                    console.log('packageData', packageData)
+                    setFormData({
+                        packageName: packageData.name || '',
+                        packagePrice: packageData.price || '',
+                        noOfDays: packageData.delivery_days || '',
+                        description: packageData.description ? packageData.description.replace(/-/g, ' - ') : '',
+                    });
+                    setFormFilled(true); 
+                } else {
+                    console.error(res.data);
+                }
+            } catch (error) {
+                console.error("Error fetching package details:", error);
             }
         }
     };
@@ -64,7 +70,6 @@ export default function UploadPackage() {
 
     const validateField = (name, value) => {
         const newErrors = { ...errors };
-
         if (name === "packageName") {
             const namePattern = /^[a-zA-Z0-9\s-]+$/;
             if (!namePattern.test(value)) {
@@ -112,7 +117,7 @@ export default function UploadPackage() {
     };
 
     const checkButtonDisabled = () => {
-        const atLeastOneFilled = Object.values(formData).some((field) => field.trim() !== '');
+        const atLeastOneFilled = Object.values(formData).every((field) => String(field).trim() !== '');
         setFormFilled(atLeastOneFilled);
     };
 
@@ -134,6 +139,7 @@ export default function UploadPackage() {
         if (res.success) {
             console.log(packageId ? 'Package updated successfully' : 'Package created successfully');
             setIsLoading(false);
+            localStorage.removeItem('pkgId');
             navigate('/create-package');
         } else {
             console.error(res.data);
@@ -146,19 +152,19 @@ export default function UploadPackage() {
         const newErrors = { ...errors };
         let hasError = false;
 
-        if (!formData.packageName.trim()) {
+        if (!String(formData.packageName).trim()) {
             newErrors.packageName = 'Package name is required.';
             hasError = true;
         }
-        if (!formData.packagePrice.trim()) {
+        if (!String(formData.packagePrice).trim()) {
             newErrors.packagePrice = 'Package price is required.';
             hasError = true;
         }
-        if (!formData.noOfDays.trim()) {
+        if (!String(formData.noOfDays).trim()) {
             newErrors.noOfDays = 'Number of days is required.';
             hasError = true;
         }
-        if (!formData.description.trim()) {
+        if (!String(formData.description).trim()) {
             newErrors.description = 'Description is required.';
             hasError = true;
         }
@@ -226,11 +232,8 @@ export default function UploadPackage() {
                     />
                     {errors.description && <p className='error-message'>{errors.description}</p>}
                 </div>
-                <div className='Btn'>
-                    <Button
-                        text={isLoading ? <LuLoader2 className="loader" /> : 'SAVE'}
-                        variant='fill'
-                        disabled={!formFilled || isLoading}
+                <div className='button'>
+                    <Button text={isLoading ? <LuLoader2 className="loader" /> : 'SAVE'} disabled={!formFilled || isLoading} variant='fill'
                     />
                 </div>
             </form>

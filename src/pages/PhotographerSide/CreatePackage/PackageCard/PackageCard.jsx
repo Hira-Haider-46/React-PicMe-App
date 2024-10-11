@@ -16,7 +16,7 @@ export default function PackageCard({ pkg, refreshPackages }) {
     const packageId = pkg.id;
 
     const bulletPoints = convertToBullets(pkg.description);
-    const shouldShowReadMore = bulletPoints.length > 5;
+    const shouldShowReadMore = bulletPoints.length > 1;
 
     const delPkg = async () => {
         setLoading(true);
@@ -47,7 +47,7 @@ export default function PackageCard({ pkg, refreshPackages }) {
                 <ul>
                     <li>{pkg.delivery_days} days Package</li>
                     <div>
-                        {bulletPoints.slice(0, expanded ? bulletPoints.length : 5).map((item, index) => (
+                        {bulletPoints.slice(0, expanded ? bulletPoints.length : 1).map((item, index) => (
                             <li key={index}>{item}</li>
                         ))}
                     </div>
