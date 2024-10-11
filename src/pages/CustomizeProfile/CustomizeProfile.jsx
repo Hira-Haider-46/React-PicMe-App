@@ -4,6 +4,8 @@ import Button from '../../commonComponents/Button';
 import Input from '../../commonComponents/Input';
 import profile from '../../assets/images/profileImg.png';
 import editProfile from '../../assets/images/editProfile.png';
+import { EDIT_PROFILE } from '../../apis/apiUrls';
+import { patchApiWithAuth } from '../../apis/index';
 import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
@@ -86,9 +88,33 @@ export default function CustomizeProfile() {
         setIsFormModified(false);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('formValues', formValues);
+        const formData = new FormData();
+        if (formValues.currentPassword) {
+            formData.append('user[current_pass]', formValues.currentPassword);
+        }
+        if (formValues.password) {
+            formData.append('user[password]', formValues.password);
+        }
+        if (formValues.firstName) {
+            formData.append('user[first_name]', formValues.firstName);
+        }
+        if (formValues.lastName) {
+            formData.append('user[last_name]', formValues.lastName);
+        }
+        if (formValues.profileImage && formValues.profileImage !== profile) {
+            formData.append('user[profile_image]', formValues.profileImage);
+        }
+        console.log('formData', formData);
+
+        const res = await patchApiWithAuth(`${EDIT_PROFILE}${user.id}`, formData);
+        if (res.success) {
+            console.log('Profile updated successfully');
+            handleCancel(); 
+        } else {
+            console.log(res.data);
+        }
     };
 
     useEffect(() => {
