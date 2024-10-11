@@ -8,12 +8,12 @@
     margin: auto;
 }
 
-.bio-img :first-child {
+.bio-img .profile-icon {
     width: 130px;
     border-radius: 50%;
 }
 
-.bio-img :nth-child(2) {
+.bio-img .edit {
     width: 30px;
     float: right;
     margin-top: -2.25em;

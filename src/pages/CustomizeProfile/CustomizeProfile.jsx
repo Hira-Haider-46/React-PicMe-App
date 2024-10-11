@@ -4,19 +4,27 @@ import Button from '../../commonComponents/Button';
 import Input from '../../commonComponents/Input';
 import profile from '../../assets/images/profileImg.png';
 import editProfile from '../../assets/images/editProfile.png';
-import { EDIT_PROFILE } from '../../apis/apiUrls';
-import { patchApiWithAuth } from '../../apis/index';
 import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
     console.log('user', user);
 
-    const [showPasswordFields, setShowPasswordFields] = useState({password: false, confirmPassword: false, currentPassword: false});
-    const initialFormValues = { firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '' };
+    const [showPasswordFields, setShowPasswordFields] = useState({ password: false, confirmPassword: false, currentPassword: false });
+
+    const initialFormValues = {
+        firstName: '',
+        lastName: '',
+        password: '',
+        confirmPassword: '',
+        currentPassword: '',
+        profileImage: user?.profile_image_url || profile
+    };
 
     const [formValues, setFormValues] = useState(initialFormValues);
     const [errors, setErrors] = useState({});
+    const [profileImagePreview, setProfileImagePreview] = useState(formValues.profileImage);
+
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -63,6 +71,21 @@ export default function CustomizeProfile() {
         }));
     };
 
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setFormValues((prevValues) => ({
+                ...prevValues,
+                profileImage: file
+            }));
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setProfileImagePreview(reader.result); 
+            };
+            reader.readAsDataURL(file); 
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log('formValues', formValues);
@@ -72,8 +95,18 @@ export default function CustomizeProfile() {
         <div className='customize-profile border'>
             <div className='bio'>
                 <div className='bio-img'>
-                    <img src={user?.profile_image_url ? user.profile_image_url : profile} alt="profile-img" />
-                    <img src={editProfile} alt="profile-edit" />
+                    <img src={profileImagePreview} alt="profile-img" className='profile-icon' />
+                    <label htmlFor="profileImageUpload">
+                        <img src={editProfile} alt="profile-edit" className='edit' />
+                    </label>
+                    <input
+                        type="file"
+                        id="profileImageUpload"
+                        className="file-input"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                        style={{ display: 'none' }}
+                    />
                 </div>
                 <h1>{user?.first_name} {user?.last_name}</h1>
                 <p>{user?.email}</p>
