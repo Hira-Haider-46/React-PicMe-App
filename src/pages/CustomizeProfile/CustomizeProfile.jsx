@@ -111,7 +111,7 @@ export default function CustomizeProfile() {
         if (formValues.profileImage && formValues.profileImage !== profile) {
             formData.append('user[profile_image]', formValues.profileImage);
         }
-        
+
         for (const pair of formData.entries()) {
             console.log(`${pair[0]}: ${pair[1]}`);
         }
@@ -138,10 +138,10 @@ export default function CustomizeProfile() {
             key => key !== 'profileImage' ? formValues[key] !== '' : formValues.profileImage !== profile
         );
         setIsFormModified(isModified);
-    }, [formValues]);  
+    }, [formValues]);
 
     return (
-        <div className='customize-profile border'>
+        <div className="customize-profile border">
             <div className='bio'>
                 <div className='bio-img'>
                     <img src={profileImagePreview ? profileImagePreview : initialFormValues.profileImage} alt="profile-img" className='profile-icon' />
@@ -163,26 +163,40 @@ export default function CustomizeProfile() {
             <div className='border input-form'>
                 <h2 className='h2'>Customize Your Profile</h2>
                 <form className='profile-form' onSubmit={handleSubmit}>
-                    <div className='form-group'>
-                        <div className='form-input input-div'>{user?.email}</div>
-                    </div>
+                    {user?.type === 1 ? (
+                        <>
+                            <Input name="firstName" placeholder="First Name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
 
-                    <Input type="text" name="firstName" placeholder="First name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
+                            <Input name="gender" placeholder="Gender" value={formValues.gender} onChange={handleInputChange} error={errors.gender} />
 
-                    <Input type="text" name="lastName" placeholder="Last name" value={formValues.lastName} onChange={handleInputChange} error={errors.lastName} />
+                            <Input name="address" placeholder="Address" value={formValues.address} onChange={handleInputChange} error={errors.address} />
 
-                    <Input type="password" name="currentPassword" placeholder="Current Password" value={formValues.currentPassword} onChange={handleInputChange} error={errors.currentPassword} showPassword={showPasswordFields.currentPassword} toggleShowPassword={() => handleTogglePassword('currentPassword')} />
+                            <Input name="profession" placeholder="Profession" value={formValues.profession} onChange={handleInputChange} error={errors.profession} />
+                        </>
+                    ) : (
+                        <>
+                            <div className='form-group'>
+                                <div className='form-input input-div'>{user?.email}</div>
+                            </div>
 
-                    <Input type="password" name="password" placeholder="New Password" value={formValues.password} onChange={handleInputChange} error={errors.password} showPassword={showPasswordFields.password} toggleShowPassword={() => handleTogglePassword('password')} />
+                            <Input type="text" name="firstName" placeholder="First name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
 
-                    <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showPasswordFields.confirmPassword} toggleShowPassword={() => handleTogglePassword('confirmPassword')} />
+                            <Input type="text" name="lastName" placeholder="Last name" value={formValues.lastName} onChange={handleInputChange} error={errors.lastName} />
 
+                            <Input type="password" name="currentPassword" placeholder="Current Password" value={formValues.currentPassword} onChange={handleInputChange} error={errors.currentPassword} showPassword={showPasswordFields.currentPassword} toggleShowPassword={() => handleTogglePassword('currentPassword')} />
+
+                            <Input type="password" name="password" placeholder="New Password" value={formValues.password} onChange={handleInputChange} error={errors.password} showPassword={showPasswordFields.password} toggleShowPassword={() => handleTogglePassword('password')} />
+
+                            <Input type="password" name="confirmPassword" placeholder="Confirm Password" value={formValues.confirmPassword} onChange={handleInputChange} error={errors.confirmPassword} showPassword={showPasswordFields.confirmPassword} toggleShowPassword={() => handleTogglePassword('confirmPassword')} />
+                        </>
+
+                    )}
                     <div className='buttons flex'>
                         <Button text='UPDATE' variant='fill' disabled={!isFormModified} />
                         <Button text='CANCEL' variant='empty' onClick={handleCancel} disabled={!isFormModified} />
                     </div>
                 </form>
             </div>
-        </div>
+        </div >
     );
 }

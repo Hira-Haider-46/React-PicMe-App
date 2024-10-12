@@ -77,7 +77,7 @@ export default function App() {
             <Route path="location" element={<Location />} />
             <Route path="photographer-profile" element={<PhotographerProfile />} />
             <Route path="checkout/:id" element={<PaymentDetails />} />
-            <Route path="customize-profile" element={<CustomizeProfile />} />
+            {!profileCreated && <Route path="customize-profile" element={<CustomizeProfile />} />}
           </Route>
         </Route>
  
