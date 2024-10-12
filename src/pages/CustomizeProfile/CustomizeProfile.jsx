@@ -128,7 +128,7 @@ export default function CustomizeProfile() {
                     currentPassword: 'Incorrect password',
                 }));
             } else {
-                console.log(res.data);
+                console.error(res.data);
             }
         }
     };
@@ -138,7 +138,7 @@ export default function CustomizeProfile() {
             key => key !== 'profileImage' ? formValues[key] !== '' : formValues.profileImage !== profile
         );
         setIsFormModified(isModified);
-    }, [formValues]);
+    }, [formValues]);  
 
     return (
         <div className='customize-profile border'>
