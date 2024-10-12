@@ -10,13 +10,14 @@ import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
     const user = useSelector(state => state.auth.user);
-    const profile_image_url = user?.profile_image_url;
+    console.log('user profile', user)
+    const profile_image = user?.profile_image_url;
 
     const [showPasswordFields, setShowPasswordFields] = useState({ password: false, confirmPassword: false, currentPassword: false });
 
     const initialFormValues = {
         firstName: '', lastName: '', password: '', confirmPassword: '', currentPassword: '',
-        profileImage: profile_image_url ? profile_image_url : profile
+        profileImage: profile_image ? profile_image : profile
     };
 
     const [formValues, setFormValues] = useState(initialFormValues);
@@ -163,7 +164,7 @@ export default function CustomizeProfile() {
                 <h2 className='h2'>Customize Your Profile</h2>
                 <form className='profile-form' onSubmit={handleSubmit}>
                     <div className='form-group'>
-                        <input type="email" name="email" value={user?.email} placeholder="abc@email.com" className='form-input' disabled />
+                        <div className='form-input input-div'>{user?.email}</div>
                     </div>
 
                     <Input type="text" name="firstName" placeholder="First name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
