@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaRegEnvelope } from "react-icons/fa6";
 import { IoLockClosedOutline } from "react-icons/io5";
 import { LuLoader2 } from "react-icons/lu";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../commonComponents/Button';
 import { postApiWithoutAuth } from '../../apis/index';
 import { LOGIN } from '../../apis/apiUrls';
@@ -21,8 +21,6 @@ export default function Login() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const type = localStorage.getItem('type');
-
-    const user = useSelector(state => state.auth.user);
 
     useEffect(() => {
         if (rememberMe) {
@@ -44,7 +42,7 @@ export default function Login() {
     const handleLogIn = async (e) => {
         setLoading(true);
         e.preventDefault();
-        
+
         if (!type) {
             console.error("Type is not set");
             return;
@@ -69,7 +67,7 @@ export default function Login() {
     return (
         <div className="login flex">
             <h2>Log in</h2>
-            {error && <p className="error-message" style={{margin: '0.5em'}}>{error}</p>}
+            {error && <p className="error-message" style={{ margin: '0.5em' }}>{error}</p>}
             <form className='flex' onSubmit={handleLogIn}>
                 <div className="input-group flex">
                     <FaRegEnvelope />

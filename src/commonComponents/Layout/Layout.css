@@ -130,6 +130,7 @@
 
     .img-portion, .img-portion img {
         display: none;
+        height: auto;
     }
 }
 
