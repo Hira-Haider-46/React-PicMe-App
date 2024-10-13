@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
 import { useSelector } from 'react-redux';
 import Button from '../../commonComponents/Button';
 import Input from '../../commonComponents/Input';
 import profile from '../../assets/images/ProfileImg.png';
 import editProfile from '../../assets/images/editProfile.png';
-import { EDIT_PROFILE } from '../../apis/apiUrls';
-import { patchApiWithAuth } from '../../apis/index';
+import { EDIT_PROFILE, GLOBAL_CATEGORIES } from '../../apis/apiUrls';
+import { patchApiWithAuth, getApiWithAuth } from '../../apis/index';
+import { formatCategoryName } from '../../helper/helper';
 import './CustomizeProfile.css';
 
 export default function CustomizeProfile() {
@@ -27,6 +29,41 @@ export default function CustomizeProfile() {
 
     const nameRegex = /^[a-zA-Z0-9_ ]*$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    const [selectedGender, setSelectedGender] = useState('');
+    const [photographerTypes, setPhotographerTypes] = useState([]);
+    const [selectedPhotographerTypes, setSelectedPhotographerTypes] = useState([]);
+
+    const fetchCategories = async () => {
+        const res = await getApiWithAuth(`${GLOBAL_CATEGORIES}`);
+        if (res.success) {
+            const formattedPhotographerTypes = res.data.data.map(category => ({
+                label: formatCategoryName(category),
+                value: category,
+            }));
+            setPhotographerTypes(formattedPhotographerTypes);
+        } else {
+            console.error(res.data.message);
+        }
+    };
+
+    const handlePhotographerTypeChange = (selectedOptions) => {
+        setSelectedPhotographerTypes(selectedOptions);
+        if (selectedOptions.length > 0) {
+            setErrors(prev => ({ ...prev, photographerTypes: '' }));
+        }
+    };
+
+    const validateFields = () => {
+        const newErrors = {};
+        if (!selectedGender) newErrors.gender = 'Please select your gender.';
+        if (selectedPhotographerTypes.length === 0) newErrors.photographerTypes = 'Please select at least one photographer type.';
+        return newErrors;
+    };
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
 
     const validateField = (name, value) => {
         let error = '';
@@ -167,11 +204,44 @@ export default function CustomizeProfile() {
                         <>
                             <Input name="firstName" placeholder="First Name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
 
-                            <Input name="gender" placeholder="Gender" value={formValues.gender} onChange={handleInputChange} error={errors.gender} />
+                            <div>
+                                <div className="input-field">
+                                    <select
+                                        value={selectedGender}
+                                        onChange={(e) => {
+                                            setSelectedGender(e.target.value);
+                                            if (e.target.value) setErrors(prev => ({ ...prev, gender: '' }));
+                                            checkIfFormFilled(name, address, e.target.value, selectedPhotographerTypes, uploadedImage);
+                                        }}
+                                        style={{ color: selectedGender ? 'black' : 'var(--text)' }}
+                                    >
+                                        <option value="" disabled>Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                {errors.gender && <p className="error-message">{errors.gender}</p>}
+                            </div>
 
                             <Input name="address" placeholder="Address" value={formValues.address} onChange={handleInputChange} error={errors.address} />
 
-                            <Input name="profession" placeholder="Profession" value={formValues.profession} onChange={handleInputChange} error={errors.profession} />
+                            <div>
+                                <Select
+                                    isMulti
+                                    options={photographerTypes}
+                                    value={selectedPhotographerTypes}
+                                    onChange={handlePhotographerTypeChange}
+                                    placeholder="Add Photographer Types"
+                                    styles={{
+                                        control: (provided) => ({
+                                            ...provided,
+                                            color: selectedPhotographerTypes.length > 0 ? 'black' : 'gray',
+                                        }),
+                                    }}
+                                />
+                                {errors.photographerTypes && <p className="error-message">{errors.photographerTypes}</p>}
+                            </div>
                         </>
                     ) : (
                         <>
