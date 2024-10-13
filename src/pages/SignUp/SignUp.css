@@ -12,3 +12,13 @@
     color: var(--heading);
     font-weight: 500;
 }
+
+@media (max-width: 768px) {
+    .signup {
+        width: 90%; 
+    }
+
+    .signup h2 {
+        font-size: 2.2rem; 
+    }
+}
