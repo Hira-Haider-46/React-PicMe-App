@@ -113,6 +113,11 @@ input:checked+.slider:before {
 }
 
 @media (max-width: 768px) {
+    .login {
+        padding: 1.5em;
+        width: 95%;
+    }
+    
     h2 {
         font-size: 1.5rem;
     }
@@ -131,11 +136,6 @@ input:checked+.slider:before {
 }
 
 @media (max-width: 480px) {
-    .login {
-        padding: 1.5em;
-        width: 95%;
-    }
-
     h2 {
         font-size: 1.2rem;
     }

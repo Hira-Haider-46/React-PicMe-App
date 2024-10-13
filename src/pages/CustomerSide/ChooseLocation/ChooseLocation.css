@@ -1,16 +1,18 @@
 .choose-loc {
     margin: 0.5em auto 1.5em auto;
     border: 1px solid #D3D1D8;
-    width: 31%;
+    width: 90%;
+    max-width: 400px;
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
     text-align: center;
-    padding: 2em 4em;
+    padding: 2em 2em;
 }
 
 .choose-loc img {
-    width: 190px;
+    width: 100%;
+    max-width: 190px;
     margin: 1em 0 1.5em 0;
 }
 
@@ -30,4 +32,32 @@
 
 .choose-loc a {
     width: 100%;
+}
+
+@media (min-width: 768px) {
+    .choose-loc {
+        width: 70%;
+    }
+
+    .choose-loc h2 {
+        font-size: 2rem;
+    }
+
+    .choose-loc p {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .choose-loc {
+        width: 50%;
+    }
+
+    .choose-loc h2 {
+        font-size: 2.2rem;
+    }
+
+    .choose-loc p {
+        font-size: 1.1rem;
+    }
 }
