@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { RiLogoutCircleLine } from "react-icons/ri";
 import { logout } from '../../store/slices/authSlice';
 import logo from '../../assets/images/logo.png';
 import navLogo from '../../assets/images/navLogo2.png';
 import cameraImg from '../../assets/images/camera-img.png';
 import homePic from '../../assets/images/home.png';
-import chatPic from '../../assets/images/chat.png';
 import profilePic from '../../assets/images/profile.png';
 import './Layout.css';
 
@@ -32,11 +31,6 @@ export default function Layout() {
                                     <img src={homePic} alt="homePic" /> Home
                                 </li>
                             </Link>
-                            {/* <Link to=''>
-                                <li>
-                                    <img src={chatPic} alt="chatPic" /> Chats
-                                </li>
-                            </Link> */}
                             <Link to='/customize-profile'>
                                 <li>
                                     <img src={profilePic} alt="profilePic" /> Profile
