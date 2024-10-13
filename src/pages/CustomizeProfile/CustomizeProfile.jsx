@@ -61,10 +61,6 @@ export default function CustomizeProfile() {
         return newErrors;
     };
 
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
     const validateField = (name, value) => {
         let error = '';
         if (name === 'firstName' || name === 'lastName') {
@@ -177,6 +173,10 @@ export default function CustomizeProfile() {
         setIsFormModified(isModified);
     }, [formValues]);
 
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
     return (
         <div className="customize-profile border">
             <div className='bio'>
@@ -202,7 +202,9 @@ export default function CustomizeProfile() {
                 <form className='profile-form' onSubmit={handleSubmit}>
                     {user?.type === 1 ? (
                         <>
-                            <Input name="firstName" placeholder="First Name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
+                            <Input type="text" name="firstName" placeholder="First name" value={formValues.firstName} onChange={handleInputChange} error={errors.firstName} />
+
+                            <Input type="text" name="lastName" placeholder="Last name" value={formValues.lastName} onChange={handleInputChange} error={errors.lastName} />
 
                             <div>
                                 <div className="input-field">
